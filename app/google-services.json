@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "386858002484",
+    "project_id": "unitask-3fe2c",
+    "storage_bucket": "unitask-3fe2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386858002484:android:a82ceecb07f17b11f70261",
+        "android_client_info": {
+          "package_name": "comp5216.sydney.edu.au.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "386858002484-kgj5u557hl6m752qo005jl6cu482gi88.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi3-kqDtKSexE-uYBt_2fHUHm0AGGnQUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "386858002484-kgj5u557hl6m752qo005jl6cu482gi88.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
