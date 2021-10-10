@@ -7,21 +7,20 @@
     tools:context=".CreateTaskActivity">
 
     <EditText
+        android:id="@+id/taskName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Task Name"
-        android:id="@+id/taskName"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/taskDescription"
         android:layout_width="match_parent"
         android:layout_height="145dp"
-        android:layout_marginTop="65dp"
         android:hint="Description\n....."
         android:inputType="textMultiLine"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-2dp" />
+        app:layout_constraintTop_toBottomOf="@+id/taskName"
+        tools:layout_editor_absoluteX="0dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
@@ -44,6 +43,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recycerlview"
         app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/to"
+        android:layout_width="46dp"
+        android:layout_height="45dp"
+        android:onClick="trans"
+        android:text="+"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.921" />
 
     <!--    <Button-->
     <!--        android:id="@+id/add"-->

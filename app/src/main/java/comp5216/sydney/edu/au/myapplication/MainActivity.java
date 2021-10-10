@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView taskName;
     private TextView description;
     private Button add;
+    private Button to;
     private RecyclerView recyclerView;
     private FirebaseFirestore firestore;
     private TaskAdapter adapter;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         taskName = findViewById(R.id.taskName);
         description = findViewById(R.id.taskDescription);
         firestore = FirebaseFirestore.getInstance();
+        to = findViewById(R.id.to);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
@@ -94,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             if (task.isSuccessful()) {
-//                                Toast.makeText(context, "Task Saved", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(context, "Task Saved", Toast.LENGTH_SHORT).show();
                             } else {
                                // Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -110,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //showDate();
+    }
+
+    public void trans(View view){
+        Intent intent = new Intent(MainActivity.this, AssignmentActivity.class);
+        startActivity(intent);
     }
 
     private void showDate() {
