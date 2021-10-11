@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/drawable-anydpi/ic_action_name.xml" value="0.26979166666666665" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/drawable-anydpi/ic_addAssignment.xml" value="0.26979166666666665" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/drawable-anydpi/ic_right_icon.xml" value="0.12962962962962962" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26979166666666665" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/drawable/circle.xml" value="0.23981481481481481" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/drawable/ic_addAssignment_background.xml" value="0.26979166666666665" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/drawable/ic_addAssignment_foreground.xml" value="0.26979166666666665" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26979166666666665" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/drawable/icon.xml" value="0.23981481481481481" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/drawable/recycleview_divider.xml" value="0.23981481481481481" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/layout/activity_10.xml" value="0.2" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/layout/activity_10_11_ass_item.xml" value="0.22546296296296298" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/layout/activity_10_11_item.xml" value="0.25364583333333335" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/layout/activity_10_mem_item.xml" value="0.22546296296296298" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/layout/activity_11.xml" value="0.264" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/layout/activity_11_item.xml" value="0.264" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/layout/activity_11_task_item.xml" value="0.22546296296296298" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/layout/activity_3.xml" value="0.1296875" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/layout/activity_8.xml" value="0.176" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/layout/test.xml" value="0.22546296296296298" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/mipmap-anydpi-v26/ic_addAssignment.xml" value="0.26979166666666665" />
+        <entry key="..\:/program/andriod/GroupAssignment2/app/src/main/res/mipmap-anydpi-v26/ic_addAssignment_round.xml" value="0.26979166666666665" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
