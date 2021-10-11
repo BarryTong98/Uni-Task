@@ -11,10 +11,11 @@
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.335" />
         <entry key="app/src/main/res/layout/assignment.xml" value="0.335" />
         <entry key="app/src/main/res/layout/assignment_page.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/create_assignment.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/create_assignment.xml" value="0.45" />
         <entry key="app/src/main/res/layout/create_task.xml" value="0.12664640324214793" />
         <entry key="app/src/main/res/layout/group_page.xml" value="0.25" />
         <entry key="app/src/main/res/layout/hello.xml" value="0.12664640324214793" />
+        <entry key="app/src/main/res/layout/task_of_assignment.xml" value="0.8167420814479638" />
         <entry key="app/src/main/res/layout/task_page.xml" value="0.1" />
         <entry key="app/src/main/res/layout/tasks.xml" value="0.25" />
       </map>

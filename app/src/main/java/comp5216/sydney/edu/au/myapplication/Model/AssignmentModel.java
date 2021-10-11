@@ -5,30 +5,37 @@ import com.google.android.gms.tasks.Task;
 import java.util.List;
 
 public class AssignmentModel extends AssignmentId{
-    private String user;
+    private String groupName;
+
+    private String assignmentName;
 
     private String due;
 
-    private List<TaskModel> tasks;
+    private List<TaskOfAssignmentModel> tasks;
 
     private int status;
 
-    public AssignmentModel(String user, String due, List<TaskModel> tasks, int status) {
-        this.user = user;
+    public AssignmentModel(String groupName, String assignmentName, String due, List<TaskOfAssignmentModel> tasks, int status) {
+        this.groupName = groupName;
+        this.assignmentName = assignmentName;
         this.due = due;
         this.tasks = tasks;
         this.status = status;
     }
 
-    public String getUser() {
-        return user;
+    public String getAssignmentName() {
+        return assignmentName;
+    }
+
+    public String getGroupName() {
+        return groupName;
     }
 
     public String getDue() {
         return due;
     }
 
-    public List<TaskModel> getTasks() {
+    public List<TaskOfAssignmentModel> getTasks() {
         return tasks;
     }
 
@@ -40,7 +47,8 @@ public class AssignmentModel extends AssignmentId{
     public String toString() {
         return "AssignmentModel{" +
                 "AssignmentId='" + AssignmentId + '\'' +
-                ", user='" + user + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", assignmentName='" + assignmentName + '\'' +
                 ", due='" + due + '\'' +
                 ", tasks=" + tasks +
                 ", status=" + status +

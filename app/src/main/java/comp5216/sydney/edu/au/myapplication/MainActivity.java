@@ -32,6 +32,7 @@ import java.util.Map;
 
 import comp5216.sydney.edu.au.myapplication.Adapter.TaskAdapter;
 import comp5216.sydney.edu.au.myapplication.Model.TaskModel;
+import comp5216.sydney.edu.au.myapplication.Model.TaskOfAssignmentModel;
 
 public class MainActivity extends AppCompatActivity {
     private TextView taskName;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private TaskAdapter adapter;
     private List<TaskModel> mList;
-    private Context context;
+    private List<TaskOfAssignmentModel> taskList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,21 +60,25 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         mList = new ArrayList<>();
+        taskList = new ArrayList<>();
         TaskModel t1 = new TaskModel("Barry", "IT", "Java,Vue", 0);
         TaskModel t2 = new TaskModel("Shela", "CV Engineering", "None", 0);
         TaskModel t3 = new TaskModel("Tim", "IT", "C++, Web Develop", 0);
         TaskModel t4 = new TaskModel("Sam", "IT", "C++, Java", 0);
         TaskModel t5 = new TaskModel("Rickey", "IT", "React,Sprintboot", 0);
-
-
         mList.add(t1);
         mList.add(t2);
         mList.add(t3);
         mList.add(t4);
         mList.add(t5);
-        for (TaskModel i : mList) {
-            System.out.println(i);
-        }
+
+        TaskOfAssignmentModel task1 = new TaskOfAssignmentModel("App Part 5","Develop UniTask Part 5 From Proposal",mList,"COMP5216 Group 18","1/11/2021",0);
+        TaskOfAssignmentModel task2 = new TaskOfAssignmentModel("App Part 8","Develop UniTask Part 8 From Proposal",mList,"COMP5216 Group 18","2/11/2021",0);
+        TaskOfAssignmentModel task3 = new TaskOfAssignmentModel("App Part 9","Develop UniTask Part 9 From Proposal",mList,"COMP5216 Group 18","3/11/2021",0);
+        taskList.add(task1);
+        taskList.add(task2);
+        taskList.add(task3);
+
         adapter = new TaskAdapter(MainActivity.this, mList);
         recyclerView.setAdapter(adapter);
         add.setOnClickListener(new View.OnClickListener() {
@@ -82,29 +87,29 @@ public class MainActivity extends AppCompatActivity {
                 String task = taskName.getText().toString();
                 String des = description.getText().toString();
                 if (task.isEmpty()) {
-//                    Toast.makeText(context, "Empty task not Allowed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Empty task not Allowed", Toast.LENGTH_SHORT).show();
                 } else if (des.isEmpty()) {
-//                    Toast.makeText(context, "Empty description not Allowed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Empty description not Allowed", Toast.LENGTH_SHORT).show();
                 } else {
                     Map<String, Object> taskMap = new HashMap<>();
-                    taskMap.put("task", task);
-                    taskMap.put("description", des);
-                    taskMap.put("status", 0);
-                    taskMap.put("Group Member",mList);
+                    taskMap.put("task", taskList);
+//                    taskMap.put("description", des);
+//                    taskMap.put("status", 0);
+//                    taskMap.put("Group Member",mList);
 
                     firestore.collection("task").add(taskMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             if (task.isSuccessful()) {
-                                //Toast.makeText(context, "Task Saved", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Task Saved", Toast.LENGTH_SHORT).show();
                             } else {
-                               // Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            //Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
