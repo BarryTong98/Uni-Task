@@ -17,7 +17,7 @@
         android:id="@+id/taskDescription"
         android:layout_width="match_parent"
         android:layout_height="145dp"
-        android:hint="Description\n....."
+        android:hint="Description"
         android:inputType="textMultiLine"
         app:layout_constraintTop_toBottomOf="@+id/taskName"
         tools:layout_editor_absoluteX="0dp" />

@@ -82,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
                 String task = taskName.getText().toString();
                 String des = description.getText().toString();
                 if (task.isEmpty()) {
-                    Toast.makeText(context, "Empty task not Allowed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Empty task not Allowed", Toast.LENGTH_SHORT).show();
                 } else if (des.isEmpty()) {
-                    Toast.makeText(context, "Empty description not Allowed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Empty description not Allowed", Toast.LENGTH_SHORT).show();
                 } else {
                     Map<String, Object> taskMap = new HashMap<>();
                     taskMap.put("task", task);
@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, AssignmentActivity.class);
         startActivity(intent);
     }
+
 
     private void showDate() {
         firestore.collection("task").addSnapshotListener(new EventListener<QuerySnapshot>() {

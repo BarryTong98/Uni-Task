@@ -79,4 +79,9 @@ public class AssignmentActivity extends AppCompatActivity {
         Intent intent = new Intent( AssignmentActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void toTask(View view){
+        Intent intent = new Intent(AssignmentActivity.this, CreateAssignmentActivity.class);
+        startActivity(intent);
+    }
 }

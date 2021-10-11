@@ -10,8 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".AssignmentActivity"
+            android:name=".CreateAssignmentActivity"
             android:exported="true" />
+        <activity
+            android:name=".AssignmentActivity"
+            android:exported="true"
+            android:label="@string/task_name" />
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -23,7 +27,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
