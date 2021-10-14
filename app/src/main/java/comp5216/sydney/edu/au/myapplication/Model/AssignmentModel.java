@@ -11,6 +11,8 @@ public class AssignmentModel extends AssignmentId{
 
     private String due;
 
+//    private String description
+
     private List<TaskOfAssignmentModel> tasks;
 
     private int status;

@@ -6,17 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
@@ -26,13 +25,19 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import comp5216.sydney.edu.au.myapplication.Adapter.TaskAdapter;
+import comp5216.sydney.edu.au.myapplication.Adapter.UserAdapter;
 import comp5216.sydney.edu.au.myapplication.Model.TaskModel;
 import comp5216.sydney.edu.au.myapplication.Model.TaskOfAssignmentModel;
+import comp5216.sydney.edu.au.myapplication.model1.Group;
+import comp5216.sydney.edu.au.myapplication.model1.Task;
+import comp5216.sydney.edu.au.myapplication.model1.User;
+import comp5216.sydney.edu.au.myapplication.util.DateUtil;
+import comp5216.sydney.edu.au.myapplication.util.IdUtil;
 
 public class MainActivity extends AppCompatActivity {
     private TextView taskName;
@@ -41,12 +46,13 @@ public class MainActivity extends AppCompatActivity {
     private Button to;
     private RecyclerView recyclerView;
     private FirebaseFirestore firestore;
-    private TaskAdapter adapter;
-    private List<TaskModel> mList;
-    private List<TaskOfAssignmentModel> taskList;
+    private UserAdapter adapter;
+    private List<User> userList;
+    private List<Task> taskList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
 
@@ -59,47 +65,73 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        mList = new ArrayList<>();
         taskList = new ArrayList<>();
-        TaskModel t1 = new TaskModel("Barry", "IT", "Java,Vue", 0);
-        TaskModel t2 = new TaskModel("Shela", "CV Engineering", "None", 0);
-        TaskModel t3 = new TaskModel("Tim", "IT", "C++, Web Develop", 0);
-        TaskModel t4 = new TaskModel("Sam", "IT", "C++, Java", 0);
-        TaskModel t5 = new TaskModel("Rickey", "IT", "React,Sprintboot", 0);
-        mList.add(t1);
-        mList.add(t2);
-        mList.add(t3);
-        mList.add(t4);
-        mList.add(t5);
+        userList = new ArrayList<>();
 
-        TaskOfAssignmentModel task1 = new TaskOfAssignmentModel("App Part 5","Develop UniTask Part 5 From Proposal",mList,"COMP5216 Group 18","1/11/2021",0);
-        TaskOfAssignmentModel task2 = new TaskOfAssignmentModel("App Part 8","Develop UniTask Part 8 From Proposal",mList,"COMP5216 Group 18","2/11/2021",0);
-        TaskOfAssignmentModel task3 = new TaskOfAssignmentModel("App Part 9","Develop UniTask Part 9 From Proposal",mList,"COMP5216 Group 18","3/11/2021",0);
+        User u1 = new User(IdUtil.getUUID("U"), "Barry", "IT", "Java,Vue");
+        User u2 = new User(IdUtil.getUUID("U"), "Shela", "CV Engineering", "Python");
+        User u3 = new User(IdUtil.getUUID("U"), "Tim", "IT", "C++, Web Develop");
+        User u4 = new User(IdUtil.getUUID("U"), "Sam", "IT", "C++, Java");
+        User u5 = new User(IdUtil.getUUID("U"), "Rickey", "IT", "React,Sprintboot");
+        userList.add(u1);
+        userList.add(u2);
+        userList.add(u3);
+        userList.add(u4);
+        userList.add(u5);
+
+        String Assignment1Id = IdUtil.getUUID("a");
+        Task task1 = new Task(IdUtil.getUUID("T"), "Task1", "Develop UniTask Part 5 From Proposal", Assignment1Id, "COMP5216 Group 18", "1/11/2021", userList, 0);
+        Task task2 = new Task(IdUtil.getUUID("T"), "Task2", "Develop UniTask Part 8 From Proposal", Assignment1Id, "COMP5216 Group 18", "2/11/2021", userList, 0);
+        Task task3 = new Task(IdUtil.getUUID("T"), "Task3", "Develop UniTask Part 9 From Proposal", Assignment1Id, "COMP5216 Group 18", "3/11/2021", userList, 0);
         taskList.add(task1);
         taskList.add(task2);
         taskList.add(task3);
+//        TaskOfAssignmentModel task1 = new TaskOfAssignmentModel("App Part 5","Develop UniTask Part 5 From Proposal",mList,"COMP5216 Group 18","1/11/2021",0);
+//        TaskOfAssignmentModel task2 = new TaskOfAssignmentModel("App Part 8","Develop UniTask Part 8 From Proposal",mList,"COMP5216 Group 18","2/11/2021",0);
+//        TaskOfAssignmentModel task3 = new TaskOfAssignmentModel("App Part 9","Develop UniTask Part 9 From Proposal",mList,"COMP5216 Group 18","3/11/2021",0);
 
-        adapter = new TaskAdapter(MainActivity.this, mList);
+
+        adapter = new UserAdapter(MainActivity.this, userList);
         recyclerView.setAdapter(adapter);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                List<User> selectedUser = new ArrayList<>();
+                for(User i: userList){
+                    if(i.getStatus() == 1){
+                        selectedUser.add(i);
+                    }
+                }
+                String Assignment1Id = IdUtil.getUUID("a");
+                String date = "1/11/2021";
                 String task = taskName.getText().toString();
                 String des = description.getText().toString();
+                String groupName = "COMP5216 Group 18";
+
+                Task uploadTask = new Task(IdUtil.getUUID("T"), task, des, Assignment1Id, groupName, date, selectedUser, 0);
+                int count = 0;
+                List<Task> list = new ArrayList<>();
+                for(User i : selectedUser){
+                    System.out.println("count: "+count++);
+                    list = i.getTaskList();
+                    System.out.println(list);
+                    list.add(uploadTask);
+                    System.out.println("******************");
+                    i.setTaskList(list);
+                    list.clear();
+                    System.out.println("!!!!!!!!!!!!!!!!");
+                }
                 if (task.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Empty task not Allowed", Toast.LENGTH_SHORT).show();
                 } else if (des.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Empty description not Allowed", Toast.LENGTH_SHORT).show();
                 } else {
                     Map<String, Object> taskMap = new HashMap<>();
-                    taskMap.put("task", taskList);
-//                    taskMap.put("description", des);
-//                    taskMap.put("status", 0);
-//                    taskMap.put("Group Member",mList);
+                    taskMap.put(uploadTask.getTaskName(), uploadTask);
 
                     firestore.collection("task").add(taskMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                        public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentReference> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(MainActivity.this, "Task Saved", Toast.LENGTH_SHORT).show();
                             } else {
@@ -119,26 +151,26 @@ public class MainActivity extends AppCompatActivity {
         //showDate();
     }
 
-    public void trans(View view){
+    public void trans(View view) {
         Intent intent = new Intent(MainActivity.this, AssignmentActivity.class);
         startActivity(intent);
     }
 
 
-    private void showDate() {
-        firestore.collection("task").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                for (DocumentChange documentChange : value.getDocumentChanges()) {
-                    if (documentChange.getType() == DocumentChange.Type.ADDED) {
-                        String id = documentChange.getDocument().getId();
-                        TaskModel taskModel = documentChange.getDocument().toObject(TaskModel.class).withId(id);
-                        mList.add(taskModel);
-                        adapter.notifyDataSetChanged();
-                    }
-                }
-                Collections.reverse(mList);
-            }
-        });
-    }
+//    private void showDate() {
+//        firestore.collection("task").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                for (DocumentChange documentChange : value.getDocumentChanges()) {
+//                    if (documentChange.getType() == DocumentChange.Type.ADDED) {
+//                        String id = documentChange.getDocument().getId();
+//                        TaskModel taskModel = documentChange.getDocument().toObject(TaskModel.class).withId(id);
+//                        mList.add(taskModel);
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                }
+//                Collections.reverse(mList);
+//            }
+//        });
+//    }
 }

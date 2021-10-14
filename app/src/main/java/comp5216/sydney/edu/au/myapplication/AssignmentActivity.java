@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp5216.sydney.edu.au.myapplication.Adapter.AssignmentAdapter;
-import comp5216.sydney.edu.au.myapplication.Adapter.TaskAdapter;
 import comp5216.sydney.edu.au.myapplication.Model.AssignmentModel;
 import comp5216.sydney.edu.au.myapplication.Model.TaskModel;
 import comp5216.sydney.edu.au.myapplication.Model.TaskOfAssignmentModel;
