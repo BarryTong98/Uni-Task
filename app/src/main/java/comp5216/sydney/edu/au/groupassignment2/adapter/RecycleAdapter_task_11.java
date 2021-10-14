@@ -33,7 +33,7 @@ public class RecycleAdapter_task_11 extends RecyclerView.Adapter<RecycleAdapter_
         descriptionList = new String[length];
         for (int i = 0; i < length; i++) {
             Task temp = taskList.get(i);
-            taskId[i] = temp.getId();
+            taskId[i] = temp.getTaskId();
             assignList[i] = temp.getMemberName();
             descriptionList[i] = temp.getDescription();
         }

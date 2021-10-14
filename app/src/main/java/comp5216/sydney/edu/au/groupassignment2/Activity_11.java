@@ -39,9 +39,9 @@ public class Activity_11 extends AppCompatActivity {
         assignmentBrief=findViewById(R.id.assignmentBrief_11);
         assignmentDue=findViewById(R.id.assignmentDue_11);
 
-        assignmentId.setText(assignment.getId());
+        assignmentId.setText(assignment.getAssignmentId());
         assignmentBrief.setText(assignment.getDescription());
-        assignmentDue.setText(assignment.getDateTime());
+        assignmentDue.setText(assignment.getDueDate());
 
 
         taskRecyclerView = findViewById(R.id.taskRecyclerView);

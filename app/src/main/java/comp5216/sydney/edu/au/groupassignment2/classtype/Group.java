@@ -1,32 +1,44 @@
 package comp5216.sydney.edu.au.groupassignment2.classtype;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
+
 public class Group implements Serializable {
-    private ArrayList<Member> memberList;
-    private ArrayList<Assignment> assignmentList;
+    //primary key
+    private String groupId;//uuid
 
-    public Group(List<Member> memberList, List<Assignment> assignmentList) {
-        this.memberList = (ArrayList<Member>) memberList;
-        this.assignmentList = (ArrayList<Assignment>) assignmentList;
+    public Group(String groupId, String groupName, String introduction, List<Assignment> assignmentList, List<User> userList) {
+        this.groupId = groupId;
+        this.groupName = groupName;
+        this.introduction = introduction;
+        this.assignmentList = assignmentList;
+        this.userList = userList;
     }
 
-    public List<Member> getMemberList() {
-        return memberList;
-    }
+    //attribute
+    private String groupName;
+    private String introduction;
 
-    public void setMemberList(List<Member> memberList) {
-        this.memberList =(ArrayList<Member>) memberList;
-    }
+    //List
+    private List<Assignment> assignmentList;
+    private List<User> userList;
+    private List<Discussion> discussionList;
+
 
     public List<Assignment> getAssignmentList() {
         return assignmentList;
     }
 
     public void setAssignmentList(List<Assignment> assignmentList) {
-        this.assignmentList = (ArrayList<Assignment>) assignmentList;
+        this.assignmentList = assignmentList;
     }
 
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
 }

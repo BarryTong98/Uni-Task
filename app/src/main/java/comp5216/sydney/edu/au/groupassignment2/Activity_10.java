@@ -3,7 +3,7 @@ package comp5216.sydney.edu.au.groupassignment2;
 import comp5216.sydney.edu.au.groupassignment2.adapter.*;
 import comp5216.sydney.edu.au.groupassignment2.classtype.Assignment;
 import comp5216.sydney.edu.au.groupassignment2.classtype.Group;
-import comp5216.sydney.edu.au.groupassignment2.classtype.Member;
+import comp5216.sydney.edu.au.groupassignment2.classtype.User;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -23,7 +23,7 @@ public class Activity_10 extends AppCompatActivity {
     private RecyclerView assignmentRecyclerView;
     private RecyclerView memberRecyclerView;
     private List<Assignment> assignmentList;
-    private List<Member> memberList;
+    private List<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class Activity_10 extends AppCompatActivity {
     private void display(){
 
         assignmentList = group.getAssignmentList();
-        memberList = group.getMemberList();
+        userList = group.getUserList();
         assignmentRecyclerView = findViewById(R.id.assignmentView);
         RecycleAdapter_ass_10 recycleAdapter_ass_10 = new RecycleAdapter_ass_10(this, assignmentList);
         assignmentRecyclerView.setHasFixedSize(true);
@@ -57,7 +57,7 @@ public class Activity_10 extends AppCompatActivity {
         assignmentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         memberRecyclerView = findViewById(R.id.groupMemberView);
-        RecycleAdapter_mem_10 recycleAdapter_mem_10 = new RecycleAdapter_mem_10(this, memberList);
+        RecycleAdapter_mem_10 recycleAdapter_mem_10 = new RecycleAdapter_mem_10(this, userList);
         memberRecyclerView.setHasFixedSize(true);
         memberRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         memberRecyclerView.setAdapter(recycleAdapter_mem_10);

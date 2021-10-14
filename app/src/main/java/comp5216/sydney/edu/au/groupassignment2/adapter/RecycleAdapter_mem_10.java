@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,24 +18,25 @@ import java.util.List;
 
 import comp5216.sydney.edu.au.groupassignment2.classtype.Member;
 import comp5216.sydney.edu.au.groupassignment2.R;
+import comp5216.sydney.edu.au.groupassignment2.classtype.User;
 
 public class RecycleAdapter_mem_10 extends RecyclerView.Adapter<RecycleAdapter_mem_10.ViewHolder> {
-    private final List<Member> memberList;
+    private final List<User> userList;
     private final String[] nameList;
-    private final int[] imgList;
+    private final String[] imgList;
     Context context;
 
 
-    public RecycleAdapter_mem_10(Context context, List<Member> memberList) {
+    public RecycleAdapter_mem_10(Context context, List<User> userList) {
         this.context = context;
-        this.memberList = memberList;
-        int length = memberList.size();
+        this.userList = userList;
+        int length = userList.size();
         nameList = new String[length];
-        imgList = new int[length];
+        imgList = new String[length];
         for (int i = 0; i < length; i++) {
-            Member temp = memberList.get(i);
-            nameList[i] = temp.getName();
-            imgList[i] = temp.getimageId();
+            User temp = userList.get(i);
+            nameList[i] = temp.getUserName();
+            imgList[i] = temp.getImageURL();
 
         }
     }
@@ -50,7 +52,12 @@ public class RecycleAdapter_mem_10 extends RecyclerView.Adapter<RecycleAdapter_m
 
     @Override
     public void onBindViewHolder(@NonNull RecycleAdapter_mem_10.ViewHolder holder, int position) {
-        holder.image.setImageResource(imgList[position]);
+        if (imgList[position]!=null) {
+            holder.image.setImageURI(Uri.parse(imgList[position]));
+        }else {
+            holder.image.setImageURI(Uri.parse("R.drawable.image"));
+        }
+
         holder.name.setText(nameList[position]);
         int location=position;
 
@@ -62,7 +69,7 @@ public class RecycleAdapter_mem_10 extends RecyclerView.Adapter<RecycleAdapter_m
                         .setMessage(R.string.dialog_assignment_delete_msg)
                         .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                memberList.remove(location);
+                                userList.remove(location);
                                 notifyItemRemoved(location);
                                 // Remove item from the ArrayList
                             }
@@ -82,7 +89,7 @@ public class RecycleAdapter_mem_10 extends RecyclerView.Adapter<RecycleAdapter_m
 
     @Override
     public int getItemCount() {
-        return memberList.size();
+        return userList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

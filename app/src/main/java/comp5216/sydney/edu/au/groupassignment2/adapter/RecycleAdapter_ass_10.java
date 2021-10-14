@@ -36,8 +36,8 @@ public class RecycleAdapter_ass_10 extends RecyclerView.Adapter<RecycleAdapter_a
         percentage = new String[length];
         for (int i = 0; i < length; i++) {
             Assignment temp = assignmentList.get(i);
-            assignmentId[i] = temp.getId();
-            dueDate[i] = temp.getDateTime();
+            assignmentId[i] = temp.getAssignmentId();
+            dueDate[i] = temp.getDueDate();
             percentage[i] = temp.getPercentage();
         }
     }
