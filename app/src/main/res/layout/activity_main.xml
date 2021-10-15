@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+        <ListView
+            android:id="@+id/lv_home"
+            android:layout_width="match_parent"
+            android:layout_margin="20dp"
+            android:layout_height="400dp">
+        </ListView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_home_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"></Button>
+
+    <Button
+        android:id="@+id/bt_home_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"></Button>
+
+    <Button
+        android:id="@+id/btn_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="setData"
+        android:text="SET DATA" />
+
+    <!--为了让下面的三个按钮置于底部-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+      </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    <Button
+        android:id="@+id/btn_main_home"
+        android:layout_margin="3dp"
+        android:layout_width="130dp"
+        android:layout_height="88dp"
+        android:text="Home" />
+
+    <Button
+        android:id="@+id/btn_main_task"
+        android:layout_width="130dp"
+        android:layout_height="88dp"
+        android:layout_margin="3dp"
+        android:text="Task" />
+
+
+    <Button
+        android:id="@+id/btn_main_profile"
+        android:layout_width="130dp"
+        android:layout_height="88dp"
+        android:layout_margin="3dp"
+        android:text="Profile"/>
+    </LinearLayout>
+
+
+</LinearLayout>
