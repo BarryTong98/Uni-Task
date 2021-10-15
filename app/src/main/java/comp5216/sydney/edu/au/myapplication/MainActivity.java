@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
 
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         description = findViewById(R.id.taskDescription);
         firestore = FirebaseFirestore.getInstance();
         to = findViewById(R.id.to);
+        Intent i = getIntent();
+        Task taskFromAssignment =(Task)i.getSerializableExtra("task");
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
@@ -86,13 +90,14 @@ public class MainActivity extends AppCompatActivity {
         taskList.add(task1);
         taskList.add(task2);
         taskList.add(task3);
-//        TaskOfAssignmentModel task1 = new TaskOfAssignmentModel("App Part 5","Develop UniTask Part 5 From Proposal",mList,"COMP5216 Group 18","1/11/2021",0);
-//        TaskOfAssignmentModel task2 = new TaskOfAssignmentModel("App Part 8","Develop UniTask Part 8 From Proposal",mList,"COMP5216 Group 18","2/11/2021",0);
-//        TaskOfAssignmentModel task3 = new TaskOfAssignmentModel("App Part 9","Develop UniTask Part 9 From Proposal",mList,"COMP5216 Group 18","3/11/2021",0);
-
 
         adapter = new UserAdapter(MainActivity.this, userList);
         recyclerView.setAdapter(adapter);
+        if(taskFromAssignment != null){
+            taskName.setText(taskFromAssignment.getTaskName());
+            description.setText(taskFromAssignment.getDescription());
+        }
+        System.out.println("!!!!!!!!!!!!!NULLL"+taskFromAssignment == null);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,22 +109,25 @@ public class MainActivity extends AppCompatActivity {
                 }
                 String Assignment1Id = IdUtil.getUUID("a");
                 String date = "1/11/2021";
+
+                String groupName = "COMP5216 Group 18";
+                String taskId = IdUtil.getUUID("T");
+                if(taskFromAssignment != null){
+                    taskId = taskFromAssignment.getTaskId();
+                    System.out.println("TASK"+taskId);
+                    Assignment1Id = taskFromAssignment.getAssignmentId();
+                    groupName = taskFromAssignment.getGroupName();
+                    date = taskFromAssignment.getDueDate();
+                }
                 String task = taskName.getText().toString();
                 String des = description.getText().toString();
-                String groupName = "COMP5216 Group 18";
-
-                Task uploadTask = new Task(IdUtil.getUUID("T"), task, des, Assignment1Id, groupName, date, selectedUser, 0);
-                int count = 0;
+                Task uploadTask = new Task(taskId, task, des, Assignment1Id, groupName, date, selectedUser, 0);
                 List<Task> list = new ArrayList<>();
                 for(User i : selectedUser){
-                    System.out.println("count: "+count++);
                     list = i.getTaskList();
-                    System.out.println(list);
                     list.add(uploadTask);
-                    System.out.println("******************");
                     i.setTaskList(list);
                     list.clear();
-                    System.out.println("!!!!!!!!!!!!!!!!");
                 }
                 if (task.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Empty task not Allowed", Toast.LENGTH_SHORT).show();
@@ -128,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Map<String, Object> taskMap = new HashMap<>();
                     taskMap.put(uploadTask.getTaskName(), uploadTask);
-
+                    firestore.collection("tasks").document(uploadTask.getTaskId()).set(uploadTask);
                     firestore.collection("task").add(taskMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentReference> task) {

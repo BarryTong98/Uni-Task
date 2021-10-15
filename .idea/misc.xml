@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_baseline_done_all_24.xml" value="0.27037037037037037" />
+        <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_right_icon.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_assignment.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_create_assignment.xml" value="0.15806159420289856" />
         <entry key="app/src/main/res/layout/activity_create_task.xml" value="0.2604166666666667" />
@@ -15,9 +17,10 @@
         <entry key="app/src/main/res/layout/create_task.xml" value="0.12664640324214793" />
         <entry key="app/src/main/res/layout/group_page.xml" value="0.25" />
         <entry key="app/src/main/res/layout/hello.xml" value="0.12664640324214793" />
-        <entry key="app/src/main/res/layout/task_of_assignment.xml" value="0.8167420814479638" />
+        <entry key="app/src/main/res/layout/task_of_assignment.xml" value="0.4155844155844156" />
         <entry key="app/src/main/res/layout/task_page.xml" value="0.1" />
         <entry key="app/src/main/res/layout/tasks.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/taskview.xml" value="0.25" />
       </map>
     </option>
   </component>

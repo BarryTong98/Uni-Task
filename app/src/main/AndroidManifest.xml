@@ -9,25 +9,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity
-            android:name=".CreateAssignmentActivity"
-            android:exported="true" />
-        <activity
-            android:name=".AssignmentActivity"
-            android:exported="true"
-            android:label="@string/task_name" />
+
         <activity
             android:name=".SplashActivity"
             android:exported="true">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".AssignmentActivity"
+            android:exported="true"
+            android:label="@string/task_name" >
+        </activity>
+        <activity
+            android:name=".CreateAssignmentActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:parentActivityName=".CreateAssignmentActivity"
+            />
     </application>
 
 </manifest>
