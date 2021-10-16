@@ -47,13 +47,6 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.My
         holder.due.setText(taskModel.getTaskName() +" Due: "+taskModel.getDueDate());
         holder.name.setChecked(toBoolean(taskModel.getStatus()));
         holder.name.setText(taskModel.getGroupName());
-//        StringBuilder des = new StringBuilder();
-//        int count = 1;
-//        for (TaskOfAssignmentModel i : taskList){
-//            des.append(count+"."+ i.getTaskName()+"\n");
-//            count++;
-//        }
-//        holder.desceiption.setText(des.toString());
         holder.desceiption.setText(taskModel.getDescription());
     }
     private boolean toBoolean(int status) {
@@ -68,15 +61,11 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.My
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView desceiption;
-        TextView desceiption2;
-        TextView desceiption3;
         TextView due;
         CheckBox name;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             desceiption = itemView.findViewById(R.id.description);
-//            desceiption2 = itemView.findViewById(R.id.description2);
-//            desceiption3 = itemView.findViewById(R.id.description3);
             name  = itemView.findViewById(R.id.name);
             due  = itemView.findViewById(R.id.due);
         }
