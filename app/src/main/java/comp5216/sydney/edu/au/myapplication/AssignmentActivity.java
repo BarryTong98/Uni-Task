@@ -1,5 +1,6 @@
 package comp5216.sydney.edu.au.myapplication;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +10,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +23,7 @@ import comp5216.sydney.edu.au.myapplication.Adapter.AssignmentAdapter;
 import comp5216.sydney.edu.au.myapplication.Model.AssignmentModel;
 import comp5216.sydney.edu.au.myapplication.Model.TaskModel;
 import comp5216.sydney.edu.au.myapplication.Model.TaskOfAssignmentModel;
+import comp5216.sydney.edu.au.myapplication.model1.Task;
 
 public class AssignmentActivity extends AppCompatActivity {
     private Button home;
@@ -29,6 +35,7 @@ public class AssignmentActivity extends AppCompatActivity {
     private List<TaskModel> list;
     private List<TaskModel> list1;
     private List<TaskModel> list2;
+    private List<Task> taskFromFireBase;
     private List<TaskOfAssignmentModel> taskList;
     private FirebaseFirestore firestore;
 
@@ -52,6 +59,7 @@ public class AssignmentActivity extends AppCompatActivity {
         list1 = new ArrayList<>();
         list2 = new ArrayList<>();
         taskList = new ArrayList<>();
+        taskFromFireBase = new ArrayList<>();
 
         TaskModel t1 = new TaskModel("Barry", "IT", "Java,Vue", 0);
         TaskModel t2 = new TaskModel("Shela", "CV Engineering", "None", 0);
@@ -74,10 +82,11 @@ public class AssignmentActivity extends AppCompatActivity {
         mList.add(a1);
         mList.add(a2);
         mList.add(a3);
+        showData();
 
 
 
-        adapter = new AssignmentAdapter(taskList,AssignmentActivity.this);
+        adapter = new AssignmentAdapter(taskFromFireBase,AssignmentActivity.this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -89,5 +98,21 @@ public class AssignmentActivity extends AppCompatActivity {
     public void toTask(View view){
         Intent intent = new Intent(AssignmentActivity.this, CreateAssignmentActivity.class);
         startActivity(intent);
+    }
+
+    private void showData() {
+        firestore.collection("tasks").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (DocumentChange documentChange : value.getDocumentChanges()) {
+                    if (documentChange.getType() == DocumentChange.Type.ADDED) {
+                        Task taskModel =  documentChange.getDocument().toObject(Task.class);
+                        taskFromFireBase.add(taskModel);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+                //Collections.reverse(taskList2);
+            }
+        });
     }
 }

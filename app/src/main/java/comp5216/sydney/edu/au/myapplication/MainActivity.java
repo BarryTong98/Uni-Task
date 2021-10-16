@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     taskMap.put(uploadTask.getTaskName(), uploadTask);
                     firestore.collection("tasks").document(uploadTask.getTaskId()).set(uploadTask);
                     Toast.makeText(MainActivity.this, "Task Saved", Toast.LENGTH_SHORT).show();
+
 //                    firestore.collection("task").add(taskMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
 //                        @Override
 //                        public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentReference> task) {
@@ -153,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
 //                        }
 //                    });
                 }
+                Intent intent = new Intent(MainActivity.this, CreateAssignmentActivity.class);
+                startActivity(intent);
             }
         });
 

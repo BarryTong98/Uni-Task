@@ -19,14 +19,15 @@ import comp5216.sydney.edu.au.myapplication.Model.AssignmentModel;
 import comp5216.sydney.edu.au.myapplication.Model.TaskModel;
 import comp5216.sydney.edu.au.myapplication.Model.TaskOfAssignmentModel;
 import comp5216.sydney.edu.au.myapplication.R;
+import comp5216.sydney.edu.au.myapplication.model1.Task;
 
 public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.MyViewHolder> {
-    private List<TaskOfAssignmentModel> assignmentModelList;
+    private List<Task> assignmentModelList;
     private AssignmentActivity activity;
     //private FirebaseFirestore firestore;
 
 
-    public AssignmentAdapter(List<TaskOfAssignmentModel> assignmentModelList, AssignmentActivity activity) {
+    public AssignmentAdapter(List<Task> assignmentModelList, AssignmentActivity activity) {
         this.assignmentModelList = assignmentModelList;
         this.activity = activity;
     }
@@ -41,9 +42,9 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        TaskOfAssignmentModel taskModel = assignmentModelList.get(position);
+        Task taskModel = assignmentModelList.get(position);
         //List<TaskOfAssignmentModel> taskList = assignmentModel.getTasks();
-        holder.due.setText(taskModel.getTaskName() +" Due: "+taskModel.getDue());
+        holder.due.setText(taskModel.getTaskName() +" Due: "+taskModel.getDueDate());
         holder.name.setChecked(toBoolean(taskModel.getStatus()));
         holder.name.setText(taskModel.getGroupName());
 //        StringBuilder des = new StringBuilder();
