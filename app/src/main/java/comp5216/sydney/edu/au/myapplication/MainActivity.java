@@ -84,12 +84,12 @@ public class MainActivity extends AppCompatActivity {
         userList.add(u5);
 
         String Assignment1Id = IdUtil.getUUID("a");
-        Task task1 = new Task(IdUtil.getUUID("T"), "Task1", "Develop UniTask Part 5 From Proposal", Assignment1Id, "COMP5216 Group 18", "1/11/2021", userList, 0);
-        Task task2 = new Task(IdUtil.getUUID("T"), "Task2", "Develop UniTask Part 8 From Proposal", Assignment1Id, "COMP5216 Group 18", "2/11/2021", userList, 0);
-        Task task3 = new Task(IdUtil.getUUID("T"), "Task3", "Develop UniTask Part 9 From Proposal", Assignment1Id, "COMP5216 Group 18", "3/11/2021", userList, 0);
-        taskList.add(task1);
-        taskList.add(task2);
-        taskList.add(task3);
+//        Task task1 = new Task(IdUtil.getUUID("T"), "Task1", "Develop UniTask Part 5 From Proposal", Assignment1Id, "COMP5216 Group 18", "1/11/2021", userList, 0);
+//        Task task2 = new Task(IdUtil.getUUID("T"), "Task2", "Develop UniTask Part 8 From Proposal", Assignment1Id, "COMP5216 Group 18", "2/11/2021", userList, 0);
+//        Task task3 = new Task(IdUtil.getUUID("T"), "Task3", "Develop UniTask Part 9 From Proposal", Assignment1Id, "COMP5216 Group 18", "3/11/2021", userList, 0);
+//        taskList.add(task1);
+//        taskList.add(task2);
+//        taskList.add(task3);
 
         adapter = new UserAdapter(MainActivity.this, userList);
         recyclerView.setAdapter(adapter);
@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Task taskFromAssignment =(Task)i.getSerializableExtra("task");
                 List<User> selectedUser = new ArrayList<>();
                 for(User i: userList){
                     if(i.getStatus() == 1){
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 String groupName = "COMP5216 Group 18";
                 String taskId = IdUtil.getUUID("T");
                 if(taskFromAssignment != null){
-                    System.out.println("NOT NULL");
+                    System.out.println("NOT NULL          "+taskFromAssignment.getTaskId());
                     taskId = taskFromAssignment.getTaskId();
                     System.out.println("TASK"+taskId);
                     Assignment1Id = taskFromAssignment.getAssignmentId();
