@@ -25,6 +25,9 @@ public class Task implements Serializable {
         this.status = status;
     }
 
+    public Task() {
+    }
+
     public String getTaskId() {
         return taskId;
     }

@@ -22,6 +22,9 @@ public class Assignment implements Serializable {
         this.taskList = taskList;
     }
 
+    public Assignment() {
+    }
+
     public String getAssignmentId() {
         return assignmentId;
     }

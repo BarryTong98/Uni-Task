@@ -15,6 +15,9 @@ public class User implements Serializable {
     private List<Group> groupList;
     private int status;
 
+    public User() {
+    }
+
     public User(String userId, String name, String email, String degree, String description, String imageURL, List<Task> taskList, List<Group> groupList) {
         this.userId = userId;
         this.name = name;

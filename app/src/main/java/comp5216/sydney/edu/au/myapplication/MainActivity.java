@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
             taskName.setText(taskFromAssignment.getTaskName());
             description.setText(taskFromAssignment.getDescription());
         }
-        System.out.println("!!!!!!!!!!!!!NULLL"+taskFromAssignment == null);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,10 +108,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 String Assignment1Id = IdUtil.getUUID("a");
                 String date = "1/11/2021";
-
                 String groupName = "COMP5216 Group 18";
                 String taskId = IdUtil.getUUID("T");
                 if(taskFromAssignment != null){
+                    System.out.println("NOT NULL");
                     taskId = taskFromAssignment.getTaskId();
                     System.out.println("TASK"+taskId);
                     Assignment1Id = taskFromAssignment.getAssignmentId();
@@ -137,21 +136,22 @@ public class MainActivity extends AppCompatActivity {
                     Map<String, Object> taskMap = new HashMap<>();
                     taskMap.put(uploadTask.getTaskName(), uploadTask);
                     firestore.collection("tasks").document(uploadTask.getTaskId()).set(uploadTask);
-                    firestore.collection("task").add(taskMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentReference> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(MainActivity.this, "Task Saved", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    Toast.makeText(MainActivity.this, "Task Saved", Toast.LENGTH_SHORT).show();
+//                    firestore.collection("task").add(taskMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+//                        @Override
+//                        public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentReference> task) {
+//                            if (task.isSuccessful()) {
+//                                Toast.makeText(MainActivity.this, "Task Saved", Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                 }
             }
         });

@@ -1,5 +1,6 @@
 package comp5216.sydney.edu.au.myapplication;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,11 +9,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import comp5216.sydney.edu.au.myapplication.Adapter.TaskAdapter;
@@ -28,9 +37,12 @@ public class CreateAssignmentActivity extends AppCompatActivity {
     private TimePicker timePicker;
     private RecyclerView taskView;
     private List<Task> taskList;
+    private List<Task> taskList2;
     private List<TaskModel> memberList;
     private List<User> userList;
     private TaskAdapter adapter;
+    private Button create_task2;
+    private FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +54,17 @@ public class CreateAssignmentActivity extends AppCompatActivity {
         datePicker = findViewById(R.id.date);
         timePicker = findViewById(R.id.time);
         taskView = findViewById(R.id.tasks);
+        create_task2 = findViewById(R.id.create_task2);
+        //这边创建assignment页面的时候，需要getExtra从 CreateGroupPage中获取
 
 
+
+
+        firestore = FirebaseFirestore.getInstance();
         taskView.setHasFixedSize(true);
         taskView.setLayoutManager(new LinearLayoutManager(CreateAssignmentActivity.this));
         taskList = new ArrayList<>();
+        taskList2 = new ArrayList<>();
         memberList = new ArrayList<>();
         userList = new ArrayList<>();
         User u1 = new User(IdUtil.getUUID("U"),"Barry", "IT", "Java,Vue");
@@ -68,12 +86,45 @@ public class CreateAssignmentActivity extends AppCompatActivity {
         taskList.add(task2);
         taskList.add(task3);
         taskList.add(task4);
-        adapter = new TaskAdapter( taskList,CreateAssignmentActivity.this);
+        showData();
+        adapter = new TaskAdapter( taskList2,CreateAssignmentActivity.this);
         taskView.setAdapter(adapter);
+        create_task2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     public void toTaskPage(View view){
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth() + 1;
+        int year = datePicker.getYear();
+        int hour = timePicker.getHour();
+        int minute = timePicker.getMinute();
+        String dateVal = String.format("%d-%d-%d %d:%d", year, month, day, hour, minute);
+
         Intent intent = new Intent(CreateAssignmentActivity.this, MainActivity.class);
+        intent.putExtra("dateVal",dateVal);
+        System.out.println("dateVal: "+dateVal);
         startActivity(intent);
+    }
+
+    private void showData() {
+        firestore.collection("tasks").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (DocumentChange documentChange : value.getDocumentChanges()) {
+                    if (documentChange.getType() == DocumentChange.Type.ADDED) {
+                        //String id = documentChange.getDocument().getId();
+                        Task taskModel =  documentChange.getDocument().toObject(Task.class);
+                        taskList2.add(taskModel);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+                //Collections.reverse(taskList2);
+            }
+        });
     }
 }
