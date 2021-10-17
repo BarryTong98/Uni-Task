@@ -2,9 +2,11 @@ package comp5216.sydney.edu.au.groupassignment2;
 
 import comp5216.sydney.edu.au.groupassignment2.adapter.*;
 import comp5216.sydney.edu.au.groupassignment2.classtype.Assignment;
+import comp5216.sydney.edu.au.groupassignment2.classtype.Discussion;
 import comp5216.sydney.edu.au.groupassignment2.classtype.Group;
 import comp5216.sydney.edu.au.groupassignment2.classtype.User;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +17,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,6 +34,9 @@ public class Activity_10 extends AppCompatActivity {
     private RecyclerView memberRecyclerView;
     private List<Assignment> assignmentList;
     private List<User> userList;
+    private ArrayList<Discussion> discussionList;
+    private FirebaseFirestore firebaseFirestore;
+    private String groupID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +47,42 @@ public class Activity_10 extends AppCompatActivity {
         Intent i = getIntent();
         group = (Group) i.getSerializableExtra("Group");
         if (group != null) {
-
-           display();
-        }else {
-            if (savedInstanceState!=null){
+            groupID = group.getGroupId();
+            display();
+        } else {
+            if (savedInstanceState != null) {
                 group = (Group) savedInstanceState.getSerializable("groupSave");
                 display();
             }
         }
+        discussionList = new ArrayList<>();
+        getDiscussions(discussionList,groupID);
+    }
+
+    private void getDiscussions(ArrayList<Discussion> list,String groupID) {
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("discussions")
+                .whereEqualTo("groupID", 1)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            System.out.println("333333");
+                            for(QueryDocumentSnapshot document:task.getResult()){
+                                Discussion discussion=document.toObject(Discussion.class);
+                                list.add(discussion);
+                                System.out.println("2222"+discussion.toString());
+                            }
+                        }
+                    }
+                });
+        System.out.println("list.size()"+list.size());
     }
 
 
-    private void display(){
-
+    private void display() {
         assignmentList = group.getAssignmentList();
         userList = group.getUserList();
         assignmentRecyclerView = findViewById(R.id.assignmentView);
@@ -78,8 +114,12 @@ public class Activity_10 extends AppCompatActivity {
     }
 
     public void onDiscussionListClick(View view) {
-        //        Intent intent=new Intent(Activity_10.this,Activity_8.class)
-//        startActivity(intent);
+        Intent intent=new Intent(Activity_10.this,DiscussionListActivity.class);
+        if (intent != null) {
+            intent.putExtra("discussions", discussionList);
+            intent.putExtra("groupID", 1);
+        }
+        startActivity(intent);
         Toast.makeText(this, "Go to Discussion List", Toast.LENGTH_SHORT).show();
     }
 

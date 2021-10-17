@@ -14,6 +14,15 @@
             android:parentActivityName=".Activity_3"/>
         <activity android:name=".Activity_11"
             android:parentActivityName=".Activity_10"/>
+        <activity
+            android:name=".DiscussionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CreateDiscussionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DiscussionListActivity"
+            android:exported="true" />
 
         <activity
             android:name=".Activity_3"

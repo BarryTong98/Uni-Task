@@ -41,4 +41,13 @@ public class Group implements Serializable {
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }
+
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
 }
