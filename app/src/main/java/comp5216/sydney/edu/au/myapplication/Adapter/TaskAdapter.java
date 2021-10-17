@@ -23,6 +23,7 @@ import java.util.List;
 
 import comp5216.sydney.edu.au.myapplication.CreateAssignmentActivity;
 import comp5216.sydney.edu.au.myapplication.MainActivity;
+import comp5216.sydney.edu.au.myapplication.Model.TaskModel;
 import comp5216.sydney.edu.au.myapplication.R;
 import comp5216.sydney.edu.au.myapplication.model1.Task;
 
@@ -41,15 +42,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(createAssignmentActivity).inflate(R.layout.taskview, parent, false);
-        //firestore  = FirebaseFirestore.getInstance();
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        System.out.println("TASKLIST**************START***********************");
+        for(Task i : taskList){
+            System.out.println(i);
+        }
+        System.out.println("TASKLIST**************END***********************");
         Context context = createAssignmentActivity.getApplicationContext();
         Task taskModel = taskList.get(position);
-        int location= holder.getAdapterPosition();
+
         holder.taskName.setText(taskModel.getTaskName());
         holder.toDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,12 +73,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                         .setMessage("Do You Want To Delete This Task?")
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                taskList.remove(location);
-                                firestore.collection("tasks").document(taskModel.getTaskId())
+                                int location= holder.getAdapterPosition();
+                                System.out.println("TASKLIST**************LOCATION:   "+location+"***********************");
+                                System.out.println("********location: "+location);
+                                System.out.println("********i: "+i);
+                                System.out.println(taskList.get(location).getTaskName());
+                                firestore.collection("tasks").document(taskList.get(location).getTaskId())
                                         .delete()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
+                                                taskList.remove(location);
+                                                notifyItemRemoved(location);
                                                 Log.d("Remove", "DocumentSnapshot successfully deleted!");
                                             }
                                         })
@@ -83,8 +94,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                                                 Log.w("Remove", "Error deleting document", e);
                                             }
                                         });
-
-                                notifyItemRemoved(i);
                                 // Remove item from the ArrayList
                             }
                         })
