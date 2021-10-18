@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/drawable-v24/ic_add.xml" value="0.14583333333333334" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14583333333333334" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/drawable-v24/ic_right_icon.xml" value="0.14583333333333334" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14583333333333334" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_10.xml" value="0.23505434782608695" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_10_11_item.xml" value="0.23505434782608695" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_10_mem_item.xml" value="0.23505434782608695" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_10_member_profile.xml" value="0.25181159420289856" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_11.xml" value="0.23505434782608695" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_1_login.xml" value="0.15307971014492755" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_2_register_activity.xml" value="0.264" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_3_10_11_item.xml" value="0.1296875" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_3_main.xml" value="0.264" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_4_edit_info.xml" value="0.23505434782608695" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_4_profile.xml" value="0.4" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_edit_info.xml" value="0.15307971014492755" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_main.xml" value="0.15307971014492755" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_profile.xml" value="0.15307971014492755" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/activity_register_activity.xml" value="0.15307971014492755" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/home_item.xml" value="0.15307971014492755" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/homecopy.xml" value="0.19479166666666667" />
+        <entry key="..\:/program/andriod/FirebaseApp/app/src/main/res/layout/item_3_home.xml" value="0.1296875" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
