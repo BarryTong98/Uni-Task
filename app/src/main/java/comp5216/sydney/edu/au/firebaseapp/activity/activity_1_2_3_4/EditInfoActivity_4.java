@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.signature.ObjectKey;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -81,6 +82,7 @@ public class EditInfoActivity_4 extends AppCompatActivity {
             // (See MyAppGlideModule for Loader registration)
             Glide.with(this /* context */)
                     .load(storageReference)
+                    .signature(new ObjectKey(System.currentTimeMillis())) //为了图片更新之后，缓存也更新
                     .placeholder(R.drawable.default_profile)//图片加载出来前，显示的图片
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
                     .into(photo);
@@ -139,6 +141,13 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                                             }
                                         });
 
+                                //把登录的用户信息放在缓存中
+                                User upUser = (User) mCache.getAsObject(user.getUid());
+                                upUser.setUserName(updateName);
+                                upUser.setDegree(updateDegree);
+                                upUser.setDescription(updateDes);
+                                mCache.put(user.getUid(),upUser);
+
                                 //如果用户没有修改头像
                                 if (profileUri != null) {
                                     //删除头像存储的原来文件，删除之后再添加
@@ -151,7 +160,7 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                                                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                         @Override
                                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                            Toast.makeText(EditInfoActivity_4.this, "成功更改头像", Toast.LENGTH_SHORT).show();
+                                                            System.out.println("成功上传头像");
                                                         }
                                                     })
                                                     .addOnFailureListener(new OnFailureListener() {

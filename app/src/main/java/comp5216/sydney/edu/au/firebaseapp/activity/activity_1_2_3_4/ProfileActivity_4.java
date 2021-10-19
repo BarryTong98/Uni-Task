@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.signature.ObjectKey;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
@@ -58,6 +59,7 @@ public class ProfileActivity_4 extends AppCompatActivity {
             // (See MyAppGlideModule for Loader registration)
             Glide.with(this /* context */)
                     .load(storageReference)
+                    .signature(new ObjectKey(System.currentTimeMillis())) //为了图片更新之后，缓存也更新
                     .placeholder(R.drawable.image)//图片加载出来前，显示的图片
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
                     .into(imageView);
