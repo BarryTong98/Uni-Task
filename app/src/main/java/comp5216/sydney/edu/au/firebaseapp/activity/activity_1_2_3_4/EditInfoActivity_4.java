@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,7 @@ import comp5216.sydney.edu.au.firebaseapp.classtype.User;
 import comp5216.sydney.edu.au.firebaseapp.util.ACache;
 
 public class EditInfoActivity_4 extends AppCompatActivity {
-    EditText name,description,degree;
+    EditText name, description, degree;
     Button update;
     ImageView photo;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -47,11 +49,13 @@ public class EditInfoActivity_4 extends AppCompatActivity {
     Uri profileUri;
     private static final int MY_PERMISSIONS_REQUEST_PICK_PHOTO = 101;
 
+    StorageReference storageReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_4_edit_info);
-        name= findViewById(R.id.et_edit_username);
+        name = findViewById(R.id.et_edit_username);
         degree = findViewById(R.id.et_edit_degree);
         description = findViewById(R.id.et_edit_description);
         update = findViewById(R.id.btn_edit_update);
@@ -71,7 +75,7 @@ public class EditInfoActivity_4 extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // Reference to an image file in Cloud Storage
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + user.getEmail());
+            storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + user.getEmail());
 
             // Download directly from StorageReference using Glide
             // (See MyAppGlideModule for Loader registration)
@@ -88,7 +92,7 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                 String userName = user.getDisplayName();
 
                 name.setText(userName);
-            }else {
+            } else {
                 name.setText(cacheUser.getUserName());
                 degree.setText(cacheUser.getDegree());
                 description.setText(cacheUser.getDescription());
@@ -103,24 +107,6 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                 String updateDegree = degree.getText().toString();
                 String updateDes = description.getText().toString();
 
-                //更新头像
-                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                        .setDisplayName("User"+user.getUid())
-                        .setPhotoUri(profileUri)
-                        .build();
-
-                user.updateProfile(profileUpdates)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Intent intent = new Intent(EditInfoActivity_4.this, ProfileActivity_4.class);
-                                    startActivity(intent);
-                                    Log.d(TAG, "User profile updated.");
-                                }
-                            }
-                        });
-
                 //更新
                 DocumentReference updateUser = db.collection("Users").document(user.getUid());
                 List<String> testlist = new ArrayList<>();
@@ -128,7 +114,7 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                 testlist.add("2");
                 updateUser
                         .update(
-                                "name",updateName,
+                                "name", updateName,
                                 "degree", updateDegree,
                                 "description", updateDes,
                                 "groupList", testlist
@@ -136,6 +122,54 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                //用户信息
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(updateName)
+                                        .build();
+
+                                user.updateProfile(profileUpdates)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Intent intent = new Intent(EditInfoActivity_4.this, ProfileActivity_4.class);
+                                                    startActivity(intent);
+                                                    Log.d(TAG, "User profile updated.");
+                                                }
+                                            }
+                                        });
+
+                                //如果用户没有修改头像
+                                if (profileUri != null) {
+                                    //删除头像存储的原来文件，删除之后再添加
+                                    // Delete the file
+                                    storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // File deleted successfully
+                                            storageReference.putFile(profileUri)
+                                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                            Toast.makeText(EditInfoActivity_4.this, "成功更改头像", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Toast.makeText(EditInfoActivity_4.this, "更改头像的时候在重新上传这一步失败", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception exception) {
+                                            // Uh-oh, an error occurred!
+                                            Toast.makeText(EditInfoActivity_4.this, "更改头像的时候在删除原来文件这一步失败", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+
                                 Log.d(TAG, "DocumentSnapshot successfully updated!");
                             }
                         })
@@ -153,15 +187,15 @@ public class EditInfoActivity_4 extends AppCompatActivity {
     private void updatePhoto() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent,MY_PERMISSIONS_REQUEST_PICK_PHOTO);
+        startActivityForResult(intent, MY_PERMISSIONS_REQUEST_PICK_PHOTO);
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MY_PERMISSIONS_REQUEST_PICK_PHOTO){
-            if (resultCode == RESULT_OK){
+        if (requestCode == MY_PERMISSIONS_REQUEST_PICK_PHOTO) {
+            if (resultCode == RESULT_OK) {
                 photo.setImageURI(data.getData());
                 profileUri = data.getData();
             }

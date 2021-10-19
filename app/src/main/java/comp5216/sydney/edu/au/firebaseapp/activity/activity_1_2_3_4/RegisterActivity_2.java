@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
 
 import comp5216.sydney.edu.au.firebaseapp.R;
 import comp5216.sydney.edu.au.firebaseapp.classtype.User;
@@ -140,6 +143,7 @@ public class RegisterActivity_2 extends AppCompatActivity {
 
                             //把头像上传到storage
                             StorageReference ref = storageReference.child("profile/" + firebaseUser.getEmail());
+
                             ref.putFile(profileUri)
                                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
@@ -164,7 +168,7 @@ public class RegisterActivity_2 extends AppCompatActivity {
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-                                                            Intent intent = new Intent(RegisterActivity_2.this, ProfileActivity_4.class);
+                                                            Intent intent = new Intent(RegisterActivity_2.this, HomeActivity_3.class);
                                                             startActivity(intent);
                                                         }
                                                     })
@@ -205,6 +209,8 @@ public class RegisterActivity_2 extends AppCompatActivity {
             }
         }
     }
+
+
 }
 
 

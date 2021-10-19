@@ -113,7 +113,7 @@ public class HomeActivity_3 extends AppCompatActivity {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     GroupBrief groupBrief = document.toObject(GroupBrief.class);
 
-                                                    if (currentUser != null) {
+                                                    if (currentUser != null && currentUser.getGroupList()!= null ) {
                                                         for (String id : currentUser.getGroupList()) {
                                                             if (groupBrief.getGroupId().equals(id)) {
                                                                 System.out.println("检查有没有这个item:" + groupBrief.getGroupName());

@@ -23,7 +23,7 @@ import comp5216.sydney.edu.au.firebaseapp.util.ACache;
 public class ProfileActivity_4 extends AppCompatActivity {
     private TextView tvName, tvEmail,tvDegree,tvDescription;
     private ImageView imageView;
-    private Button btnSignout,btnEdit;
+    private Button btnSignout,btnEdit,btnHome;
     ACache mCache;
 
     @Override
@@ -38,8 +38,16 @@ public class ProfileActivity_4 extends AppCompatActivity {
         imageView = findViewById(R.id.iv_profile_photo);
         btnSignout = findViewById(R.id.btn_profile_signout);
         btnEdit = findViewById(R.id.btn_profile_edit);
+        btnHome = findViewById(R.id.btn_profile_home);
         mCache = ACache.get(this);
 
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity_4.this,HomeActivity_3.class);
+                startActivity(intent);
+            }
+        });
         //访问用户信息
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -53,6 +61,7 @@ public class ProfileActivity_4 extends AppCompatActivity {
                     .placeholder(R.drawable.image)//图片加载出来前，显示的图片
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
                     .into(imageView);
+
 
             User cacheUser = (User) mCache.getAsObject(user.getUid());
             if (cacheUser == null) {
@@ -77,7 +86,9 @@ public class ProfileActivity_4 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(ProfileActivity_4.this, HomeActivity_3.class);
+                //把缓存清除
+                mCache.clear();
+                Intent intent = new Intent(ProfileActivity_4.this,LoginActivity_1.class);
                 startActivity(intent);
             }
         });
