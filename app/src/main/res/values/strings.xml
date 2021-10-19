@@ -18,4 +18,8 @@
     <string name="submit">submit</string>
     <string name="add_asignment">ADD ASIGNMENT</string>
     <string name="add">Add</string>
+    <string name="description">Description</string>
+    <string name="task_name">Task Name</string>
+    <string name="create_task">Create Task</string>
+    <string name="plus">+</string>
 </resources>

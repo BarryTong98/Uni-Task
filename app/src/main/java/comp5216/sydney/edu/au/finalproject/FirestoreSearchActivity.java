@@ -10,7 +10,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import comp5216.sydney.edu.au.finalproject.adapter.PersonRecyclerAdapter;
+import comp5216.sydney.edu.au.finalproject.adapter.UserRecyclerAdapter;
 import comp5216.sydney.edu.au.finalproject.model.Person;
 
 public class FirestoreSearchActivity extends AppCompatActivity {
@@ -19,7 +19,7 @@ public class FirestoreSearchActivity extends AppCompatActivity {
 
     private final FirebaseFirestore mDb = FirebaseFirestore.getInstance();
 
-    private PersonRecyclerAdapter mAdapter;
+    private UserRecyclerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class FirestoreSearchActivity extends AppCompatActivity {
                 .setQuery(query, Person.class)
                 .build();
 
-        mAdapter = new PersonRecyclerAdapter(options);
+        mAdapter = new UserRecyclerAdapter(options);
         recyclerView.setAdapter(mAdapter);
 
 

@@ -14,14 +14,14 @@ import java.util.HashMap;
 
 
 import comp5216.sydney.edu.au.finalproject.R;
-import comp5216.sydney.edu.au.finalproject.model.Person;
+import comp5216.sydney.edu.au.finalproject.model.User;
 
 public class AddGroupMemberAdapter extends RecyclerView.Adapter<AddGroupMemberAdapter.ViewHolder> {
-    private ArrayList<Person> personArrayList;
-    private final ArrayList<Person> selectedValues = new ArrayList<>();
+    private ArrayList<User> userArrayList;
+    private final ArrayList<User> selectedValues = new ArrayList<>();
 
-    public AddGroupMemberAdapter(ArrayList<Person> personArrayList) {
-        this.personArrayList = personArrayList;
+    public AddGroupMemberAdapter(ArrayList<User> userArrayList) {
+        this.userArrayList = userArrayList;
 
     }
 
@@ -30,23 +30,23 @@ public class AddGroupMemberAdapter extends RecyclerView.Adapter<AddGroupMemberAd
     @NonNull
     @Override
     public AddGroupMemberAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_person_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_user_item, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AddGroupMemberAdapter.ViewHolder holder, int position) {
-        Person person = personArrayList.get(position);
-        holder.name.setText(person.getName());
-        holder.email.setText(person.getEmail());
+        User user = userArrayList.get(position);
+        holder.name.setText(user.getName());
+        holder.email.setText(user.getEmail());
 
         holder.checkBox.setOnClickListener(view -> {
             if(holder.checkBox.isChecked()) {
                 System.out.println("yes");
-                selectedValues.add(person);
+                selectedValues.add(user);
             } else {
                 System.out.println("no");
-                selectedValues.add(person);
+                selectedValues.add(user);
             }
         });
 
@@ -54,7 +54,7 @@ public class AddGroupMemberAdapter extends RecyclerView.Adapter<AddGroupMemberAd
 
     @Override
     public int getItemCount() {
-        return personArrayList.size();
+        return userArrayList.size();
     }
 
 
@@ -65,18 +65,18 @@ public class AddGroupMemberAdapter extends RecyclerView.Adapter<AddGroupMemberAd
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.person_item_name);
-            email = itemView.findViewById(R.id.person_item_email);
+            name = itemView.findViewById(R.id.user_item_name);
+            email = itemView.findViewById(R.id.user_item_email);
             checkBox = itemView.findViewById(R.id.check_box);
         }
     }
 
-    public void filterList(ArrayList<Person> filterllist) {
-        personArrayList = filterllist;
+    public void filterList(ArrayList<User> filterllist) {
+        userArrayList = filterllist;
         notifyDataSetChanged();
     }
 
-    public ArrayList<Person> returnData() {return selectedValues;}
+    public ArrayList<User> returnData() {return selectedValues;}
 
 }
 

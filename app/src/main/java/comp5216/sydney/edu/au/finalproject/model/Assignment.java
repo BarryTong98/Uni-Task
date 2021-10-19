@@ -1,54 +1,68 @@
 package comp5216.sydney.edu.au.finalproject.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Assignment {
-    private String groupName;
-
-    private String assignmentName;
-
-    private String due;
-
-    private List<Task> tasks;
-
+public class Assignment implements Serializable {
+    private String assignmentId;
+    private String name;
+    private String description;
+    private String dueDate;
+    private String groupId;
     private int status;
+    private List<Task> taskList;
 
-    public Assignment(String groupName, String assignmentName, String due, List<Task> tasks, int status) {
-        this.groupName = groupName;
-        this.assignmentName = assignmentName;
-        this.due = due;
-        this.tasks = tasks;
+    public Assignment(String assignmentId, String name, String description, String dueDate, String groupId, int status, List<Task> taskList) {
+        this.assignmentId = assignmentId;
+        this.name = name;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.groupId = groupId;
         this.status = status;
+        this.taskList = taskList;
     }
 
-    public String getAssignmentName() {
-        return assignmentName;
+    public Assignment() {
     }
 
-    public String getGroupName() {
-        return groupName;
+    public String getAssignmentId() {
+        return assignmentId;
     }
 
-    public String getDue() {
-        return due;
+    public String getName() {
+        return name;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public String getGroupId() {
+        return groupId;
     }
 
     public int getStatus() {
         return status;
     }
 
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+
     @Override
     public String toString() {
-        return "AssignmentModel{" +
-                ", groupName='" + groupName + '\'' +
-                ", assignmentName='" + assignmentName + '\'' +
-                ", due='" + due + '\'' +
-                ", tasks=" + tasks +
+        return "Assignment{" +
+                "assignmentId='" + assignmentId + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", dueDate='" + dueDate + '\'' +
+                ", groupId='" + groupId + '\'' +
                 ", status=" + status +
+                ", taskList=" + taskList +
                 '}';
     }
 }

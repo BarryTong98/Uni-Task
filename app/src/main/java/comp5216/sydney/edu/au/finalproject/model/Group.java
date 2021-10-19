@@ -2,38 +2,42 @@ package comp5216.sydney.edu.au.finalproject.model;
 
 import java.util.List;
 
+
 public class Group {
-    private String gourpId;
-    private String name;
-    private String description;
+    private String groupId;//uuid
+    private String introduction;
     private List<Assignment> assignmentList;
-    private List<Person> personList;
+    private List<User> userList;
+    private List<Discussion> discussionList;
 
-    public Group(String gourpId, String name, String description, List<Assignment> assignmentList, List<Person> personList) {
-        this.gourpId = gourpId;
-        this.name = name;
-        this.description = description;
+    public Group() {}
+
+    public Group(String groupId, String introduction, List<Assignment> assignmentList, List<User> userList, List<Discussion> discussionList) {
+        this.groupId = groupId;
+        this.introduction = introduction;
         this.assignmentList = assignmentList;
-        this.personList = personList;
+        this.userList = userList;
+        this.discussionList = discussionList;
     }
 
-    public String getGourpId() {
-        return gourpId;
+
+    public String getGroupId() {
+        return groupId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
+    public String getIntroduction() {
+        return introduction;
     }
 
     public List<Assignment> getAssignmentList() {
         return assignmentList;
     }
 
-    public List<Person> getPersonList() {
-        return personList;
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public List<Discussion> getDiscussionList() {
+        return discussionList;
     }
 }

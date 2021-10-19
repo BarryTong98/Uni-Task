@@ -5,6 +5,7 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.2814814814814815" />
         <entry key="app/src/main/res/drawable-v24/btn_search_bg.xml" value="0.262037037037037" />
+        <entry key="app/src/main/res/drawable-v24/ic_baseline_add_24.xml" value="0.2764102564102564" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.19074074074074074" />
         <entry key="app/src/main/res/drawable/bg_btn.xml" value="0.25833333333333336" />
         <entry key="app/src/main/res/drawable/btn_search_bg.xml" value="0.25833333333333336" />
@@ -16,11 +17,16 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.2037037037037037" />
         <entry key="app/src/main/res/layout/add_person_item.xml" value="0.225" />
+        <entry key="app/src/main/res/layout/add_user_item.xml" value="0.2563405797101449" />
+        <entry key="app/src/main/res/layout/create_assignment.xml" value="0.2563405797101449" />
+        <entry key="app/src/main/res/layout/group_create.xml" value="0.23958333333333334" />
         <entry key="app/src/main/res/layout/item_person.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/searchview.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/show_aaignment_item.xml" value="0.225" />
         <entry key="app/src/main/res/layout/show_person_item.xml" value="0.26875" />
         <entry key="app/src/main/res/layout/task_of_assignment的副本.xml" value="0.24947916666666667" />
+        <entry key="app/src/main/res/layout/tasks.xml" value="0.2563405797101449" />
+        <entry key="app/src/main/res/layout/taskview.xml" value="0.2563405797101449" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.28489583333333335" />
         <entry key="app/src/main/res/menu/search_menu.xml" value="0.21875" />
       </map>

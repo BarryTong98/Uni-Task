@@ -19,13 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp5216.sydney.edu.au.finalproject.adapter.AddGroupMemberAdapter;
-import comp5216.sydney.edu.au.finalproject.model.Person;
+import comp5216.sydney.edu.au.finalproject.model.User;
 
 public class AddGroupMemsActivity extends AppCompatActivity {
-    private RecyclerView personRV;
-    private ArrayList<Person> personArrayList;
-    private ArrayList<Person> passArrayList;
-    private AddGroupMemberAdapter personAdapter;
+    private RecyclerView userRV;
+    private ArrayList<User> userArrayList;
+    private ArrayList<User> passArrayList;
+    private AddGroupMemberAdapter userAdapter;
     private Button btn;
     private Intent data;
 
@@ -34,36 +34,35 @@ public class AddGroupMemsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_search);
         //setUpRecyclerView
-        personRV = findViewById(R.id.firestore_list);
+        userRV = findViewById(R.id.firestore_list);
         btn = findViewById(R.id.submitBtn);
-//        data = getIntent();
-//        passArrayList = (ArrayList<Person>) data.getSerializableExtra("l");
+
         setSubmitListeners();
         buildRecycleView();
     }
 
     private void buildRecycleView() {
-        personArrayList = new ArrayList<>();
+        userArrayList = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        personAdapter = new AddGroupMemberAdapter(personArrayList);
-        personRV.setHasFixedSize(true);
-        personRV.setLayoutManager(new LinearLayoutManager(this));
+        userAdapter = new AddGroupMemberAdapter(userArrayList);
+        userRV.setHasFixedSize(true);
+        userRV.setLayoutManager(new LinearLayoutManager(this));
         //get data
         db.collection("Users").get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if(!queryDocumentSnapshots.isEmpty()) {
                         List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                         for(DocumentSnapshot d: list) {
-                            Person p = d.toObject(Person.class);
-                            personArrayList.add(p);
+                            User p = d.toObject(User.class);
+                            userArrayList.add(p);
                         }
-                        personAdapter.notifyDataSetChanged();
+                        userAdapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(AddGroupMemsActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(e -> Toast.makeText(AddGroupMemsActivity.this, "Fail to get the data.", Toast.LENGTH_SHORT).show());
-        System.out.println("tzy   " + personArrayList.size());
-        personRV.setAdapter(personAdapter);
+        System.out.println("tzy   " + userArrayList.size());
+        userRV.setAdapter(userAdapter);
     }
 
     @Override
@@ -88,9 +87,9 @@ public class AddGroupMemsActivity extends AppCompatActivity {
     }
 
     private void filter(String text) {
-        ArrayList<Person> filteredlist = new ArrayList<>();
+        ArrayList<User> filteredlist = new ArrayList<>();
 
-        for (Person item : personArrayList) {
+        for (User item : userArrayList) {
             if (item.getEmail().toLowerCase().contains(text.toLowerCase())) {
                 filteredlist.add(item);
             }
@@ -98,7 +97,7 @@ public class AddGroupMemsActivity extends AppCompatActivity {
         if (filteredlist.isEmpty()) {
             Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show();
         } else {
-            personAdapter.filterList(filteredlist);
+            userAdapter.filterList(filteredlist);
         }
     }
 
@@ -107,7 +106,7 @@ public class AddGroupMemsActivity extends AppCompatActivity {
         btn.setOnClickListener(
                 (view) -> {
 
-                    passArrayList = personAdapter.returnData();
+                    passArrayList = userAdapter.returnData();
                     System.out.println(passArrayList.get(0).getName());
                     System.out.println(passArrayList.size());
                     data = new Intent(AddGroupMemsActivity.this, CreateGroupActivity.class);
@@ -116,13 +115,6 @@ public class AddGroupMemsActivity extends AppCompatActivity {
                     finish();
         });
     }
-
-//    public void onSubmit(View v) {
-//        ArrayList<Person> list = personAdapter.returnData();
-//        System.out.println(list.size());
-//        data.putExtra("memberList", list);
-//        setResult(RESULT_OK, data);
-//        finish();
-//    }
+    
 
 }

@@ -6,17 +6,17 @@
     android:padding="15dp">
 
     <TextView
-        android:id="@+id/person_item_name"
+        android:id="@+id/user_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nunito_sans_extralight"
         android:padding="5dp" />
 
     <TextView
-        android:id="@+id/person_item_email"
+        android:id="@+id/user_item_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/person_item_name"
+        android:layout_below="@+id/user_item_name"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/nunito_sans_bold"
         android:padding="5dp" />

@@ -17,7 +17,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@color/white"
-            tools:listitem="@layout/add_person_item"
+            tools:listitem="@layout/add_user_item"
             android:layout_marginTop="10dp"/>
     </LinearLayout>
 

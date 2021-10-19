@@ -1,32 +1,59 @@
 package comp5216.sydney.edu.au.finalproject.model;
 
-public class Task {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-    private String name;
-
-    private String degree;
-
+public class Task implements Serializable {
+    private String taskId;
+    private String taskName;
     private String description;
-
+    private String assignmentId;
+    private String groupName;
+    private String dueDate;
+    private List<User> userList;
     private int status;
 
-    public Task(String name, String degree, String description, int status) {
-        this.name = name;
-        this.degree = degree;
+    public Task(String taskId, String taskName, String description, String assignmentId, String groupName, String dueDate, List<User> userList, int status) {
+        this.taskId = taskId;
+        this.taskName = taskName;
         this.description = description;
+        this.assignmentId = assignmentId;
+        this.groupName = groupName;
+        this.dueDate = dueDate;
+        this.userList = userList;
         this.status = status;
     }
 
-    public String getName() {
-        return name;
+    public Task() {
     }
 
-    public String getDegree() {
-        return degree;
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public String getTaskName() {
+        return taskName;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public String getAssignmentId() {
+        return assignmentId;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public List<User> getUserList() {
+        return userList;
     }
 
     public int getStatus() {
@@ -35,12 +62,15 @@ public class Task {
 
     @Override
     public String toString() {
-        return "TaskModel{" +
-                "name='" + name + '\'' +
-                ", degree='" + degree + '\'' +
+        return "Task{" +
+                "taskId='" + taskId + '\'' +
+                ", taskName='" + taskName + '\'' +
                 ", description='" + description + '\'' +
+                ", assignmentId='" + assignmentId + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", dueDate='" + dueDate + '\'' +
+                ", userList=" + userList +
                 ", status=" + status +
                 '}';
     }
-
 }

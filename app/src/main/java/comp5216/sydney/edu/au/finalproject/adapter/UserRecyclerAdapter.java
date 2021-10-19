@@ -19,7 +19,7 @@ import java.util.Locale;
 import comp5216.sydney.edu.au.finalproject.R;
 import comp5216.sydney.edu.au.finalproject.model.Person;
 
-public class PersonRecyclerAdapter extends FirestoreRecyclerAdapter<Person, PersonRecyclerAdapter.PersonViewHolder> {
+public class UserRecyclerAdapter extends FirestoreRecyclerAdapter<Person, UserRecyclerAdapter.PersonViewHolder> {
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
@@ -29,12 +29,12 @@ public class PersonRecyclerAdapter extends FirestoreRecyclerAdapter<Person, Pers
     private ArrayList<Person> personArrayList;
     private Context context;
 
-    public PersonRecyclerAdapter(FirestoreRecyclerOptions<Person> options, OnItemClickListener listener) {
+    public UserRecyclerAdapter(FirestoreRecyclerOptions<Person> options, OnItemClickListener listener) {
         super(options);
         this.listener = listener;
     }
 
-    public PersonRecyclerAdapter(FirestoreRecyclerOptions<Person> options) {
+    public UserRecyclerAdapter(FirestoreRecyclerOptions<Person> options) {
         super(options);
         this.listener = null;
     }
@@ -50,8 +50,8 @@ public class PersonRecyclerAdapter extends FirestoreRecyclerAdapter<Person, Pers
 
         public PersonViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.person_item_name);
-            price = itemView.findViewById(R.id.person_item_email);
+            name = itemView.findViewById(R.id.user_item_name);
+            price = itemView.findViewById(R.id.user_item_email);
         }
     }
 
@@ -71,7 +71,7 @@ public class PersonRecyclerAdapter extends FirestoreRecyclerAdapter<Person, Pers
     @Override
     public PersonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_person_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_user_item, parent, false);
         return new PersonViewHolder(view);
     }
 

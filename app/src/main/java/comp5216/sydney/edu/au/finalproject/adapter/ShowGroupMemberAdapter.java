@@ -1,12 +1,9 @@
 package comp5216.sydney.edu.au.finalproject.adapter;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,13 +13,13 @@ import java.util.ArrayList;
 
 import comp5216.sydney.edu.au.finalproject.CreateGroupActivity;
 import comp5216.sydney.edu.au.finalproject.R;
-import comp5216.sydney.edu.au.finalproject.model.Person;
+import comp5216.sydney.edu.au.finalproject.model.User;
 
 public class ShowGroupMemberAdapter extends RecyclerView.Adapter<ShowGroupMemberAdapter.ViewHolder>{
-    private ArrayList<Person> showArrayList;
+    private ArrayList<User> showArrayList;
     private CreateGroupActivity createGroupActivity;
 
-    public ShowGroupMemberAdapter(ArrayList<Person> list,CreateGroupActivity createGroupActivity) {
+    public ShowGroupMemberAdapter(ArrayList<User> list,CreateGroupActivity createGroupActivity) {
         this.showArrayList = list;
         this.createGroupActivity = createGroupActivity;
     }
@@ -41,22 +38,22 @@ public class ShowGroupMemberAdapter extends RecyclerView.Adapter<ShowGroupMember
     @NonNull
     @Override
     public ShowGroupMemberAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_person_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_user_item, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ShowGroupMemberAdapter.ViewHolder holder, int position) {
-        Person person = showArrayList.get(position);
+        User person = showArrayList.get(position);
         holder.name.setText(person.getName());
         holder.email.setText(person.getEmail());
         holder.itemView.setOnLongClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(createGroupActivity);
-            builder.setTitle("Delete Person")
-                    .setMessage("Do You Want To Delete This Person From Group?")
+            builder.setTitle("Delete User")
+                    .setMessage("Do You Want To Delete This User From Group?")
                     .setPositiveButton("Delete", (dialogInterface, i) -> {
                         int location = holder.getLayoutPosition();
-                        Person p = showArrayList.get(location);
+                        User p = showArrayList.get(location);
                         showArrayList.remove(location);
                         notifyItemRemoved(location);
                     })

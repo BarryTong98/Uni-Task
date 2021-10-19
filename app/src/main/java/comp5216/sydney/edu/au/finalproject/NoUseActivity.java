@@ -20,7 +20,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
-import comp5216.sydney.edu.au.finalproject.adapter.PersonRecyclerAdapter;
+import comp5216.sydney.edu.au.finalproject.adapter.UserRecyclerAdapter;
 import comp5216.sydney.edu.au.finalproject.model.Person;
 
 
@@ -28,7 +28,7 @@ public class NoUseActivity extends AppCompatActivity {
     private static final String TAG = "FirestoreSearchActivity";
     private final FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
     private RecyclerView mPersonsRecycler;
-    private PersonRecyclerAdapter adapter;
+    private UserRecyclerAdapter adapter;
     private static final String PEOPLE = "Users";
 
     @Override
@@ -47,7 +47,7 @@ public class NoUseActivity extends AppCompatActivity {
                 .setQuery(query, Person.class)
                 .build();
 
-        adapter = new PersonRecyclerAdapter(options, new PersonRecyclerAdapter.OnItemClickListener() {
+        adapter = new UserRecyclerAdapter(options, new UserRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Person person = adapter.getSnapshots().getSnapshot(position).toObject(Person.class);
