@@ -23,16 +23,15 @@ import java.util.List;
 
 import comp5216.sydney.edu.au.finalproject.CreateAssignmentActivity;
 import comp5216.sydney.edu.au.finalproject.CreateTaskActivity;
-import comp5216.sydney.edu.au.finalproject.barryModel.TaskModel;
 import comp5216.sydney.edu.au.finalproject.R;
 import comp5216.sydney.edu.au.finalproject.model.Task;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
+public class ShowTaskAdapter extends RecyclerView.Adapter<ShowTaskAdapter.MyViewHolder> {
     private List<Task> taskList;
     private CreateAssignmentActivity createAssignmentActivity;
     private FirebaseFirestore firestore;
 
-    public TaskAdapter(List<Task> taskList, CreateAssignmentActivity createAssignmentActivity) {
+    public ShowTaskAdapter(List<Task> taskList, CreateAssignmentActivity createAssignmentActivity) {
         this.taskList = taskList;
         this.createAssignmentActivity = createAssignmentActivity;
         firestore = FirebaseFirestore.getInstance();
@@ -56,6 +55,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
         Task taskModel = taskList.get(position);
 
         holder.taskName.setText(taskModel.getTaskName());
+
         holder.toDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +65,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                 Toast.makeText(context, taskModel.getTaskName(), Toast.LENGTH_SHORT).show();
             }
         });
+
         holder.taskName.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {

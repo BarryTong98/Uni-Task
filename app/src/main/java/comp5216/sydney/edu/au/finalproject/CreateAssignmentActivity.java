@@ -22,14 +22,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import comp5216.sydney.edu.au.finalproject.model.Group;
 import comp5216.sydney.edu.au.finalproject.model.Task;
-import comp5216.sydney.edu.au.finalproject.adapter.TaskAdapter;
-import comp5216.sydney.edu.au.finalproject.barryModel.TaskModel;
+import comp5216.sydney.edu.au.finalproject.adapter.ShowTaskAdapter;
 import comp5216.sydney.edu.au.finalproject.model.Assignment;
-import comp5216.sydney.edu.au.finalproject.model.Task;
 import comp5216.sydney.edu.au.finalproject.model.User;
 import comp5216.sydney.edu.au.finalproject.utils.IdUtil;
 
@@ -39,11 +37,19 @@ public class CreateAssignmentActivity extends AppCompatActivity {
     private DatePicker datePicker;
     private TimePicker timePicker;
     private RecyclerView taskView;
-    private List<Task> taskList2;
-    private List<User> userList;
-    private TaskAdapter adapter;
-    private Button create_task2;
+    private Button create_assignment;
+    private Button create_task;
     private FirebaseFirestore firestore;
+    private Group group;
+    private ShowTaskAdapter adapter;
+    private ArrayList<Task> taskList;
+    private ArrayList<Assignment> assignmentList;
+    private ArrayList<User> userList;
+    private String assignmentId;
+    private String dateVal;
+    private String groupId;
+    private String groupName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,76 +61,82 @@ public class CreateAssignmentActivity extends AppCompatActivity {
         datePicker = findViewById(R.id.date);
         timePicker = findViewById(R.id.time);
         taskView = findViewById(R.id.tasks);
-        create_task2 = findViewById(R.id.create_task2);
-        //这边创建assignment页面的时候，需要getExtra从 CreateGroupPage中获取
+        create_assignment = findViewById(R.id.create_assignment);
+        create_task = findViewById(R.id.add_task);
 
+        //这边创建assignment页面的时候，需要getExtra从 CreateGroupPage中获取
+        Intent intent = this.getIntent();
+        group = (Group)intent.getSerializableExtra("group");
+        userList = group.getUserList();
+        assignmentList = group.getAssignmentList();
+        groupName = group.getName();
+        taskList = new ArrayList<>();
 
         firestore = FirebaseFirestore.getInstance();
         taskView.setHasFixedSize(true);
         taskView.setLayoutManager(new LinearLayoutManager(CreateAssignmentActivity.this));
-        taskList2 = new ArrayList<>();
-        userList = new ArrayList<>();
-        User u1 = new User(IdUtil.getUUID("U"), "Barry", "IT", "Java,Vue");
-        User u2 = new User(IdUtil.getUUID("U"), "Shela", "CV Engineering", "None");
-        User u3 = new User(IdUtil.getUUID("U"), "Tim", "IT", "C++, Web Develop");
-        User u4 = new User(IdUtil.getUUID("U"), "Sam", "IT", "C++, Java");
-        User u5 = new User(IdUtil.getUUID("U"), "Rickey", "IT", "React,Sprintboot");
-        userList.add(u1);
-        userList.add(u2);
-        userList.add(u3);
-        userList.add(u4);
-        userList.add(u5);
-        String Assignment1Id = IdUtil.getUUID("a");
         showData();
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth() + 1;
-        int year = datePicker.getYear();
-        int hour = timePicker.getHour();
-        int minute = timePicker.getMinute();
-        String dateVal = String.format("%d-%d-%d %d:%d", year, month, day, hour, minute);
-        String groupId = IdUtil.getUUID("G");
-        adapter = new TaskAdapter(taskList2, CreateAssignmentActivity.this);
+
+
+        adapter = new ShowTaskAdapter(taskList, CreateAssignmentActivity.this);
         taskView.setAdapter(adapter);
-        create_task2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String AssignmentName = assignmentName.getText().toString();
-                System.out.println("Assignment:     "+AssignmentName);
-                String Des = description.getText().toString();
-                System.out.println("DES!!!!!!!!!!"+Des);
-                System.out.println("CREATE TASK 2 RUNNING");
-                if (AssignmentName.isEmpty()) {
-                    System.out.println("AssignmentName: "+AssignmentName);
-                    Toast.makeText(CreateAssignmentActivity.this, "Empty task not Allowed", Toast.LENGTH_SHORT).show();
-                } else if (Des.isEmpty()) {
-                    Toast.makeText(CreateAssignmentActivity.this, "Empty description not Allowed", Toast.LENGTH_SHORT).show();
-                } else {
-                    Assignment single = new Assignment(Assignment1Id, AssignmentName, Des, dateVal, groupId, 0, taskList2);
-                    firestore.collection("assignments").document(single.getAssignmentId()).set(single);
-                    Toast.makeText(CreateAssignmentActivity.this, "Assignment Saved", Toast.LENGTH_SHORT).show();
-                    //下面为了和Group页面交互
-//                    Intent intent = new Intent(CreateAssignmentActivity.this, GroupPage.class);
-//                    intent.putExtra("assignment", single);
-//                    startActivity(intent);
-                }
+
+        setButtonListeners();
+    }
+
+    private void setButtonListeners() {
+
+        create_assignment.setOnClickListener(view -> {
+            dateVal = formatDate();
+            assignmentId = IdUtil.getUUID("a");
+            String AssignmentName = assignmentName.getText().toString();
+            System.out.println("Assignment:     "+AssignmentName);
+            String Des = description.getText().toString();
+            System.out.println("DES!!!!!!!!!!"+Des);
+            System.out.println("CREATE TASK 2 RUNNING");
+            if (AssignmentName.isEmpty()) {
+                System.out.println("AssignmentName: "+AssignmentName);
+                Toast.makeText(CreateAssignmentActivity.this, "Empty task not Allowed", Toast.LENGTH_SHORT).show();
+            } else if (Des.isEmpty()) {
+                Toast.makeText(CreateAssignmentActivity.this, "Empty description not Allowed", Toast.LENGTH_SHORT).show();
+            } else {
+                Assignment single = new Assignment(assignmentId, AssignmentName, Des, dateVal, groupId, 0, taskList);
+                firestore.collection("assignments").document(single.getAssignmentId()).set(single);
+                Toast.makeText(CreateAssignmentActivity.this, "Assignment Saved", Toast.LENGTH_SHORT).show();
+
+                assignmentList.add(single);
+                group.setAssignmentList(assignmentList);
+
+                Intent intent = new Intent(CreateAssignmentActivity.this, CreateGroupActivity.class);
+                intent.putExtra("group", group);
+                intent.putExtra("assignment", single);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
+
+        create_task.setOnClickListener(view -> {
+            dateVal = formatDate();
+            Intent intent = new Intent(CreateAssignmentActivity.this, CreateTaskActivity.class);
+            intent.putExtra("userList", userList);
+            intent.putExtra("dateVal", dateVal);
+            intent.putExtra("id", assignmentId);
+            intent.putExtra("groupName", groupName);
+            intent.putExtra("taskList", taskList);
+            startActivity(intent);
+        });
+
     }
 
-    public void toTaskPage(View view) {
+    private String formatDate() {
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth() + 1;
         int year = datePicker.getYear();
         int hour = timePicker.getHour();
         int minute = timePicker.getMinute();
-        String dateVal = String.format("%d-%d-%d %d:%d", year, month, day, hour, minute);
-
-        Intent intent = new Intent(CreateAssignmentActivity.this, CreateTaskActivity.class);
-        intent.putExtra("dateVal", dateVal);
-        System.out.println("dateVal: " + dateVal);
-        startActivity(intent);
+        String date = String.format("%d-%d-%d %d:%d", year, month, day, hour, minute);
+        return date;
     }
-
 
     private void showData() {
         firestore.collection("tasks").addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -134,7 +146,7 @@ public class CreateAssignmentActivity extends AppCompatActivity {
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         //String id = documentChange.getDocument().getId();
                         Task taskModel = documentChange.getDocument().toObject(Task.class);
-                        taskList2.add(taskModel);
+                        taskList.add(taskModel);
                         adapter.notifyDataSetChanged();
                     }
                 }

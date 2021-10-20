@@ -6,10 +6,9 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/to2"
+        android:id="@+id/add_task"
         android:layout_width="46dp"
         android:layout_height="45dp"
-        android:onClick="toTaskPage"
         android:text="+"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +18,7 @@
         app:layout_constraintVertical_bias="0.881" />
 
     <Button
-        android:id="@+id/create_task2"
+        android:id="@+id/create_assignment"
         android:layout_width="344dp"
         android:layout_height="55dp"
         android:text="Create Assignment"

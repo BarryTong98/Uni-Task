@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/drawable/btn_search_bg.xml" value="0.25833333333333336" />
         <entry key="app/src/main/res/drawable/checkbox_selector.xml" value="0.2212962962962963" />
         <entry key="app/src/main/res/drawable/edit.xml" value="0.21944444444444444" />
+        <entry key="app/src/main/res/layout/activity_assignment_list.xml" value="0.2598958333333333" />
         <entry key="app/src/main/res/layout/activity_create.xml" value="0.28489583333333335" />
         <entry key="app/src/main/res/layout/activity_create_task.xml" value="0.24947916666666667" />
         <entry key="app/src/main/res/layout/activity_first.xml" value="0.1" />

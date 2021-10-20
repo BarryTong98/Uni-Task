@@ -11,10 +11,10 @@ public class Task implements Serializable {
     private String assignmentId;
     private String groupName;
     private String dueDate;
-    private List<User> userList;
+    private ArrayList<User> userList;
     private int status;
 
-    public Task(String taskId, String taskName, String description, String assignmentId, String groupName, String dueDate, List<User> userList, int status) {
+    public Task(String taskId, String taskName, String description, String assignmentId, String groupName, String dueDate, ArrayList<User> userList, int status) {
         this.taskId = taskId;
         this.taskName = taskName;
         this.description = description;

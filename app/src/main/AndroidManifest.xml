@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
         <activity
+            android:name=".AssignmentListActivity"
+            android:exported="true" />
+        <activity
             android:name=".CreateTaskActivity"
             android:exported="true" />
         <activity

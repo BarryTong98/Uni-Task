@@ -13,32 +13,45 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+import comp5216.sydney.edu.au.finalproject.adapter.ShowAssignmentAdapter;
 import comp5216.sydney.edu.au.finalproject.adapter.ShowGroupMemberAdapter;
 import comp5216.sydney.edu.au.finalproject.model.Assignment;
+import comp5216.sydney.edu.au.finalproject.model.Group;
 import comp5216.sydney.edu.au.finalproject.model.User;
+import comp5216.sydney.edu.au.finalproject.utils.IdUtil;
 
 public class CreateGroupActivity extends AppCompatActivity {
-    private Button mbtnAddMember;
-    private Button mbtnAddAssignment;
-    private RecyclerView groupRV;
-    private FirebaseFirestore mFirestore;
+    private ImageButton mbtnAddMember;
+    private Button mbtnnextStep;
+    private TextView groupName;
+    private TextView groupDescription;
+    private RecyclerView groupMemRV;
     private ArrayList<User> userList;
-    private ArrayList<Assignment> assignmentList;
-    private ShowGroupMemberAdapter adapter;
+    private ShowGroupMemberAdapter showGroupMemberAdapter;
+
+    public CreateGroupActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.group_create);
+
+        //initial view
         mbtnAddMember = findViewById(R.id.btnAddMember);
-        mbtnAddAssignment = findViewById(R.id.btnAddAssignment);
-        groupRV = findViewById(R.id.member_list);
+        mbtnnextStep = findViewById(R.id.btnNextStep);
+        groupMemRV = findViewById(R.id.groupmember_list);
+        groupName = findViewById(R.id.group_name_edit);
+        groupDescription = findViewById(R.id.group_intro_edit);
+
         userList = new ArrayList<>();
 
         buildRecycleView();
@@ -47,10 +60,10 @@ public class CreateGroupActivity extends AppCompatActivity {
 
     private void buildRecycleView() {
         userList = new ArrayList<>();
-        adapter = new ShowGroupMemberAdapter(userList, CreateGroupActivity.this);
-        groupRV.setHasFixedSize(true);
-        groupRV.setLayoutManager(new LinearLayoutManager(this));
-        groupRV.setAdapter(adapter);
+        showGroupMemberAdapter = new ShowGroupMemberAdapter(userList, CreateGroupActivity.this);
+        groupMemRV.setHasFixedSize(true);
+        groupMemRV.setLayoutManager(new LinearLayoutManager(this));
+        groupMemRV.setAdapter(showGroupMemberAdapter);
     }
 
     private void setButtonListeners() {
@@ -63,7 +76,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                         ArrayList<User> l = (ArrayList<User>) data.getSerializableExtra("ml");
                         System.out.println(l.size());
                         userList.addAll(l);
-                        adapter.notifyDataSetChanged();
+                        showGroupMemberAdapter.notifyDataSetChanged();
                     }
                 }
         );
@@ -75,20 +88,11 @@ public class CreateGroupActivity extends AppCompatActivity {
                 }
         );
 
-        mbtnAddAssignment.setOnClickListener(
-                (view) -> {
-                    Intent intent = new Intent(CreateGroupActivity.this, CreateAssignmentActivity.class);
-                    startActivity(intent);
-                }
-        );
-    }
-
-    private void setMemRecycleViewListener() {
-        groupRV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
+        mbtnnextStep.setOnClickListener(view -> {
+            Intent intent = new Intent(CreateGroupActivity.this, AssignmentListActivity.class);
+            startActivity(intent);
         });
     }
+
+
 }

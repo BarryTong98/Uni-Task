@@ -7,6 +7,8 @@ public class IdUtil {
      * U user
      * a Assignment
      * T Task
+     *
+     * G Group
      */
     public static String getUUID(String type) {
         String uuid = type + UUID.randomUUID().toString().replace("-", "");

@@ -22,4 +22,9 @@
     <string name="task_name">Task Name</string>
     <string name="create_task">Create Task</string>
     <string name="plus">+</string>
+    <string name="assignment_list">Assignment List</string>
+    <string name="empty_name">Empty Name</string>
+    <string name="todo">TODO</string>
+    <string name="group_member_list">Group Member List</string>
+    <string name="next_step">Next Step</string>
 </resources>

@@ -61,7 +61,7 @@ public class AddGroupMemsActivity extends AppCompatActivity {
                         Toast.makeText(AddGroupMemsActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(e -> Toast.makeText(AddGroupMemsActivity.this, "Fail to get the data.", Toast.LENGTH_SHORT).show());
-        System.out.println("tzy   " + userArrayList.size());
+
         userRV.setAdapter(userAdapter);
     }
 
@@ -102,7 +102,6 @@ public class AddGroupMemsActivity extends AppCompatActivity {
     }
 
     private void setSubmitListeners() {
-
         btn.setOnClickListener(
                 (view) -> {
 

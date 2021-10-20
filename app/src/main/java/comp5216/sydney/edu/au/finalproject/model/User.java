@@ -11,14 +11,14 @@ public class User implements Serializable {
     private String degree;
     private String description;
     private String imageURL;
-    private List<Task> taskList;
-    private List<Group> groupList;
+    private ArrayList<Task> taskList;
+    private ArrayList<Group> groupList;
     private int status;
 
     public User() {
     }
 
-    public User(String userId, String name, String email, String degree, String description, String imageURL, List<Task> taskList, List<Group> groupList) {
+    public User(String userId, String name, String email, String degree, String description, String imageURL, ArrayList<Task> taskList, ArrayList<Group> groupList) {
         this.userId = userId;
         this.name = name;
         this.email = email;
@@ -36,7 +36,9 @@ public class User implements Serializable {
         this.name = name;
         this.degree = degree;
         this.description = description;
-        taskList = new ArrayList<Task>();
+        taskList = new ArrayList<>();
+        groupList = new ArrayList<>();
+
     }
 
     public String getUserId() {
@@ -63,11 +65,11 @@ public class User implements Serializable {
         return imageURL;
     }
 
-    public List<Task> getTaskList() {
+    public ArrayList<Task> getTaskList() {
         return taskList;
     }
 
-    public List<Group> getGroupList() {
+    public ArrayList<Group> getGroupList() {
         return groupList;
     }
 
@@ -75,7 +77,7 @@ public class User implements Serializable {
         return status;
     }
 
-    public void setTaskList(List<Task> taskList) {
+    public void setTaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 

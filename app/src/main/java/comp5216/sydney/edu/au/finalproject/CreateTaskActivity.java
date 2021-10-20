@@ -45,12 +45,17 @@ public class CreateTaskActivity extends AppCompatActivity {
     private TextView taskName;
     private TextView description;
     private Button add;
-    private Button to;
     private RecyclerView recyclerView;
     private FirebaseFirestore firestore;
     private UserAdapter adapter;
-    private List<User> userList;
-    private List<Task> taskList;
+    private ArrayList<User> userList;
+    private ArrayList<Task> taskList;
+    private ArrayList<User> selectedUser = new ArrayList<>();
+    private String dateVal;
+    private String assignmentId;
+    private String groupName;
+    private Task taskFromAssignment;
+    private String taskId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,85 +69,73 @@ public class CreateTaskActivity extends AppCompatActivity {
         taskName = findViewById(R.id.taskName);
         description = findViewById(R.id.taskDescription);
         firestore = FirebaseFirestore.getInstance();
-        Intent i = getIntent();
-        Task taskFromAssignment =(Task)i.getSerializableExtra("task");
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(CreateTaskActivity.this));
-        taskList = new ArrayList<>();
-        userList = new ArrayList<>();
+        Intent intent = getIntent();
+        //initial taskName and description
 
-        User u1 = new User(IdUtil.getUUID("U"), "Barry", "IT", "Java,Vue");
-        User u2 = new User(IdUtil.getUUID("U"), "Shela", "CV Engineering", "Python");
-        User u3 = new User(IdUtil.getUUID("U"), "Tim", "IT", "C++, Web Develop");
-        User u4 = new User(IdUtil.getUUID("U"), "Sam", "IT", "C++, Java");
-        User u5 = new User(IdUtil.getUUID("U"), "Rickey", "IT", "React,Sprintboot");
-        userList.add(u1);
-        userList.add(u2);
-        userList.add(u3);
-        userList.add(u4);
-        userList.add(u5);
-
-        String Assignment1Id = IdUtil.getUUID("a");
-
-        adapter = new UserAdapter(CreateTaskActivity.this, userList);
-        recyclerView.setAdapter(adapter);
+        taskFromAssignment =(Task)intent.getSerializableExtra("task");
         if(taskFromAssignment != null){
             taskName.setText(taskFromAssignment.getTaskName());
             description.setText(taskFromAssignment.getDescription());
         }
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Task taskFromAssignment =(Task)i.getSerializableExtra("task");
-                List<User> selectedUser = new ArrayList<>();
-                for(User i: userList){
-                    if(i.getStatus() == 1){
-                        selectedUser.add(i);
-                    }
-                }
-                String Assignment1Id = IdUtil.getUUID("a");
-                String date = "1/11/2021";
-                String groupName = "COMP5216 Group 18";
-                String taskId = IdUtil.getUUID("T");
-                if(taskFromAssignment != null){
-                    System.out.println("NOT NULL          "+taskFromAssignment.getTaskId());
-                    taskId = taskFromAssignment.getTaskId();
-                    System.out.println("TASK"+taskId);
-                    Assignment1Id = taskFromAssignment.getAssignmentId();
-                    groupName = taskFromAssignment.getGroupName();
-                    date = taskFromAssignment.getDueDate();
-                }
-                String task = taskName.getText().toString();
-                String des = description.getText().toString();
-                Task uploadTask = new Task(taskId, task, des, Assignment1Id, groupName, date, selectedUser, 0);
-                List<Task> list = new ArrayList<>();
-                for(User i : selectedUser){
-                    list = i.getTaskList();
-                    list.add(uploadTask);
-                    i.setTaskList(list);
-                    list.clear();
-                }
-                if (task.isEmpty()) {
-                    Toast.makeText(CreateTaskActivity.this, "Empty task not Allowed", Toast.LENGTH_SHORT).show();
-                } else if (des.isEmpty()) {
-                    Toast.makeText(CreateTaskActivity.this, "Empty description not Allowed", Toast.LENGTH_SHORT).show();
-                } else {
-                    Map<String, Object> taskMap = new HashMap<>();
-                    taskMap.put(uploadTask.getTaskName(), uploadTask);
-                    firestore.collection("tasks").document(uploadTask.getTaskId()).set(uploadTask);
-                    Toast.makeText(CreateTaskActivity.this, "Task Saved", Toast.LENGTH_SHORT).show();
-                }
-                Intent intent = new Intent(CreateTaskActivity.this, CreateAssignmentActivity.class);
-                startActivity(intent);
-            }
-        });
+
+        userList = (ArrayList<User>) intent.getSerializableExtra("userList");
+        taskList = (ArrayList<Task>) intent.getSerializableExtra("taskList");
+        dateVal = intent.getStringExtra("dateVal");
+        assignmentId = intent.getStringExtra("id");
+        groupName = intent.getStringExtra("groupName");
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(CreateTaskActivity.this));
+
+        adapter = new UserAdapter(CreateTaskActivity.this, userList);
+        recyclerView.setAdapter(adapter);
+        setButtonListeners();
 
         //showDate();
     }
 
-//    public void trans(View view) {
-//        Intent intent = new Intent(CreateTaskActivity.this, AssignmentActivity.class);
-//        startActivity(intent);
-//    }
+    private void setButtonListeners(){
+        add.setOnClickListener(view -> {
+
+            //add selected user
+            for(User i: userList){
+                if(i.getStatus() == 1){
+                    selectedUser.add(i);
+                }
+            }
+
+            if(taskFromAssignment != null){
+                taskId = taskFromAssignment.getTaskId();
+            } else {
+                taskId = IdUtil.getUUID("T");
+            }
+
+            String task_name = taskName.getText().toString();
+            String des = description.getText().toString();
+            Task uploadTask = new Task(taskId, task_name, des, assignmentId, groupName, dateVal, selectedUser, 0);
+
+//            ArrayList<Task> list;
+//            for(User i : selectedUser){
+//                list = i.getTaskList();
+//                list.add(uploadTask);
+//                i.setTaskList(list);
+//                list.clear();
+//            }
+
+            if (task_name.isEmpty()) {
+                Toast.makeText(CreateTaskActivity.this, "Empty task not Allowed", Toast.LENGTH_SHORT).show();
+            } else if (des.isEmpty()) {
+                Toast.makeText(CreateTaskActivity.this, "Empty description not Allowed", Toast.LENGTH_SHORT).show();
+            } else {
+                Map<String, Object> taskMap = new HashMap<>();
+                taskMap.put(uploadTask.getTaskName(), uploadTask);
+                firestore.collection("tasks").document(uploadTask.getTaskId()).set(uploadTask);
+                Toast.makeText(CreateTaskActivity.this, "Task Saved", Toast.LENGTH_SHORT).show();
+            }
+            Intent intent = new Intent(CreateTaskActivity.this, CreateAssignmentActivity.class);
+            intent.putExtra("task", uploadTask);
+            startActivity(intent);
+        });
+    }
 }
