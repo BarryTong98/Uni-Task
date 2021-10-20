@@ -8,13 +8,15 @@ import java.util.Date;
 public class Comment implements Serializable {
     private String commentID;
     private String userID;
+    private String userEmail;
     private String body;
     private @ServerTimestamp
     Date timestamp;
 
-    public Comment(String commentID, String userID, String body, Date timestamp) {
+    public Comment(String commentID, String userID, String userEmail, String body, Date timestamp) {
         this.commentID = commentID;
         this.userID = userID;
+        this.userEmail = userEmail;
         this.body = body;
         this.timestamp = timestamp;
     }
@@ -22,9 +24,10 @@ public class Comment implements Serializable {
     public Comment() {
     }
 
-    public Comment(String commentID, String userID, String body) {
+    public Comment(String commentID, String userID, String userEmail, String body) {
         this.commentID = commentID;
         this.userID = userID;
+        this.userEmail = userEmail;
         this.body = body;
     }
 
@@ -58,6 +61,14 @@ public class Comment implements Serializable {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     @Override

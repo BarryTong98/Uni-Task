@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -43,12 +45,17 @@ public class DiscussionActivity extends AppCompatActivity {
     private Discussion discussion;
     private String discussionID;
     private String userName;
+    private String userEmail;
     private CommentAdapter commentAdapter;
+    private FirebaseAuth mAuth;
+
 
     private FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
@@ -58,7 +65,8 @@ public class DiscussionActivity extends AppCompatActivity {
         etInput = findViewById(R.id.etInput);
         btnSubmit = findViewById(R.id.btnSubmit);
         discussionID = getIntent().getStringExtra("discussionID");
-        userName = getIntent().getStringExtra("userName");
+        userName = firebaseUser.getDisplayName();
+        userEmail = firebaseUser.getEmail();
         firebaseFirestore = FirebaseFirestore.getInstance();
         getComments(discussionID);
 
@@ -98,7 +106,7 @@ public class DiscussionActivity extends AppCompatActivity {
     public void clickPost(View view) {
         String content = etInput.getText().toString();
         if (!content.isEmpty()) {
-            Comment comment = new Comment(IdUtil.getUUID("C"), userName, content, new Date());
+            Comment comment = new Comment(IdUtil.getUUID("C"), userName,userEmail , content, new Date());
             commentList.add(comment);
             discussion.setComments(commentList);
             updateComments();

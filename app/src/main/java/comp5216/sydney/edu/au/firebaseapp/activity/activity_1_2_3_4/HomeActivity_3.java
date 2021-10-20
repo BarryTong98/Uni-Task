@@ -29,6 +29,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -184,6 +186,14 @@ public class HomeActivity_3 extends AppCompatActivity {
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
                 Locale.getDefault()).format(new Date());
+//        User user1 = new User("user1", "userA", "a@gmail", null);
+//        User user2 = new User("user2", "userB", "b@gmail", null);
+//        User user3 = new User("user3", "userC", "c@gmail", null);
+//        User user4 = new User("user4", "userD", "d@gmail", null);
+//        User user5 = new User("user5", "userE", "e@gmail", null);
+//        User user6 = new User("user6", "userF", "f@gmail", null);
+//        User user7 = new User("user7", "userG", "g@gmail", null);
+
         User user1 = new User("user1", "userA", "a@gmail", null);
         User user2 = new User("user2", "userB", "b@gmail", null);
         User user3 = new User("user3", "userC", "c@gmail", null);

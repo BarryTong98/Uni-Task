@@ -15,6 +15,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.signature.ObjectKey;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.List;
 
 import comp5216.sydney.edu.au.firebaseapp.R;
@@ -57,7 +63,15 @@ public class RecycleAdapter_mem_10 extends RecyclerView.Adapter<RecycleAdapter_m
         if (imgList[location]!=null) {
             holder.image.setImageURI(Uri.parse(imgList[location]));
         }else {
-            holder.image.setImageResource(R.drawable.image);
+            //之后改成userEmail
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + "123@qq.com");
+            Glide.with(context /* context */)
+                    .load(storageReference)
+                    .signature(new ObjectKey(userList.get(position).getEmail())) //为了图片更新之后，缓存也更新
+                    .placeholder(R.drawable.image)//图片加载出来前，显示的图片
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
+                    .into(holder.image);
+            //holder.image.setImageResource(R.drawable.image);
         }
 
         holder.name.setText(nameList[location]);

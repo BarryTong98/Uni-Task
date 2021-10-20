@@ -16,11 +16,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+
+
+<!--            <ImageView-->
+<!--                android:id="@+id/profile"-->
+
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:src="@drawable/image"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"></ImageView>-->
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile"
                 android:layout_marginTop="2dp"
                 android:layout_marginStart="5dp"
@@ -30,39 +42,39 @@
                 android:layout_height="40dp"
                 android:src="@drawable/image"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                android:id="@+id/tvAuthor1"
-                android:layout_width="200dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="5dp"
-                android:text="name"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/profile"
-                app:layout_constraintTop_toTopOf="parent" />
+                        <TextView
+                            android:id="@+id/tvAuthor1"
+                            android:layout_width="200dp"
+                            android:layout_height="25dp"
+                            android:layout_marginStart="5dp"
+                            android:text="name"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/profile"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvTime1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="date"
-                app:layout_constraintStart_toEndOf="@id/tvAuthor1"
-                app:layout_constraintTop_toTopOf="parent" />
+                        <TextView
+                            android:id="@+id/tvTime1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:text="date"
+                            app:layout_constraintStart_toEndOf="@id/tvAuthor1"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvContent1"
-                android:layout_width="340dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="content"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/profile"
-                app:layout_constraintTop_toBottomOf="@+id/tvAuthor1" />
+                        <TextView
+                            android:id="@+id/tvContent1"
+                            android:layout_width="340dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="content"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@id/profile"
+                            app:layout_constraintTop_toBottomOf="@+id/tvAuthor1" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
