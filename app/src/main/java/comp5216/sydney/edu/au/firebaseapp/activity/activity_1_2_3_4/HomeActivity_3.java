@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,7 +54,7 @@ public class HomeActivity_3 extends AppCompatActivity {
     //获取数据库的用户
     User currentUser;
 
-
+    RecycleAdapter_group_3 recycleAdapter_group_3;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String userId;
@@ -63,7 +64,7 @@ public class HomeActivity_3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_3_main);
-
+        recyclerView = findViewById(R.id.recycle_home);
         mCache = ACache.get(this);
 
         getData();
@@ -72,8 +73,8 @@ public class HomeActivity_3 extends AppCompatActivity {
     }
 
     private void display() {
-        recyclerView = findViewById(R.id.recycle_home);
-        RecycleAdapter_group_3 recycleAdapter_group_3 = new RecycleAdapter_group_3(this, groupItemList,groupMap,db,currentUser,mCache);
+
+        recycleAdapter_group_3 = new RecycleAdapter_group_3(this, groupItemList,groupMap,db,currentUser,mCache);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(recycleAdapter_group_3);
@@ -113,7 +114,7 @@ public class HomeActivity_3 extends AppCompatActivity {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     GroupBrief groupBrief = document.toObject(GroupBrief.class);
 
-                                                    if (currentUser != null) {
+                                                    if (currentUser != null&&currentUser.getGroupList()!=null) {
                                                         for (String id : currentUser.getGroupList()) {
                                                             if (groupBrief.getGroupId().equals(id)) {
                                                                 System.out.println("检查有没有这个item:" + groupBrief.getGroupName());
@@ -173,8 +174,8 @@ public class HomeActivity_3 extends AppCompatActivity {
         //先把测试数据放上去
         CollectionReference homeItems = db.collection("GroupsBrief");
         CollectionReference groupItems = db.collection("GroupValues");
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(userId);
-        ref.child(userId).child("result").setValue(1);
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(userId);
+//        ref.child(userId).child("result").setValue(1);
 
         List<Assignment> assignmentList = new ArrayList<>();
         List<User> groupUserList = new ArrayList<>();
@@ -227,7 +228,19 @@ public class HomeActivity_3 extends AppCompatActivity {
         data4.put("introduction", "INFO5990 Group8");
         homeItems.document("group4").set(data4);
 
-        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference updateUser = db.collection("Users").document(user.getUid());
+        updateUser.update("groupList",Arrays.asList("group1","group2")).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(HomeActivity_3.this,"Success",Toast.LENGTH_SHORT).show();
+                getData();
+                recycleAdapter_group_3.change(groupItemList);
+
+            }
+        });
+
+
     }
 
 }

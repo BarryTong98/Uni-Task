@@ -124,8 +124,8 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                 //更新
                 DocumentReference updateUser = db.collection("Users").document(user.getUid());
                 List<String> testlist = new ArrayList<>();
-                testlist.add("1");
-                testlist.add("2");
+                testlist.add("group1");
+                testlist.add("group2");
                 updateUser
                         .update(
                                 "name",updateName,

@@ -32,9 +32,9 @@ import comp5216.sydney.edu.au.firebaseapp.classtype.User;
 import comp5216.sydney.edu.au.firebaseapp.util.ACache;
 
 public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_group_3.ViewHolder> {
-    private final String[] groupIdList;
-    private final String[] groupNameList;
-    private final String[] introductionList;
+    private String[] groupIdList;
+    private String[] groupNameList;
+    private String[] introductionList;
     private List<GroupBrief> groupBriefList;
     private Map<String, Group> groupMap;
 
@@ -136,6 +136,12 @@ public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_
             taskItem = itemView.findViewById(R.id.itemContent);
             act3_item = itemView.findViewById(R.id.act_3_10_11_item);
         }
+    }
+
+    public void change(List<GroupBrief> list){
+        groupBriefList.clear();
+        groupBriefList.addAll(list);
+        notifyDataSetChanged();
     }
 
     private void getGroup(String groupId) {
