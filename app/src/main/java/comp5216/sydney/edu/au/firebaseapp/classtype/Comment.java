@@ -2,22 +2,17 @@ package comp5216.sydney.edu.au.firebaseapp.classtype;
 
 import com.google.firebase.firestore.ServerTimestamp;
 
-import java.util.Date;
-
-
-import com.google.firebase.firestore.ServerTimestamp;
-
 import java.io.Serializable;
 import java.util.Date;
 
 public class Comment implements Serializable {
     private String commentID;
-    private int userID;
+    private String userID;
     private String body;
     private @ServerTimestamp
     Date timestamp;
 
-    public Comment(String commentID, int userID, String body, Date timestamp) {
+    public Comment(String commentID, String userID, String body, Date timestamp) {
         this.commentID = commentID;
         this.userID = userID;
         this.body = body;
@@ -27,7 +22,7 @@ public class Comment implements Serializable {
     public Comment() {
     }
 
-    public Comment(String commentID, int userID, String body) {
+    public Comment(String commentID, String userID, String body) {
         this.commentID = commentID;
         this.userID = userID;
         this.body = body;
@@ -41,11 +36,11 @@ public class Comment implements Serializable {
         this.commentID = commentID;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
@@ -75,10 +70,3 @@ public class Comment implements Serializable {
                 '}';
     }
 }
-
-
-//1. tang lin
-//2.a 问卷调查, Lo
-//2.b Huang
-//3. Tan ziyi
-//4. barry

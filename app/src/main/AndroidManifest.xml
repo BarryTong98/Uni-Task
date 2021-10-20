@@ -24,6 +24,15 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".activity.activity_13_14_15.DiscussionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.activity_13_14_15.CreateDiscussionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.activity_13_14_15.DiscussionListActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.activity_1_2_3_4.RegisterActivity_2"
             android:exported="true" />
         <activity android:name=".activity.activity_10_11.Activity_10"

@@ -2,20 +2,14 @@ package comp5216.sydney.edu.au.firebaseapp.classtype;
 
 import com.google.firebase.firestore.ServerTimestamp;
 
-import java.util.Date;
-import java.util.List;
-
-
-import com.google.firebase.firestore.ServerTimestamp;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 public class Discussion implements Serializable {
     private String discussionID; //discussion id
-    private int groupID; //group id
-    private int userID; //creator id
+    private String groupID; //group id
+    private String userID; //creator id
     private int assignmentID;
     private String title;
     private String description;
@@ -26,7 +20,7 @@ public class Discussion implements Serializable {
     public Discussion() {
     }
 
-    public Discussion(String discussionID, int groupID, int userID, int assignmentID, String title, String description, Date timestamp, List<Comment> comments) {
+    public Discussion(String discussionID, String groupID, String userID, int assignmentID, String title, String description, Date timestamp, List<Comment> comments) {
         this.discussionID = discussionID;
         this.groupID = groupID;
         this.userID = userID;
@@ -37,7 +31,7 @@ public class Discussion implements Serializable {
         this.comments = comments;
     }
 
-    public Discussion(String discussionID, int groupID, int userID, int assignmentID, String title, String description, List<Comment> comments) {
+    public Discussion(String discussionID, String groupID, String userID, int assignmentID, String title, String description, List<Comment> comments) {
         this.discussionID = discussionID;
         this.groupID = groupID;
         this.userID = userID;
@@ -55,19 +49,19 @@ public class Discussion implements Serializable {
         this.discussionID = discussionID;
     }
 
-    public int getGroupID() {
+    public String getGroupID() {
         return groupID;
     }
 
-    public void setGroupID(int groupID) {
+    public void setGroupID(String groupID) {
         this.groupID = groupID;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
