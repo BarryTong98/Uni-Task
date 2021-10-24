@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:context=".activity.activity_10_11_16.Activity_16">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
+
+        <LinearLayout
+            android:id="@+id/linear_group_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/title_group_Activity16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="0.2"
+                android:text="Group Name"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                android:textStyle="italic|bold" />
+
+            <ImageView
+                android:id="@+id/delete_icon_16"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:onClick="deleteOnClick"
+                android:src="@drawable/ic_action_delete" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/group_name_edit_16"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/linear_group_16"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit"
+            android:hint="@string/groupname"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/black"
+            android:textCursorDrawable="@null"
+            android:textSize="15sp" />
+
+
+        <LinearLayout
+            android:id="@+id/linear_assignment_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/group_name_edit_16"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/assignmentList16"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="0.2"
+                android:text="Assignment List"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                android:textStyle="italic|bold" />
+
+            <ImageView
+                android:id="@+id/addAssignment_16"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:onClick="onAddAssignmentClick16"
+                android:src="@drawable/ic_add" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/assignmentView16"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_below="@+id/linear_assignment_16"
+            android:layout_marginTop="5dp" />
+
+        <!--    <TextView-->
+        <!--        android:id="@+id/addAssignment"-->
+        <!--        android:layout_width="70dp"-->
+        <!--        android:layout_height="50dp"-->
+        <!--        android:layout_alignEnd="@id/assignmentView"-->
+        <!--        android:layout_alignBottom="@id/assignmentView"-->
+        <!--        android:layout_marginEnd="30dp"-->
+        <!--        android:layout_marginBottom="-60dp"-->
+        <!--        android:onClick="onAddAssignmentClick"-->
+        <!--        app:srcCompat="@drawable/ic_add" />-->
+        <LinearLayout
+            android:id="@+id/linear_member_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/assignmentView16"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/memberList16"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="0.2"
+                android:text="Member List"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                android:textStyle="italic|bold" />
+
+            <ImageView
+                android:id="@+id/addMember_16"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:onClick="onAddMemberClick16"
+                android:src="@drawable/ic_add" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/groupMemberView16"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_below="@id/linear_member_16"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/description_Activity16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/groupMemberView16"
+            android:layout_marginTop="10dp"
+            android:text="Description"
+            android:textColor="@color/black"
+            android:textSize="21sp"
+            android:textStyle="italic|bold" />
+
+        <EditText
+            android:id="@+id/group_intro_edit_16"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_below="@+id/description_Activity16"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit"
+            android:gravity="start|top"
+            android:hint="@string/gi"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/black"
+            android:textCursorDrawable="@null"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/complete_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/group_intro_edit_16"
+            android:layout_marginTop="10dp"
+            android:onClick="onCompleteClick"
+            android:text="Complete" />
+
+
+    </RelativeLayout>
+
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/addGroupMember"-->
+    <!--        android:layout_width="70dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_alignEnd="@id/groupMemberView"-->
+    <!--        android:layout_alignBottom="@id/groupMemberView"-->
+    <!--        android:layout_marginEnd="30dp"-->
+    <!--        android:layout_marginBottom="-60dp"-->
+    <!--        android:onClick="onAddMemberClick"-->
+    <!--        app:srcCompat="@drawable/ic_add" />-->
+
+
+</ScrollView>

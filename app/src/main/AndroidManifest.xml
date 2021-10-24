@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="comp5216.sydney.edu.au.firebaseapp">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FirebaseApp">
+
+        <activity
+            android:name=".activity.activity_1_2_3_4.EditInfoActivity_4"
+            android:exported="true" />
+
+        <activity
+            android:name=".activity.activity_1_2_3_4.ProfileActivity_4"
+            android:exported="true" />
+
+        <activity
+            android:name=".activity.activity_1_2_3_4.HomeActivity_3"
+            android:launchMode="singleTask"
+            android:exported="true"/>
+
+        <activity
+            android:name=".activity.activity_13_14_15.DiscussionActivity_15"
+            android:exported="true"
+            android:parentActivityName=".activity.activity_13_14_15.DiscussionListActivity_13"/>
+
+        <activity
+            android:name=".activity.activity_13_14_15.CreateDiscussionActivity_14"
+            android:exported="true"
+            android:parentActivityName=".activity.activity_13_14_15.DiscussionListActivity_13"/>
+
+        <activity
+            android:name=".activity.activity_13_14_15.DiscussionListActivity_13"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:parentActivityName=".activity.activity_10_11_16.Activity_10"/>
+
+        <activity
+            android:name=".activity.activity_1_2_3_4.RegisterActivity_2"
+            android:exported="true" />
+
+        <activity android:name=".activity.activity_10_11_16.Activity_10"
+            android:launchMode="singleTask"
+            android:parentActivityName=".activity.activity_1_2_3_4.HomeActivity_3"/>
+
+        <activity android:name=".activity.activity_10_11_16.Activity_11"
+            android:parentActivityName=".activity.activity_10_11_16.Activity_10"/>
+
+        <activity android:name=".activity.activity_10_11_16.Activity_10_memberProfile"
+            android:parentActivityName=".activity.activity_10_11_16.Activity_10"/>
+
+        <activity android:name=".activity.activity_10_11_16.Activity_16"
+            android:launchMode="singleTask"
+            android:parentActivityName=".activity.activity_1_2_3_4.HomeActivity_3"/>
+
+        <activity
+            android:name=".activity.activity_1_2_3_4.LoginActivity_1"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".activity.activity_5_8_9.AssignmentActivity_5"
+            android:exported="true"
+            android:label="Your Tasks" />
+
+        <activity
+            android:name=".activity.activity_5_8_9.CreateTaskActivity_9"
+            android:exported="true"
+            android:parentActivityName=".activity.activity_5_8_9.CreateAssignmentActivity_8"/>
+        <activity
+            android:name=".activity.activity_5_8_9.CreateAssignmentActivity_8"
+            android:exported="true"
+            android:parentActivityName=".activity.activity_10_11_16.Activity_16"/>
+
+        <activity
+            android:name=".activity.activity_6_7_12.AddGroupMemsActivity_7"
+            android:exported="true"
+            android:parentActivityName=".activity.activity_10_11_16.Activity_16"/>
+
+        <activity
+            android:name=".activity.activity_5_8_9.SplashActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+    </application>
+
+</manifest>
