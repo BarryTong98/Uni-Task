@@ -63,9 +63,6 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int location =holder.getAdapterPosition();
         if (imgList[location]!=null) {
-            holder.image.setImageURI(Uri.parse(imgList[location]));
-        }else {
-            //之后改成userEmail
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + "123@qq.com");
             Glide.with(context /* context */)
                     .load(storageReference)
@@ -73,7 +70,8 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
                     .placeholder(R.drawable.image)//图片加载出来前，显示的图片
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
                     .into(holder.image);
-            //holder.image.setImageResource(R.drawable.image);
+        }else {
+            holder.image.setImageResource(R.drawable.image);
         }
 
         holder.name.setText(nameList[location]);
