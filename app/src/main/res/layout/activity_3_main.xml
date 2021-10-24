@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".activity.activity_1_2_3_4.HomeActivity_3">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_home"
+        android:layout_width="match_parent"
+        android:layout_height="430dp"
+        android:layout_centerHorizontal="true" />
+
+
+    <LinearLayout
+        android:id="@+id/buttonSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recycle_home"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+
+        android:orientation="horizontal">
+        <!--    <Button-->
+        <!--        android:id="@+id/bt_home_register"-->
+        <!--        android:layout_width="110dp"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:text="Register"-->
+        <!--        android:onClick="registerOnClick"-->
+        <!--        />-->
+
+        <!--    <Button-->
+        <!--        android:id="@+id/bt_home_login"-->
+        <!--        android:layout_width="110dp"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginLeft="10dp"-->
+        <!--        android:text="Login"-->
+        <!--        android:onClick="loginOnClick"-->
+
+        <!--        />-->
+
+        <Button
+            android:id="@+id/btn_set"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:onClick="setData"
+            android:text="SET DATA" />
+
+        <Button
+            android:id="@+id/btn_main_task"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:onClick="taskOnClick"
+            android:text="Task" />
+
+
+        <Button
+            android:id="@+id/btn_main_profile"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:onClick="profileOnClick"
+            android:text="Profile" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSet"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+
+        android:orientation="horizontal">
+        <!--    <Button-->
+        <!--        android:id="@+id/btn_main_home"-->
+        <!--        android:layout_width="110dp"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:text="Home" />-->
+
+<!--        <Button-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/createGroup_3"-->
+<!--            android:onClick="createGroupOnClick"-->
+<!--            android:text="Create Group"-->
+<!--            android:layout_weight="0.5"-->
+<!--            />-->
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/createGroup_test"
+            android:onClick="createGroupTestOnClick"
+            android:text="Create Group"
+            android:layout_weight="0.5"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

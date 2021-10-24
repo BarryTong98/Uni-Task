@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="20dp"
+    android:paddingTop="30dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="20dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:context=".activity.activity_10_11_16.Activity_10">
+
+
+    <TextView
+        android:id="@+id/assignmentList10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:text="Assignment List"
+        android:textColor="@color/black"
+        android:textSize="21sp"
+        android:textStyle="italic|bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/assignmentView"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_below="@+id/assignmentList10"
+        android:layout_marginTop="10dp"/>
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/addAssignment"-->
+    <!--        android:layout_width="70dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_alignEnd="@id/assignmentView"-->
+    <!--        android:layout_alignBottom="@id/assignmentView"-->
+    <!--        android:layout_marginEnd="30dp"-->
+    <!--        android:layout_marginBottom="-60dp"-->
+    <!--        android:onClick="onAddAssignmentClick"-->
+    <!--        app:srcCompat="@drawable/ic_add" />-->
+    <TextView
+        android:id="@+id/memberList10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/assignmentView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:text="Member List"
+        android:textColor="@color/black"
+        android:textSize="21sp"
+        android:textStyle="italic|bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupMemberView"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_below="@id/memberList10"
+        android:layout_marginTop="10dp" />
+
+
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/addGroupMember"-->
+    <!--        android:layout_width="70dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_alignEnd="@id/groupMemberView"-->
+    <!--        android:layout_alignBottom="@id/groupMemberView"-->
+    <!--        android:layout_marginEnd="30dp"-->
+    <!--        android:layout_marginBottom="-60dp"-->
+    <!--        android:onClick="onAddMemberClick"-->
+    <!--        app:srcCompat="@drawable/ic_add" />-->
+
+
+    <Button
+        android:id="@+id/discussion_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray"
+        android:onClick="onDiscussionListClick"
+        android:text="@string/discussion_list"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
