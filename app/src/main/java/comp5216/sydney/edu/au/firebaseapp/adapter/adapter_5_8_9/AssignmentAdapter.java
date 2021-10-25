@@ -1,5 +1,7 @@
 package comp5216.sydney.edu.au.firebaseapp.adapter.adapter_5_8_9;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +53,22 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.My
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setMessage("Please confirm that you have completed this task")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    tasksModel.setStates(1);
+                                    System.out.println(tasksModel.getTaskName() + "  taskModel.setStatus: " + tasksModel.getStates());
+                                    firestore.collection("tasks").document(tasksModel.getTaskId()).update("states", 1);
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            holder.name.setChecked(false);
+                        }
+                    });
+                    builder.create().show();
                     tasksModel.setStates(1);
                     System.out.println(tasksModel.getTaskName()+"  taskModel.setStatus: "+tasksModel.getStates());
                     firestore.collection("tasks").document(tasksModel.getTaskId()).update("states",1);
