@@ -50,6 +50,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
         Tasks tasksModel = assignmentModelList.get(position);
         System.out.println("tasksModel.getGroupName(): "+tasksModel.getGroupName());
         System.out.println("tasksModel.getStates(): "+tasksModel.getStates());
