@@ -34,6 +34,7 @@ public class SelectUserAdapter extends RecyclerView.Adapter<SelectUserAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
         User user = userArrayList.get(position);
         holder.name.setText(user.getUserName());
         holder.email.setText(user.getEmail());

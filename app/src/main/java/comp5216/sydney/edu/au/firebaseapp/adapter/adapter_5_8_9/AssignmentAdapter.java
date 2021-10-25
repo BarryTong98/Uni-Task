@@ -41,6 +41,7 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
         Tasks tasksModel = assignmentModelList.get(position);
         System.out.println("tasksModel.getGroupName(): "+tasksModel.getGroupName());
         System.out.println("tasksModel.getStates(): "+tasksModel.getStates());
@@ -48,7 +49,7 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.My
         holder.due.setText(tasksModel.getTaskName() +" Due: "+ tasksModel.getDueDate());
         holder.name.setChecked(toBoolean(tasksModel.getStates()));
         holder.name.setText(tasksModel.getGroupName());
-        holder.desceiption.setText(tasksModel.getDescription());
+        holder.description.setText(tasksModel.getDescription());
         holder.name.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -91,12 +92,12 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.My
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView desceiption;
+        TextView description;
         TextView due;
         CheckBox name;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            desceiption = itemView.findViewById(R.id.description);
+            description = itemView.findViewById(R.id.description);
             name  = itemView.findViewById(R.id.name);
             due  = itemView.findViewById(R.id.due);
         }
