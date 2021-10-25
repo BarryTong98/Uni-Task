@@ -109,7 +109,11 @@ public class HomeActivity_3 extends AppCompatActivity {
                                 data1.put("groupName", groupResult.getGroupName());
                                 data1.put("introduction", groupResult.getIntroduction());
 
-                                List<String> tempList=new ArrayList<>(currentUser.getGroupList());
+                                List<String> tempList=new ArrayList<>();
+                                if (currentUser.getGroupList() != null){
+                                    tempList = currentUser.getGroupList();
+                                }
+
                                 if (!tempList.contains(groupResult.getGroupId())) {
                                     tempList.add(groupResult.getGroupId());
                                 }

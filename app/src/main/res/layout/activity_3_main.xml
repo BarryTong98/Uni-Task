@@ -21,14 +21,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
-<!--        android:layout_centerHorizontal="true"-->
-<!--        <Button-->
-<!--            android:id="@+id/btn_set"-->
-<!--            android:layout_width="132dp"-->
-<!--            android:layout_height="88dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:onClick="setData"-->
-<!--            android:text="SET DATA" />-->
 
         <ImageButton
             android:id="@+id/createGroup_test"

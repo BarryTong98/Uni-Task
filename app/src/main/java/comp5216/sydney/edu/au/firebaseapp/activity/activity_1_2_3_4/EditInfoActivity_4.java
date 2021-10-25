@@ -64,29 +64,20 @@ public class EditInfoActivity_4 extends AppCompatActivity {
 
         mCache = ACache.get(this);
 
-        photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updatePhoto();
-            }
-        });
-
         //获取缓存中的用户数据
         //访问用户信息
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // Reference to an image file in Cloud Storage
-            storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + user.getEmail());
-
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + user.getEmail());
             // Download directly from StorageReference using Glide
             // (See MyAppGlideModule for Loader registration)
             Glide.with(this /* context */)
                     .load(storageReference)
-                    .signature(new ObjectKey(System.currentTimeMillis())) //为了图片更新之后，缓存也更新
-                    .placeholder(R.drawable.default_profile)//图片加载出来前，显示的图片
+                    .signature(new ObjectKey(user.getUid())) //为了图片更新之后，缓存也更新
+                    .placeholder(R.drawable.image)//图片加载出来前，显示的图片
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
                     .into(photo);
-
 
             User cacheUser = (User) mCache.getAsObject(user.getUid());
             if (cacheUser == null) {
@@ -111,15 +102,11 @@ public class EditInfoActivity_4 extends AppCompatActivity {
 
                 //更新
                 DocumentReference updateUser = db.collection("Users").document(user.getUid());
-                List<String> testlist = new ArrayList<>();
-                testlist.add("group1");
-                testlist.add("group2");
                 updateUser
                         .update(
                                 "name", updateName,
                                 "degree", updateDegree,
-                                "description", updateDes,
-                                "groupList", testlist
+                                "description", updateDes
                         )
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -148,37 +135,6 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                                 upUser.setDescription(updateDes);
                                 mCache.put(user.getUid(),upUser);
 
-                                //如果用户没有修改头像
-                                if (profileUri != null) {
-                                    //删除头像存储的原来文件，删除之后再添加
-                                    // Delete the file
-                                    storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            // File deleted successfully
-                                            storageReference.putFile(profileUri)
-                                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                                        @Override
-                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                            System.out.println("成功上传头像");
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Toast.makeText(EditInfoActivity_4.this, "更改头像的时候在重新上传这一步失败", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception exception) {
-                                            // Uh-oh, an error occurred!
-                                            Toast.makeText(EditInfoActivity_4.this, "更改头像的时候在删除原来文件这一步失败", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-
                                 Log.d(TAG, "DocumentSnapshot successfully updated!");
                             }
                         })
@@ -190,24 +146,5 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                         });
             }
         });
-    }
-
-    //更新firebase storage
-    private void updatePhoto() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent, MY_PERMISSIONS_REQUEST_PICK_PHOTO);
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MY_PERMISSIONS_REQUEST_PICK_PHOTO) {
-            if (resultCode == RESULT_OK) {
-                photo.setImageURI(data.getData());
-                profileUri = data.getData();
-            }
-        }
     }
 }
