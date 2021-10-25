@@ -82,39 +82,40 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int location = holder.getAdapterPosition();
-//        if (imgList[location] != null) {
-//            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + userList.get(location));
-//            Glide.with(context /* context */)
-//                    .load(storageReference)
-//                    .signature(new ObjectKey(userList.get(position).getEmail())) //为了图片更新之后，缓存也更新
-//                    .placeholder(R.drawable.image)//图片加载出来前，显示的图片
-//                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
-//                    .into(holder.image);
-//        } else {
-//            //之后改成userEmail
-//            holder.image.setImageResource(R.drawable.image);
-//            //
-//        }
-
-        if (firebaseUserList.get(location).getImageURL()!=null&&firebaseUserList.get(location).getEmail()!=null) {
+        if (firebaseUserList.get(location).getImageURL() != null&&firebaseUserList.get(location).getEmail()!=null) {
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + firebaseUserList.get(location).getEmail());
-            if (storageReference!=null) {
-                final long ONE_MEGABYTE = 1024 * 1024;
-                storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        holder.image.setImageBitmap(bmp);
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(context, "No Such file or Path found!!", Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
+            System.out.println("22222222");
+            Glide.with(context /* context */)
+                    .load(storageReference)
+                    .signature(new ObjectKey(firebaseUserList.get(position).getEmail())) //为了图片更新之后，缓存也更新
+                    .placeholder(R.drawable.image)//图片加载出来前，显示的图片
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
+                    .into(holder.image);
+        } else {
+            //之后改成userEmail
+            holder.image.setImageResource(R.drawable.image);
+            //
         }
+
+//        if (firebaseUserList.get(location).getImageURL()!=null&&firebaseUserList.get(location).getEmail()!=null) {
+//            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + firebaseUserList.get(location).getEmail());
+//            if (storageReference!=null) {
+//                final long ONE_MEGABYTE = 1024 * 1024;
+//                storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                    @Override
+//                    public void onSuccess(byte[] bytes) {
+//                        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                        holder.image.setImageBitmap(bmp);
+//
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception exception) {
+//                        Toast.makeText(context, "No Such file or Path found!!", Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//            }
+//        }
 
 
 
