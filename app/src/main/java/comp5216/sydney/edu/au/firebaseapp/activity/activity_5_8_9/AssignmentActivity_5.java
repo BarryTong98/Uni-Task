@@ -18,7 +18,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import comp5216.sydney.edu.au.firebaseapp.R;
@@ -86,6 +91,23 @@ public class AssignmentActivity_5 extends AppCompatActivity {
                                 adapter.notifyDataSetChanged();
                             }
                         }
+                        Collections.sort(tasksFromFireBase, new Comparator<Tasks>() {
+                            @Override
+                            public int compare(Tasks o1, Tasks o2) {
+                                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                String due1=o1.getDueDate();
+                                String due2=o2.getDueDate();
+                                Date date1 = new Date(),date2 = new Date();
+                                try {
+                                    date1=simpleDateFormat.parse(due1);
+                                    date2=simpleDateFormat.parse(due2);
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                return date1.compareTo(date2);
+                            }
+                        });
                     }
                 }
             }
