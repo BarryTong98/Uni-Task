@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <!-- 圆角深蓝色按钮 -->
+            <solid android:color="#233AA1"/>
+            <corners android:radius="5dp"/>
+        </shape>
+    </item>
+
+    <item android:state_pressed="false">
+        <shape android:shape="rectangle">
+            <!-- 圆角深蓝色按钮 -->
+            <solid android:color="#6675B8"/>
+            <corners android:radius="5dp"/>
+        </shape>
+    </item>
+</selector>

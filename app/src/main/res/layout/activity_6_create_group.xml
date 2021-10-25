@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.activity_6_7_12.CreateGroupActivity_6">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/group_name_edit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/edit"
+            android:hint="@string/groupname"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/black"
+            android:textCursorDrawable="@null"
+
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/group_intro_edit"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/edit"
+            android:gravity="start|top"
+            android:hint="@string/gi"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/black"
+            android:textCursorDrawable="@null"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="8dp"
+        android:layout_below="@id/ll1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/memListName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/group_member_list"
+            android:textSize="20sp"
+            android:gravity="center"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/groupmember_list"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:padding="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/white"
+            android:layout_marginTop="5dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/ll2"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnAddMember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+
+            android:contentDescription="@string/add"
+            app:srcCompat="@drawable/ic_baseline_add_24" />
+
+        <Button
+            android:id="@+id/btnNextStep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/next_step"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
