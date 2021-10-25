@@ -98,7 +98,7 @@ public class Tasks implements Serializable {
         String memberName="";
         ArrayList<User> memberList=this.getUserList();
         for (User i:memberList){
-            memberName+=i.getUserName()+" ";
+            memberName += i.getUserName()+" ";
         }
         return memberName;
     }
