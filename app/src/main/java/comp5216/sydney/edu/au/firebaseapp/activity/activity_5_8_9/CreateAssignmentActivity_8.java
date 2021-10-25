@@ -65,13 +65,10 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
         create_task = findViewById(R.id.add_task);
         firestore = FirebaseFirestore.getInstance();
         Intent intent = this.getIntent();
-        //初始化数据，判断如果assignment不为空说明是从AssignmentListAdapter传过来的，获得assignment对象，初始化数据
-        //如果为空说明是从AssignmentListActivity点击加号过来的，则需要从intent获取数据
-        assignment =(Assignment) intent.getSerializableExtra("assignment");
+        assignment = (Assignment) intent.getSerializableExtra("assignment");
         position = intent.getIntExtra("position", 0);
-
-        if(assignment != null) {
-            System.out.println("-----" + position + "------" + assignment.toString());
+        //If the assignment is not null, the assignment object is sent from AssignmentListAdapter and the assignment object is initialized
+        if (assignment != null) {
             groupId = assignment.getGroupId();
             groupName = assignment.getGroupName();
             assignmentId = assignment.getAssignmentId();
@@ -79,7 +76,9 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
             userList = assignment.getUserList();
             assignmentName.setText(assignment.getAssignmentName());
             description.setText(assignment.getDescription());
-        } else {
+        }
+        //If empty, the plus sign was clicked on AssignmentListActivity, and the data needs to be retrieved from the Intent
+        else {
             taskList = new ArrayList<>();
             groupName = intent.getStringExtra("name");
             groupId = intent.getStringExtra("gpId");
@@ -87,7 +86,7 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
             userList = (ArrayList<User>) intent.getSerializableExtra("userList");
         }
 
-
+        //create the adapter
         taskView.setHasFixedSize(true);
         taskView.setLayoutManager(new LinearLayoutManager(CreateAssignmentActivity_8.this));
         showTaskAdapter = new TaskListAdapter(this, taskList, CreateAssignmentActivity_8.this);
@@ -97,21 +96,22 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
         setButtonListeners();
     }
 
+    /**
+     * receive the task object when the new task is created or updated
+     */
     private void setListListener() {
         ActivityResultLauncher<Intent> xLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if(result.getResultCode() == RESULT_OK) {
+                    if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         Tasks a = (Tasks) data.getSerializableExtra("task");
                         int i = data.getIntExtra("position", 0);
-                        System.out.println("ABC   " + a.getTaskName() + "    " + i);
                         taskList.set(i, a);
                         showTaskAdapter.notifyItemChanged(i);
                     }
                 }
         );
-
         showTaskAdapter.setOnItemClickListener(position1 -> {
             Intent intent = new Intent(CreateAssignmentActivity_8.this, CreateTaskActivity_9.class);
             intent.putExtra("task", taskList.get(position1));
@@ -120,8 +120,9 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
         });
     }
 
-
-
+    /**
+     * create or update the assignment
+     */
     private void setButtonListeners() {
 
         String assignment_name = assignmentName.getText().toString();
@@ -131,23 +132,18 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
         create_assignment.setOnClickListener(view -> {
             dateVal = formatDate();
             String aName = assignmentName.getText().toString();
-            System.out.println("Assignment:     "+ aName);
             String aDes = description.getText().toString();
-            System.out.println("DES!!!!!!!!!!"+ aDes);
-            System.out.println("CREATE TASK 2 RUNNING");
             if (aName.isEmpty() || aDes.isEmpty()) {
                 Toast.makeText(CreateAssignmentActivity_8.this, "Empty task or Empty description are not Allowed", Toast.LENGTH_SHORT).show();
             }
-
-            if(assignment != null) {
-                DocumentReference dr =  firestore.collection("assignments").document(assignment.getAssignmentId());
+            //if the assignment is not null ,create the default value for each component
+            if (assignment != null) {
+                DocumentReference dr = firestore.collection("assignments").document(assignment.getAssignmentId());
                 dr.update("assignmentName", aName);
                 dr.update("description", aDes);
                 dr.update("taskList", taskList);
-
                 dr.get().addOnSuccessListener(documentSnapshot -> {
                     Assignment a = documentSnapshot.toObject(Assignment.class);
-                    System.out.println("-----   " + a.getAssignmentName() + "   " + a.getDescription());
                     intent_1.putExtra("assignment", a);
                     intent_1.putExtra("position", 0);
                     Toast.makeText(CreateAssignmentActivity_8.this, "Assignment Updated", Toast.LENGTH_SHORT).show();
@@ -155,7 +151,7 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
                     finish();
                 });
             } else {
-                //创建assignment对象，添加到firebase
+                //Create assignment object and add it to Firebase
                 Assignment single = new Assignment(assignmentId, aName, aDes, dateVal, groupName, groupId, 0, taskList, userList);
                 firestore.collection("assignments").document(single.getAssignmentId()).set(single);
                 Toast.makeText(CreateAssignmentActivity_8.this, "Assignment Saved", Toast.LENGTH_SHORT).show();
@@ -166,10 +162,13 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
             }
         });
 
+        /**
+         * receive the data if the task activity is created or updated
+         */
         ActivityResultLauncher<Intent> tLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if(result.getResultCode() == RESULT_OK) {
+                    if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         Tasks a = (Tasks) data.getSerializableExtra("task");
                         taskList.add(a);
@@ -178,7 +177,9 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
                 }
         );
 
-        //创建task按钮
+        /**
+         * create task and put assignment information to the task activity
+         */
         create_task.setOnClickListener(view -> {
             dateVal = formatDate();
             Intent intent_2 = new Intent(CreateAssignmentActivity_8.this, CreateTaskActivity_9.class);
@@ -191,7 +192,10 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
         });
     }
 
-    //格式化日期
+    /**
+     * format the data value
+     * @return
+     */
     private String formatDate() {
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth() + 1;
