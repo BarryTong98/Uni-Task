@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.activity_6_7_12.CreateGroupActivity_6">
+    tools:context=".activity.activity_6_7_12.AddGroupMemsActivity_7">
 
     <LinearLayout
         android:id="@+id/ll1"

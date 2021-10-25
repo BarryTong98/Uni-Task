@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,6 +49,8 @@ public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_
 
     Context context;
 
+    private CardView cv;
+
 
     public RecycleAdapter_group_3(Context context, List<GroupBrief> groupBriefList, Map<String, Group> groupMap,
                                   FirebaseFirestore db, String userId, ACache mCache,ActivityResultLauncher<Intent> mLauncher) {
@@ -76,7 +80,7 @@ public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.activity_3_10_11_item, parent, false);
-
+        cv = (CardView)view.findViewById(R.id.cardView);
         return new ViewHolder(view);
     }
 
@@ -86,6 +90,7 @@ public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_
         holder.title.setText(groupNameList[position]);
         holder.assign.setText(introductionList[position]);
         holder.taskItem.setVisibility(View.INVISIBLE);
+        holder.iv.setVisibility(View.VISIBLE);
 
         holder.act3_item.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +127,7 @@ public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, assign, taskItem;
+        ImageView iv;
         LinearLayout act3_item;
 
         public ViewHolder(@NonNull View itemView) {
@@ -130,6 +136,7 @@ public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_
             assign = itemView.findViewById(R.id.itemBrief);
             taskItem = itemView.findViewById(R.id.itemContent);
             act3_item = itemView.findViewById(R.id.act_3_10_11_item);
+            iv = itemView.findViewById(R.id.iv_group);
         }
     }
 

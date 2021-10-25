@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,6 +86,10 @@ public class HomeActivity_3 extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(recycleAdapter_group_3);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
+        recyclerView.addItemDecoration(divider);
     }
 
     ActivityResultLauncher<Intent> mLauncherEditGroup = registerForActivityResult(
@@ -210,8 +215,6 @@ public class HomeActivity_3 extends AppCompatActivity {
                                             if (task.isSuccessful()) {
                                                 //先清空一下list
                                                 groupItemList.clear();
-//                                                groupMap.clear();
-//                                                groupIdList.clear();
 
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     GroupBrief groupBrief = document.toObject(GroupBrief.class);
@@ -257,16 +260,6 @@ public class HomeActivity_3 extends AppCompatActivity {
         }
     }
 
-//    public void registerOnClick(View view) {
-//        Intent intent = new Intent(HomeActivity_3.this, RegisterActivity_2.class);
-//        startActivity(intent);
-//    }
-
-//    public void loginOnClick(View view) {
-//        Intent intent = new Intent(HomeActivity_3.this, LoginActivity_1.class);
-//        startActivity(intent);
-//    }
-
     public void profileOnClick(View view) {
         Intent intent = new Intent(HomeActivity_3.this, ProfileActivity_4.class);
         startActivity(intent);
@@ -277,10 +270,7 @@ public class HomeActivity_3 extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    public void createGroupOnClick(View view) {
-//        Intent intent = new Intent(HomeActivity_3.this, CreateGroupActivity_6.class);
-//        startActivity(intent);
-//    }
+
 
     public void createGroupTestOnClick(View view) {
         Intent intent = new Intent(HomeActivity_3.this, Activity_16.class);

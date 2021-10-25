@@ -18,13 +18,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import comp5216.sydney.edu.au.firebaseapp.R;
+import comp5216.sydney.edu.au.firebaseapp.activity.activity_5_8_9.TaskListActivity_5;
 import comp5216.sydney.edu.au.firebaseapp.classtype.User;
 import comp5216.sydney.edu.au.firebaseapp.util.ACache;
 
 public class ProfileActivity_4 extends AppCompatActivity {
     private TextView tvName, tvEmail,tvDegree,tvDescription;
     private ImageView imageView;
-    private Button btnSignout,btnEdit,btnHome;
+    private Button btnSignout,btnEdit,btnHome,btnTask;
     ACache mCache;
 
     @Override
@@ -40,12 +41,21 @@ public class ProfileActivity_4 extends AppCompatActivity {
         btnSignout = findViewById(R.id.btn_profile_signout);
         btnEdit = findViewById(R.id.btn_profile_edit);
         btnHome = findViewById(R.id.btn_profile_home);
+        btnTask = findViewById(R.id.btn_profile_task);
         mCache = ACache.get(this);
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity_4.this,HomeActivity_3.class);
+                startActivity(intent);
+            }
+        });
+
+        btnTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity_4.this, TaskListActivity_5.class);
                 startActivity(intent);
             }
         });

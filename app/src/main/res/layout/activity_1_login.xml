@@ -11,15 +11,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome!"
+        android:text="Welcome to Uni-Task"
         android:textSize="30dp">
-    </TextView>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Sign in"
-        android:textSize="20dp">
     </TextView>
 
     <LinearLayout
@@ -56,6 +49,14 @@
             android:password="true"
             android:hint="password"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/tv_login_findpwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Forget password? click here!"
+        android:textColor="@color/background_dark">
+    </TextView>
 
     <Button
         android:id="@+id/btn_login_login"
