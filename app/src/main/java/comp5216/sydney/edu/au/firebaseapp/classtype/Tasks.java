@@ -96,7 +96,7 @@ public class Tasks implements Serializable {
 
     public String getMemberName() {
         String memberName="";
-        ArrayList<User> memberList=this.getUserList();
+        ArrayList<User> memberList=this.getSelectedList();
         for (User i:memberList){
             memberName += i.getUserName()+" ";
         }
