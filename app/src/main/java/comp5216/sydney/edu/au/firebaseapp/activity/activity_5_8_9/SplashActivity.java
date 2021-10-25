@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import comp5216.sydney.edu.au.firebaseapp.R;
 import comp5216.sydney.edu.au.firebaseapp.activity.activity_1_2_3_4.LoginActivity_1;
 
+//The splash page of our app
 public class SplashActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +19,7 @@ public class SplashActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         Handler handler = new Handler();
+        //the splash page will keep running of 2 seconds and go to the homepage
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
