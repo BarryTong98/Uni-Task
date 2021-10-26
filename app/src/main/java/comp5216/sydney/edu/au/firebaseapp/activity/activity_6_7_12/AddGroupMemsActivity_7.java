@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,6 +70,10 @@ public class AddGroupMemsActivity_7 extends AppCompatActivity {
                     }
                 }).addOnFailureListener(e -> Toast.makeText(AddGroupMemsActivity_7.this, "Fail to get the data.", Toast.LENGTH_SHORT).show());
         userRV.setAdapter(userAdapter);
+
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
+        userRV.addItemDecoration(divider);
     }
 
     @Override
