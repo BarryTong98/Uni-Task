@@ -9,8 +9,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="8dp"
+        app:cardCornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
-
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/name"
                 android:layout_width="match_parent"
@@ -29,6 +27,7 @@
                 android:buttonTint="@color/lemon_green"
                 android:paddingStart="10dp"
                 android:text="Barry"
+                android:textColor="@color/background_yellow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,14 +40,18 @@
                 android:layout_marginStart="40dp"
                 android:text="Master Of Information Technology"
                 android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/background_yellow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name" />
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
                 android:text="BackEnd Developer"
+                android:textColor="@color/background_yellow"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/degree" />

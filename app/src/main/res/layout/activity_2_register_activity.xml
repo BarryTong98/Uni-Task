@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Join us now!"
         android:textColor="@color/background_dark"
-        android:textSize="80px"
+        android:textSize="30dp"
         />
 
     <comp5216.sydney.edu.au.firebaseapp.util.OvalImageView
@@ -32,22 +32,27 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="please upload a avatar"/>
+        android:textColor="@color/background_brown"
+        android:text="Please upload a photo"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/textview_border">
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/text_view_border">
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="user name:"/>
+            android:textSize="16sp"
+            android:textColor="@color/background_dark"
+            android:text="User name:"/>
 
         <EditText
             android:id="@+id/et_username"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:background="@null"
             />
     </LinearLayout>
 
@@ -55,17 +60,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/textview_border">
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/text_view_border">
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="email:"/>
+            android:textSize="16sp"
+            android:textColor="@color/background_dark"
+            android:text="Email:"/>
 
         <EditText
             android:id="@+id/et_email"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_height="50dp"
          />
     </LinearLayout>
 
@@ -73,18 +82,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/textview_border"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/text_view_border"
         >
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="password:"/>
+            android:textSize="16sp"
+            android:textColor="@color/background_dark"
+            android:text="Password:"/>
 
         <EditText
             android:id="@+id/et_reg_password"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_height="50dp"
             android:password="true"
            />
     </LinearLayout>
@@ -93,38 +106,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/textview_border"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/text_view_border"
         >
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="confirm:"
+            android:textSize="16sp"
+            android:textColor="@color/background_dark"
+            android:text="Confirm:"
            />
 
         <EditText
             android:id="@+id/et_reg_password_confirm"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:background="@null"
             android:password="true"
-
             />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/bt_reg_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Create your account"/>
-
     <TextView
         android:id="@+id/tv_register_signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Sign in instead"
-        android:textColor="@color/background_dark">
+        android:textColor="@color/background_brown">
     </TextView>
+
+    <Button
+        android:id="@+id/bt_reg_register"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Create your account"/>
+
 </LinearLayout>

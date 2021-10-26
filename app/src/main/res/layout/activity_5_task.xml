@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:button="@null"
+                android:buttonTint="@color/lemon_green"
                 android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                 android:paddingStart="16dp"
                 android:text="name"

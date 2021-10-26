@@ -5,34 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#f8ead7"
+    android:background="@color/background_home"
     tools:context=".activity.activity_1_2_3_4.HomeActivity_3">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_home"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_centerHorizontal="true" />
-
-    <LinearLayout
-        android:id="@+id/setGroupAndData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/recycle_home"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttonSet">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true" />
 
         <ImageButton
             android:id="@+id/createGroup_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_weight="0.5"
-            android:background="@color/background_home"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="#00000000"
             android:onClick="createGroupTestOnClick"
             android:src="@drawable/ic_baseline_person_add_alt_1_24" />
-    </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/buttonSet"
@@ -47,10 +43,10 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/ic_home2"
+            android:drawableTop="@drawable/ic_home3"
             android:background="@drawable/btn_bottom"
             android:text="Home"
-            android:textColor="@color/background_yellow"/>
+            android:textColor="@color/background_dark"/>
 
         <Button
             android:id="@+id/btn_main_task"

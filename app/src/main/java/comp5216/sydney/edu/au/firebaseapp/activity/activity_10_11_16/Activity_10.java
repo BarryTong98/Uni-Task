@@ -56,14 +56,16 @@ public class Activity_10 extends AppCompatActivity {
         assignmentList = group.getAssignmentList();
         userList = group.getUserList();
         assignmentRecyclerView = findViewById(R.id.assignmentView);
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
+
         if (assignmentList!=null) {
             RecycleAdapter_ass_10_16 recycleAdapter_ass_10 = new RecycleAdapter_ass_10_16(this, assignmentList, "activity10");
             assignmentRecyclerView.setHasFixedSize(true);
             assignmentRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             assignmentRecyclerView.setAdapter(recycleAdapter_ass_10);
             assignmentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-            divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
+
             assignmentRecyclerView.addItemDecoration(divider);
         }
         memberRecyclerView = findViewById(R.id.groupMemberView);
@@ -73,6 +75,8 @@ public class Activity_10 extends AppCompatActivity {
             memberRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             memberRecyclerView.setAdapter(recycleAdapter_mem_10);
             memberRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            memberRecyclerView.addItemDecoration(divider);
+
         }
 
 

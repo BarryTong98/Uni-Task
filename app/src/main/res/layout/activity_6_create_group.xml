@@ -20,14 +20,14 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/edit"
             android:hint="@string/groupname"
             android:importantForAutofill="no"
             android:inputType="text"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:textColor="@color/black"
+            android:textColor="@color/background_dark"
             android:textCursorDrawable="@null"
+            android:background="@drawable/text_view_border"
 
             android:textSize="15sp" />
 
@@ -38,7 +38,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/edit"
+            android:background="@drawable/text_view_border"
             android:gravity="start|top"
             android:hint="@string/gi"
             android:importantForAutofill="no"

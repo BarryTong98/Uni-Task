@@ -9,18 +9,12 @@
     android:background="@color/background_home"
     tools:context=".activity.activity_1_2_3_4.ProfileActivity_4">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User Profile"
-        android:textSize="80px"
-        />
 
     <comp5216.sydney.edu.au.firebaseapp.util.OvalImageView
         android:id="@+id/iv_profile_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -34,25 +28,25 @@
         android:id="@+id/tv_profile_username"
         android:layout_width="270dp"
         android:layout_height="30dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/textview_border"
-        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/text_view_border"
+        android:padding="5dp"
         android:hint="username"/>
     <TextView
         android:id="@+id/tv_profile_email"
         android:layout_width="270dp"
         android:layout_height="30dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/textview_border"
-        android:gravity="center"
+        android:padding="5dp"
+        android:background="@drawable/text_view_border"
         android:hint="email"/>
     <TextView
         android:id="@+id/tv_profile_description"
         android:layout_width="270dp"
         android:layout_height="30dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/textview_border"
-        android:gravity="center"
+        android:background="@drawable/text_view_border"
+        android:padding="5dp"
         android:hint="description"/>
 
     <TextView
@@ -60,8 +54,8 @@
         android:layout_width="270dp"
         android:layout_height="30dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/textview_border"
-        android:gravity="center"
+        android:background="@drawable/text_view_border"
+        android:padding="5dp"
         android:hint="degree"/>
 
     <Button
@@ -116,9 +110,9 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/ic_profile2"
+            android:drawableTop="@drawable/ic_profile3"
             android:background="@drawable/btn_bottom"
-            android:textColor="@color/background_yellow"
+            android:textColor="@color/background_dark"
             android:text="Profile" />
     </LinearLayout>
 

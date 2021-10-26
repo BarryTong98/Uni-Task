@@ -21,10 +21,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
         android:text="Assignment List"
-        android:textColor="@color/black"
-        android:textSize="21sp"
-        android:textStyle="italic|bold" />
+        android:textColor="@color/background_dark"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/assignmentView"
@@ -40,9 +42,10 @@
         android:layout_below="@+id/assignmentView"
         android:layout_marginTop="20dp"
         android:text="Member List"
-        android:textColor="@color/black"
-        android:textSize="21sp"
-        android:textStyle="italic|bold" />
+        android:layout_marginStart="5dp"
+        android:textColor="@color/background_dark"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groupMemberView"
@@ -60,8 +63,9 @@
         android:text="@string/discussion_list"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"
+       />
 
 
 </RelativeLayout>
