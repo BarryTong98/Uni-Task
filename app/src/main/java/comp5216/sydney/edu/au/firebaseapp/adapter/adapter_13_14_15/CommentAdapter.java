@@ -20,7 +20,7 @@ import comp5216.sydney.edu.au.firebaseapp.R;
 import comp5216.sydney.edu.au.firebaseapp.classtype.Comment;
 import comp5216.sydney.edu.au.firebaseapp.util.DateUtil;
 
-
+//Listview for the discussion function to show the comments
 public class CommentAdapter extends BaseAdapter {
     private List<Comment> commentList;
     private Context context;
@@ -32,7 +32,7 @@ public class CommentAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (commentList==null||commentList.isEmpty()) {
+        if (commentList == null || commentList.isEmpty()) {
             return 0;
         } else {
             return commentList.size();
@@ -54,25 +54,28 @@ public class CommentAdapter extends BaseAdapter {
         final ViewHolderOfComment viewHolderOfComment;
         if (convertView == null) {
             viewHolderOfComment = new ViewHolderOfComment();
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_comment, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_comment, parent
+                    , false);
             viewHolderOfComment.author = convertView.findViewById(R.id.tvAuthor1);
             viewHolderOfComment.content = convertView.findViewById(R.id.tvContent1);
             viewHolderOfComment.time = convertView.findViewById(R.id.tvTime1);
-            viewHolderOfComment.profile=convertView.findViewById(R.id.profile);
+            viewHolderOfComment.profile = convertView.findViewById(R.id.profile);
             convertView.setTag(viewHolderOfComment);
         } else {
             viewHolderOfComment = (ViewHolderOfComment) convertView.getTag();
         }
         Comment comment = commentList.get(position);
-        viewHolderOfComment.author.setText(comment.getUserID()+"");
+        viewHolderOfComment.author.setText(comment.getUserID() + "");
         viewHolderOfComment.content.setText(comment.getBody());
-        viewHolderOfComment.time.setText(DateUtil.dateToString(comment.getTimestamp(),false));
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + "123@qq.com");
+        viewHolderOfComment.time.setText(DateUtil.dateToString(comment.getTimestamp(), false));
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference()
+                .child("profile/" + comment.getUserEmail());
+        // used to display images, including image caching
         Glide.with(context /* context */)
                 .load(storageReference)
-                .signature(new ObjectKey(comment.getUserEmail())) //为了图片更新之后，缓存也更新
-                .placeholder(R.drawable.image)//图片加载出来前，显示的图片
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
+                .signature(new ObjectKey(comment.getUserEmail()))
+                .placeholder(R.drawable.image)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(viewHolderOfComment.profile);
         return convertView;
     }

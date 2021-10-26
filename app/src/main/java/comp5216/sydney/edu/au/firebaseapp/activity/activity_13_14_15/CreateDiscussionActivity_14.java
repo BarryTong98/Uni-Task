@@ -21,15 +21,9 @@ public class CreateDiscussionActivity_14 extends AppCompatActivity {
 
     private EditText etTitle;
     private EditText etDescription;
-    private AssignmentAdapter adapter;
-    private RecyclerView recyclerView;
     private Button btnPost;
-
-
     private String groupID;
     private String userID;
-
-
     private FirebaseFirestore firebaseFirestore;
 
 
@@ -41,39 +35,29 @@ public class CreateDiscussionActivity_14 extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         etTitle = findViewById(R.id.etTitle);
         etDescription = findViewById(R.id.etDescription);
-//        recyclerView = findViewById(R.id.lvAssignment);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(CreateDiscussionActivity.this));
-
-//        ArrayList<String> assignments=new ArrayList<>();
-//        assignments.add("Assignments1");
-//        assignments.add("Assignments2");
-//        assignments.add("Assignments3");
-//        assignments.add("Assignments4");
-
-//        map=new HashMap<>();
-//
-//        adapter=new AssignmentAdapter(assignments,CreateDiscussionActivity.this,map);
-//        recyclerView.setAdapter(adapter);
-
-
         btnPost = findViewById(R.id.btnPost);
-
         groupID = getIntent().getStringExtra("groupID");
         userID = getIntent().getStringExtra("userName");
         initFirestore();
     }
 
+    /**
+     * connect with the firebase
+     */
     private void initFirestore() {
         firebaseFirestore = FirebaseFirestore.getInstance();
     }
 
-
+    /**
+     * when user click post button, jump to DiscussionListActivity
+     *
+     * @param view
+     */
     public void clickPost(View view) {
-
         String title = etTitle.getText().toString();
         String description = etDescription.getText().toString();
-        Intent intent = new Intent(CreateDiscussionActivity_14.this, DiscussionListActivity_13.class);
+        Intent intent = new Intent(CreateDiscussionActivity_14.this
+                , DiscussionListActivity_13.class);
         intent.putExtra("title", title);
         intent.putExtra("description", description);
         setResult(RESULT_OK, intent);

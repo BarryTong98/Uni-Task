@@ -34,22 +34,17 @@ import comp5216.sydney.edu.au.firebaseapp.R;
 
 public class DiscussionListActivity_13 extends AppCompatActivity {
 
-    private static final String TAG = "Final Project";
+    private static final String TAG = "Uni-Task";
     private String groupID;
     private ListView discussionListView;
     private Button btnCreate;
     private DiscussionAdapter adapter;
-
     private FirebaseFirestore firebaseFirestore;
-
     private ArrayList<Discussion> discussions;
-
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     private String userID;
     private String userName;
-
-
-    ActivityResultLauncher<Intent> resultLauncher;
+    private ActivityResultLauncher<Intent> resultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +57,7 @@ public class DiscussionListActivity_13 extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         discussionListView = findViewById(R.id.discussionList);
         btnCreate = findViewById(R.id.btnCreate);
-        Bundle bundle = getIntent().getExtras();
-
         discussions=new ArrayList<>();
-        //discussions = (ArrayList<Discussion>) getIntent().getSerializableExtra("discussions");
         groupID = getIntent().getStringExtra("groupID");
         initFirestore();
         adapter = new DiscussionAdapter(discussions, DiscussionListActivity_13.this);
@@ -73,6 +65,9 @@ public class DiscussionListActivity_13 extends AppCompatActivity {
         setupListener();
     }
 
+    /**
+     * get discussions from firebase according to groupID, order by timestamp
+     */
     private void initFirestore() {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection("discussions")
@@ -87,7 +82,8 @@ public class DiscussionListActivity_13 extends AppCompatActivity {
                                 Discussion discussion = document.toObject(Discussion.class);
                                 discussions.add(discussion);
                             }
-                            adapter = new DiscussionAdapter(discussions, DiscussionListActivity_13.this);
+                            adapter = new DiscussionAdapter(discussions
+                                    , DiscussionListActivity_13.this);
                             discussionListView.setAdapter(adapter);
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -97,9 +93,15 @@ public class DiscussionListActivity_13 extends AppCompatActivity {
     }
 
 
+    /**
+     * when users click create button, jump to CreateDiscussionActivity
+     * transmit groupID, userID, username, assignmentID
+     *
+     * @param view
+     */
     public void clickCreate(View view) {
-
-        Intent intent = new Intent(DiscussionListActivity_13.this, CreateDiscussionActivity_14.class);
+        Intent intent = new Intent(DiscussionListActivity_13.this
+                , CreateDiscussionActivity_14.class);
         if (intent != null) {
             intent.putExtra("groupID", groupID);
             intent.putExtra("userID", userID);
@@ -109,24 +111,33 @@ public class DiscussionListActivity_13 extends AppCompatActivity {
         resultLauncher.launch(intent);
     }
 
+    /**
+     * listener
+     */
     private void setupListener() {
         firebaseFirestore = FirebaseFirestore.getInstance();
-        resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        // when user create a discussion, receive the data and upload to firebase
+        resultLauncher = registerForActivityResult(new ActivityResultContracts
+                .StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK) {
                 String title = result.getData().getExtras().getString("title");
                 String description = result.getData().getExtras().getString("description");
                 List<Comment> comments = new ArrayList<>();
-                Discussion discussion = new Discussion(IdUtil.getUUID("D"), groupID, userName, 1, title, description, new Date(), comments);
-                firebaseFirestore.collection("discussions").document(discussion.getDiscussionID()).set(discussion);
+                Discussion discussion = new Discussion(IdUtil.getUUID("D"), groupID
+                        , userName, 1, title, description, new Date(), comments);
+                firebaseFirestore.collection("discussions")
+                        .document(discussion.getDiscussionID()).set(discussion);
                 discussions.add(discussion);
             }
             adapter.notifyDataSetChanged();
         });
 
+        // when user click a discussion item, jump to DiscussionActivity
         discussionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(DiscussionListActivity_13.this, DiscussionActivity_15.class);
+                Intent intent = new Intent(DiscussionListActivity_13.this
+                        , DiscussionActivity_15.class);
                 if (intent != null) {
                     intent.putExtra("userName",userName);
                     intent.putExtra("discussionID", discussions.get(position).getDiscussionID());

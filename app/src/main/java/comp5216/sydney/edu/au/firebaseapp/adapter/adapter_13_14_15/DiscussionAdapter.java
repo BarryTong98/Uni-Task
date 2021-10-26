@@ -6,13 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import comp5216.sydney.edu.au.firebaseapp.R;
+
 import java.util.List;
 
 import comp5216.sydney.edu.au.firebaseapp.classtype.Discussion;
 import comp5216.sydney.edu.au.firebaseapp.util.DateUtil;
 
-
+//Listview for the discussion list function to show the discussion
 public class DiscussionAdapter extends BaseAdapter {
     private List<Discussion> discussionList;
     private Context context;
@@ -46,7 +48,8 @@ public class DiscussionAdapter extends BaseAdapter {
         final ViewHolderOfDiscussion viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolderOfDiscussion();
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_discussion, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_discussion, parent
+                    , false);
             viewHolder.title = convertView.findViewById(R.id.tvDiscussionTitle);
             viewHolder.date = convertView.findViewById(R.id.tvDiscussionAuthor);
             convertView.setTag(viewHolder);
@@ -55,7 +58,8 @@ public class DiscussionAdapter extends BaseAdapter {
         }
         Discussion discussion = discussionList.get(position);
         viewHolder.title.setText(discussion.getTitle());
-        viewHolder.date.setText("Created by"+discussion.getUserID()+" "+ DateUtil.dateToString(discussion.getTimestamp(),true));
+        viewHolder.date.setText("Created by" + discussion.getUserID() + " "
+                + DateUtil.dateToString(discussion.getTimestamp(), true));
         return convertView;
     }
 }

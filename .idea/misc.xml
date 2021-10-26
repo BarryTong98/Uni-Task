@@ -1,45 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
-        <entry key="app/src/main/res/drawable-v24/ic_add.xml" value="0.26666666666666666" />
-        <entry key="app/src/main/res/drawable/bg_btn.xml" value="0.26927083333333335" />
-        <entry key="app/src/main/res/drawable/btn_bottom.xml" value="0.26927083333333335" />
-        <entry key="app/src/main/res/drawable/divider.xml" value="0.20104166666666667" />
-        <entry key="app/src/main/res/drawable/ic_baseline_person_add_alt_1_24.xml" value="0.21944444444444444" />
-        <entry key="app/src/main/res/layout/activity_10.xml" value="0.20969824063841933" />
-        <entry key="app/src/main/res/layout/activity_10_mem_item.xml" value="0.11778115501519756" />
-        <entry key="app/src/main/res/layout/activity_10_member_profile.xml" value="0.20380434782608695" />
-        <entry key="app/src/main/res/layout/activity_14_create_discussion.xml" value="0.11778115501519756" />
-        <entry key="app/src/main/res/layout/activity_16.xml" value="0.11778115501519756" />
-        <entry key="app/src/main/res/layout/activity_1_login.xml" value="0.20380434782608695" />
-        <entry key="app/src/main/res/layout/activity_2_register_activity.xml" value="0.3384830939468286" />
-        <entry key="app/src/main/res/layout/activity_3_10_11_item.xml" value="0.24073772794883866" />
-        <entry key="app/src/main/res/layout/activity_3_main.xml" value="0.25397196622415824" />
-        <entry key="app/src/main/res/layout/activity_4_edit_info.xml" value="0.11778115501519756" />
-        <entry key="app/src/main/res/layout/activity_4_profile.xml" value="0.28203893208482717" />
-        <entry key="app/src/main/res/layout/activity_5_task.xml" value="0.29065886459506457" />
-        <entry key="app/src/main/res/layout/activity_5_task_page.xml" value="0.18764930189644477" />
-        <entry key="app/src/main/res/layout/activity_6_create_group.xml" value="0.11778115501519756" />
-        <entry key="app/src/main/res/layout/activity_7_member_search.xml" value="0.15307971014492755" />
-        <entry key="app/src/main/res/layout/activity_8_create_assignment.xml" value="0.11778115501519756" />
-        <entry key="app/src/main/res/layout/activity_9_create_task.xml" value="0.11778115501519756" />
-        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.20878623188405798" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.20878623188405798" />
-        <entry key="app/src/main/res/layout/fragment_task.xml" value="0.20878623188405798" />
-        <entry key="app/src/main/res/layout/item_10.xml" value="0.22388466317466515" />
-        <entry key="app/src/main/res/layout/item_3_home.xml" value="0.20380434782608695" />
-        <entry key="app/src/main/res/layout/item_add_user.xml" value="0.1480978260869565" />
-        <entry key="app/src/main/res/layout/item_assignment.xml" value="0.1480978260869565" />
-        <entry key="app/src/main/res/layout/item_comment.xml" value="0.346707507369513" />
-        <entry key="app/src/main/res/layout/item_discussion.xml" value="0.1480978260869565" />
-        <entry key="app/src/main/res/layout/item_tasks.xml" value="0.20380434782608695" />
-        <entry key="app/src/main/res/layout/item_taskview.xml" value="0.2894338132762754" />
-        <entry key="app/src/main/res/menu/search_menu.xml" value="0.2630208333333333" />
-      </map>
-    </option>
-  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
