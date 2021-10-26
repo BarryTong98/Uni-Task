@@ -34,7 +34,7 @@ import comp5216.sydney.edu.au.firebaseapp.util.IdUtil;
 
 
 public class DiscussionActivity_15 extends AppCompatActivity {
-    public final String TAG = "FinalProject";
+    public final String TAG = "Uni-Task";
 
     private TextView tvTitle;
     private TextView tvDescription;
@@ -48,8 +48,6 @@ public class DiscussionActivity_15 extends AppCompatActivity {
     private String userEmail;
     private CommentAdapter commentAdapter;
     private FirebaseAuth mAuth;
-
-
     private FirebaseFirestore firebaseFirestore;
 
     @Override
@@ -73,8 +71,14 @@ public class DiscussionActivity_15 extends AppCompatActivity {
 
     }
 
+    /**
+     * get comments from firebase according to discussionID
+     *
+     * @param discussionID
+     */
     private void getComments(String discussionID) {
-        DocumentReference documentReference = firebaseFirestore.collection("discussions").document(discussionID);
+        DocumentReference documentReference = firebaseFirestore
+                .collection("discussions").document(discussionID);
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -89,14 +93,19 @@ public class DiscussionActivity_15 extends AppCompatActivity {
         });
     }
 
+    /**
+     * upload the new comment to firebase
+     */
     private void updateComments() {
-        DocumentReference documentReference = firebaseFirestore.collection("discussions").document(discussion.getDiscussionID());
-        documentReference.update("comments", commentList).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d(TAG, "DocumentSnapshot successfully updated!");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
+        DocumentReference documentReference = firebaseFirestore
+                .collection("discussions").document(discussion.getDiscussionID());
+        documentReference.update("comments", commentList)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.w(TAG, "Error updating document", e);
@@ -104,10 +113,14 @@ public class DiscussionActivity_15 extends AppCompatActivity {
         });
     }
 
+    /**
+     * when user click the post button, generate the new comments and display it
+     */
     public void clickPost(View view) {
         String content = etInput.getText().toString();
         if (!content.isEmpty()) {
-            Comment comment = new Comment(IdUtil.getUUID("C"), userName,userEmail , content, new Date());
+            Comment comment = new Comment(IdUtil.getUUID("C")
+                    , userName, userEmail, content, new Date());
             commentList.add(comment);
             discussion.setComments(commentList);
             updateComments();
@@ -117,6 +130,9 @@ public class DiscussionActivity_15 extends AppCompatActivity {
         }
     }
 
+    /**
+     * when user finish typing, hide the keyboard
+     */
     private void hideKeyboard() {
         View view = getCurrentFocus();
         if (view != null) {

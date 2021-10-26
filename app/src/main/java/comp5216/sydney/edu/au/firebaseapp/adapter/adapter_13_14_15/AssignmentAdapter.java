@@ -18,6 +18,7 @@ import java.util.Map;
 
 import comp5216.sydney.edu.au.firebaseapp.R;
 
+//RecyclerView For the Create Discussion function to show the assignments
 public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.AssignmentViewHolder> {
     private List<String> assignments;
     private Map<Integer, Boolean> map;
@@ -43,6 +44,7 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.As
         }
         return true;
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull AssignmentViewHolder holder, int position) {
