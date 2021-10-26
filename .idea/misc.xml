@@ -10,7 +10,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_person_add_alt_1_24.xml" value="0.21944444444444444" />
         <entry key="app/src/main/res/drawable/text_view_border.xml" value="10.0" />
         <entry key="app/src/main/res/layout/activity_10.xml" value="0.32088285229202035" />
-        <entry key="app/src/main/res/layout/activity_10_mem_item.xml" value="0.7717904559680162" />
+        <entry key="app/src/main/res/layout/activity_10_mem_item.xml" value="0.44919308442308964" />
         <entry key="app/src/main/res/layout/activity_10_member_profile.xml" value="0.20380434782608695" />
         <entry key="app/src/main/res/layout/activity_13_discussion_list.xml" value="0.13500506585612967" />
         <entry key="app/src/main/res/layout/activity_14_create_discussion.xml" value="0.23987561760890405" />
@@ -42,6 +42,7 @@
         <entry key="app/src/main/res/layout/item_discussion.xml" value="0.1480978260869565" />
         <entry key="app/src/main/res/layout/item_tasks.xml" value="0.3949335148138381" />
         <entry key="app/src/main/res/layout/item_taskview.xml" value="0.2894338132762754" />
+        <entry key="app/src/main/res/layout/search_user_item.xml" value="0.18125" />
         <entry key="app/src/main/res/menu/search_menu.xml" value="0.2630208333333333" />
       </map>
     </option>
