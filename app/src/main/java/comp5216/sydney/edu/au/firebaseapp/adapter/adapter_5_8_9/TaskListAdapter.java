@@ -60,6 +60,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.MyView
         //Get the Specific Tasks Model from the Recycler View
         Tasks tasksModel = assignmentModelList.get(position);
 
+        holder.setIsRecyclable(false);
         //Set the default value for each component
         holder.due.setText(tasksModel.getTaskName() + " Due: " + tasksModel.getDueDate());
         holder.name.setChecked(toBoolean(tasksModel.getStates()));

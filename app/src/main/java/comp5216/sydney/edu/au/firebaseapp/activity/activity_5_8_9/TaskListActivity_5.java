@@ -74,7 +74,6 @@ public class TaskListActivity_5 extends AppCompatActivity {
         showData();
         adapter = new TaskListAdapter(tasksFromFireBase, TaskListActivity_5.this);
         recyclerView.setAdapter(adapter);
-
         DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
         recyclerView.addItemDecoration(divider);

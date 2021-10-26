@@ -36,6 +36,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
         return new MyViewHolder(view);
     }
 
+
+    /**
+     * Receive the data from the adapter and set the status value which is changing with checkbox
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         User taskModel = taskModelList.get(position);
@@ -47,12 +54,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked){
                 taskModel.setStatus(1);
-                System.out.println(taskModel.getUserName()+"  taskModel.setStatus: "+taskModel.getStatus());
-                //firestore.collection("task").document(taskModel.getUserId()).update("status",1);
             }else {
                 taskModel.setStatus(0);
-                System.out.println(taskModel.getUserName()+"  taskModel.setStatus: "+taskModel.getStatus());
-                //firestore.collection("task").document(taskModel.getUserId()).update("status",0);
             }
         });
     }

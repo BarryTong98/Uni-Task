@@ -74,7 +74,7 @@ public class EditInfoActivity_4 extends AppCompatActivity {
             // (See MyAppGlideModule for Loader registration)
             Glide.with(this /* context */)
                     .load(storageReference)
-                    .signature(new ObjectKey(user.getUid())) //为了图片更新之后，缓存也更新
+                    .signature(new ObjectKey(user.getEmail())) //为了图片更新之后，缓存也更新
                     .placeholder(R.drawable.image)//图片加载出来前，显示的图片
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
                     .into(photo);
