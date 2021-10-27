@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import comp5216.sydney.edu.au.firebaseapp.activity.activity_10_11_16.Activity_11;
 import comp5216.sydney.edu.au.firebaseapp.classtype.Assignment;
@@ -48,7 +49,7 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<Assignment> list= queryDocumentSnapshots.toObjects(Assignment.class);
-                Map<String,Assignment> map=new HashMap<>();
+                Map<String,Assignment> map=new TreeMap<>();
                 for(Assignment i:assignmentList){
                     map.put(i.getAssignmentId(),i);
                 }

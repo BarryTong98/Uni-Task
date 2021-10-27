@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -160,6 +161,10 @@ public class Activity_16 extends AppCompatActivity {
             assignmentRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             assignmentRecyclerView.setAdapter(recycleAdapter_ass_16);
             assignmentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+            divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
+            assignmentRecyclerView.addItemDecoration(divider);
         }
     }
 
@@ -171,6 +176,10 @@ public class Activity_16 extends AppCompatActivity {
             memberRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             memberRecyclerView.setAdapter(recycleAdapter_mem_16);
             memberRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+            divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
+            memberRecyclerView.addItemDecoration(divider);
         }
     }
 
