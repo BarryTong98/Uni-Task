@@ -81,13 +81,13 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
         int location = holder.getAdapterPosition();
         if (firebaseUserList.get(location).getImageURL() != null&&firebaseUserList.get(location).getEmail()!=null) {
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + firebaseUserList.get(location).getEmail());
-            System.out.println("22222222");
             Glide.with(context /* context */)
                     .load(storageReference)
-                    .signature(new ObjectKey(firebaseUserList.get(position).getEmail())) //为了图片更新之后，缓存也更新
+                    .signature(new ObjectKey(firebaseUserList.get(location).getEmail())) //为了图片更新之后，缓存也更新
                     .placeholder(R.drawable.image)//图片加载出来前，显示的图片
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
                     .into(holder.image);
