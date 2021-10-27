@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -69,6 +71,10 @@ public class CreateTaskActivity_9 extends AppCompatActivity {
         taskId = IdUtil.getUUID("T");
         selectedUser = new ArrayList<>();
 
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
+        recyclerView.addItemDecoration(divider);
+
         //Determine the source of the userList, TaskListAdapter or CreateAssignmentActivity
         //if we click the assignment from list and transfer to this activity
         if (taskFromAssignment != null) {
@@ -123,7 +129,7 @@ public class CreateTaskActivity_9 extends AppCompatActivity {
                 });
 
             }
-            //upload the task to fiirebase
+            //upload the task to firebase
             else {
                 Tasks uploadTask = new Tasks(taskId, assignmentId, groupId, task_name, des, dateVal, groupName, userList, selectedUser);
                 firestore.collection("tasks").document(uploadTask.getTaskId()).set(uploadTask);

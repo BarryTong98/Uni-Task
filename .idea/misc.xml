@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/program/andriod/Uni-Task-UIComplete/app/src/main/res/layout/activity_16.xml" value="0.10280797101449275" />
+        <entry key="app/src/main/res/layout/activity_10_mem_item.xml" value="0.625" />
+        <entry key="app/src/main/res/layout/activity_15_discussion.xml" value="0.18489583333333334" />
+        <entry key="app/src/main/res/layout/member_search.xml" value="0.18489583333333334" />
       </map>
     </option>
   </component>

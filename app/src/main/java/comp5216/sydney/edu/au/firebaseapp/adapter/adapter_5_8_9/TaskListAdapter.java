@@ -1,5 +1,6 @@
 package comp5216.sydney.edu.au.firebaseapp.adapter.adapter_5_8_9;
 
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -58,11 +60,12 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.MyView
         //Get the Specific Tasks Model from the Recycler View
         Tasks tasksModel = assignmentModelList.get(position);
 
+        holder.setIsRecyclable(false);
         //Set the default value for each component
         holder.due.setText(tasksModel.getTaskName() + " Due: " + tasksModel.getDueDate());
         holder.name.setChecked(toBoolean(tasksModel.getStates()));
         holder.name.setText(tasksModel.getGroupName());
-        holder.desceiption.setText(tasksModel.getDescription());
+        holder.description.setText(tasksModel.getDescription());
 
         //set the status value which is changing with checkbox
         holder.name.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -70,15 +73,27 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.MyView
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //if the check box is clicked
                 if (isChecked) {
-                    tasksModel.setStates(tasksModel.getStates() + 1);
-                    //upload the status to firebase
-                    if (tasksModel.getStates() == tasksModel.getSelectedList().size()) {
-                        tasksModel.setComplete(1);
-                        firestore.collection("tasks").
-                                document(tasksModel.getTaskId()).update("complete", 1);
-                    }
-                    firestore.collection("tasks").
-                            document(tasksModel.getTaskId()).update("states", tasksModel.getStates());
+                    //Confirm this operation
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setMessage("Please confirm that you have completed this task")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    tasksModel.setStates(tasksModel.getStates() + 1);
+                                    //upload the status to firebase
+                                    if (tasksModel.getStates() == tasksModel.getSelectedList().size()) {
+                                        tasksModel.setComplete(1);
+                                        firestore.collection("tasks").
+                                                document(tasksModel.getTaskId()).update("complete", 1);
+                                    }
+                                    firestore.collection("tasks").
+                                            document(tasksModel.getTaskId()).update("states", tasksModel.getStates());
+                                }
+                            })
+                            .setNegativeButton("No", (dialogInterface, i) -> {
+                                //Nothing happen and reset the checkbox to unclicked
+                                holder.name.setChecked(false);
+                            });
+                    builder.create().show();
                 }
                 //if the check box is not clicked
                 else {
@@ -119,13 +134,13 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.MyView
      * Connect the ViewHolder with component
      */
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView desceiption;
+        TextView description;
         TextView due;
         CheckBox name;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            desceiption = itemView.findViewById(R.id.description);
+            description = itemView.findViewById(R.id.description);
             name = itemView.findViewById(R.id.name);
             due = itemView.findViewById(R.id.due);
         }

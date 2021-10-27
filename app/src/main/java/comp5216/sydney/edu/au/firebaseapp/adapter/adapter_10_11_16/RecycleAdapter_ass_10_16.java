@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,6 +36,7 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
     private List<Tasks> firebaseTaskList;
     private final String activity;
     Context context;
+    private CardView cv;
     FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
 
     public RecycleAdapter_ass_10_16(Context context, @NonNull List<Assignment> assignmentList, String activity) {
@@ -66,7 +69,7 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.activity_3_10_11_item, parent, false);
-
+        cv = (CardView)view.findViewById(R.id.cardView);
         return new ViewHolder(view);
     }
 
@@ -75,7 +78,7 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
         int location=position;
         holder.title.setText(firebaseAssignmentList.get(location).getAssignmentName() );
         holder.dueDate.setText("Due: " + firebaseAssignmentList.get(location).getDueDate());
-
+        holder.iv.setVisibility(View.VISIBLE);
 
         firebaseFirestore.collection("tasks").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -138,6 +141,7 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, dueDate, percent;
+        ImageView iv;
         LinearLayout act10_ass_item;
 
         public ViewHolder(@NonNull View itemView) {
@@ -146,6 +150,7 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
             dueDate = itemView.findViewById(R.id.itemBrief);
             percent = itemView.findViewById(R.id.itemContent);
             act10_ass_item = itemView.findViewById(R.id.act_3_10_11_item);
+            iv = itemView.findViewById(R.id.iv_ass);
         }
     }
 
@@ -168,7 +173,7 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
             }
             percentage /= tempTaskList.size();
 
-            String s = String.format("The assignment has been completed");
+            String s = String.format("Completed:");
             if (percentage == 0.0) {
                 s += " 0%";
             } else {
@@ -176,7 +181,7 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
             }
             return s;
         }else {
-            return "This assignment don't have any tasks.";
+            return "Don't have any tasks.";
         }
     }
 

@@ -10,6 +10,7 @@ import comp5216.sydney.edu.au.firebaseapp.classtype.User;
 import comp5216.sydney.edu.au.firebaseapp.R;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,12 +56,17 @@ public class Activity_10 extends AppCompatActivity {
         assignmentList = group.getAssignmentList();
         userList = group.getUserList();
         assignmentRecyclerView = findViewById(R.id.assignmentView);
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
+
         if (assignmentList!=null) {
             RecycleAdapter_ass_10_16 recycleAdapter_ass_10 = new RecycleAdapter_ass_10_16(this, assignmentList, "activity10");
             assignmentRecyclerView.setHasFixedSize(true);
             assignmentRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             assignmentRecyclerView.setAdapter(recycleAdapter_ass_10);
             assignmentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            assignmentRecyclerView.addItemDecoration(divider);
         }
         memberRecyclerView = findViewById(R.id.groupMemberView);
         if (userList!=null) {
@@ -69,6 +75,8 @@ public class Activity_10 extends AppCompatActivity {
             memberRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             memberRecyclerView.setAdapter(recycleAdapter_mem_10);
             memberRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            memberRecyclerView.addItemDecoration(divider);
+
         }
 
 

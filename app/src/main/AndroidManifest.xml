@@ -15,10 +15,13 @@
 
         <activity
             android:name=".activity.activity_1_2_3_4.EditInfoActivity_4"
+            android:launchMode="singleTask"
+            android:label="Edit information"
             android:exported="true" />
 
         <activity
             android:name=".activity.activity_1_2_3_4.ProfileActivity_4"
+            android:launchMode="singleTask"
             android:exported="true" />
 
         <activity
@@ -66,8 +69,6 @@
         </activity>
         <activity
             android:name=".activity.activity_5_8_9.TaskListActivity_5"
-            android:exported="true"
-            android:label="Your Tasks"
             android:parentActivityName=".activity.activity_1_2_3_4.HomeActivity_3"/>
 
         <activity
@@ -76,11 +77,13 @@
             android:parentActivityName=".activity.activity_5_8_9.CreateAssignmentActivity_8"/>
         <activity
             android:name=".activity.activity_5_8_9.CreateAssignmentActivity_8"
+            android:label="Create Assignment"
             android:exported="true"
             android:parentActivityName=".activity.activity_10_11_16.Activity_16"/>
 
         <activity
             android:name=".activity.activity_6_7_12.AddGroupMemsActivity_7"
+            android:label="Add Group Member"
             android:exported="true"
             android:parentActivityName=".activity.activity_10_11_16.Activity_16"/>
 

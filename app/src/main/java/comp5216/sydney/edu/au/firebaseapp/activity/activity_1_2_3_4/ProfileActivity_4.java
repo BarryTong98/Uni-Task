@@ -18,13 +18,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import comp5216.sydney.edu.au.firebaseapp.R;
+import comp5216.sydney.edu.au.firebaseapp.activity.activity_5_8_9.TaskListActivity_5;
 import comp5216.sydney.edu.au.firebaseapp.classtype.User;
 import comp5216.sydney.edu.au.firebaseapp.util.ACache;
 
 public class ProfileActivity_4 extends AppCompatActivity {
     private TextView tvName, tvEmail,tvDegree,tvDescription;
     private ImageView imageView;
-    private Button btnSignout,btnEdit,btnHome;
+    private Button btnSignout,btnEdit,btnHome,btnTask;
     ACache mCache;
 
     @Override
@@ -40,12 +41,21 @@ public class ProfileActivity_4 extends AppCompatActivity {
         btnSignout = findViewById(R.id.btn_profile_signout);
         btnEdit = findViewById(R.id.btn_profile_edit);
         btnHome = findViewById(R.id.btn_profile_home);
+        btnTask = findViewById(R.id.btn_profile_task);
         mCache = ACache.get(this);
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity_4.this,HomeActivity_3.class);
+                startActivity(intent);
+            }
+        });
+
+        btnTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity_4.this, TaskListActivity_5.class);
                 startActivity(intent);
             }
         });
@@ -59,7 +69,7 @@ public class ProfileActivity_4 extends AppCompatActivity {
             // (See MyAppGlideModule for Loader registration)
             Glide.with(this /* context */)
                     .load(storageReference)
-                    .signature(new ObjectKey(System.currentTimeMillis())) //为了图片更新之后，缓存也更新
+                    .signature(new ObjectKey(user.getEmail())) //为了图片更新之后，缓存也更新
                     .placeholder(R.drawable.image)//图片加载出来前，显示的图片
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
                     .into(imageView);
@@ -92,6 +102,7 @@ public class ProfileActivity_4 extends AppCompatActivity {
                 mCache.clear();
                 Intent intent = new Intent(ProfileActivity_4.this,LoginActivity_1.class);
                 startActivity(intent);
+                finish();
             }
         });
 

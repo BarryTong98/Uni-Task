@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,6 +54,7 @@ public class RecycleAdapter_task_11 extends RecyclerView.Adapter<RecycleAdapter_
         holder.title.setText(taskName[position]);
         holder.assign.setText("Assigned to: "+assignList[position]);
         holder.taskItem.setText(descriptionList[position]);
+        holder.iv.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -62,12 +64,14 @@ public class RecycleAdapter_task_11 extends RecyclerView.Adapter<RecycleAdapter_
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, assign, taskItem;
+        ImageView iv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.itemTitle);
             assign = itemView.findViewById(R.id.itemBrief);
             taskItem = itemView.findViewById(R.id.itemContent);
+            iv = itemView.findViewById(R.id.iv_task);
         }
     }
 }

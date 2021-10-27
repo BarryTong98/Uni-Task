@@ -11,31 +11,30 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome!"
+        android:text="Welcome to Uni-Task"
+        android:textColor="@color/background_dark"
         android:textSize="30dp">
-    </TextView>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Sign in"
-        android:textSize="20dp">
     </TextView>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/textview_border">
+        android:layout_marginTop="60dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/text_view_border">
         <TextView
-            android:layout_width="80dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:text="email:"/>
+            android:textSize="16sp"
+            android:textColor="@color/background_dark"
+            android:text="Email:"/>
 
         <EditText
             android:id="@+id/et_log_username"
             android:layout_width="230dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:background="@null"
             android:hint="email"/>
     </LinearLayout>
 
@@ -43,31 +42,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/textview_border">
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/text_view_border">
         <TextView
-            android:layout_width="80dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:text="password:"/>
+            android:textSize="16sp"
+            android:textColor="@color/background_dark"
+            android:text="Password:"/>
 
         <EditText
             android:id="@+id/et_log_password"
             android:layout_width="230dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:background="@null"
             android:password="true"
             android:hint="password"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/tv_login_findpwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Forget password? click here!"
+        android:textColor="@color/background_brown">
+    </TextView>
 
     <Button
         android:id="@+id/btn_login_login"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:text="Sign in"/>
 
     <Button
         android:id="@+id/btn_login_register"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:text="Register"/>
 

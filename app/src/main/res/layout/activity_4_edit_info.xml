@@ -7,18 +7,13 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context=".activity.activity_1_2_3_4.EditInfoActivity_4">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Information"
-        android:textSize="80px"
-        />
+
 
     <comp5216.sydney.edu.au.firebaseapp.util.OvalImageView
         android:id="@+id/iv_edit_profile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -32,6 +27,7 @@
     <LinearLayout
         android:layout_width="800px"
         android:layout_height="wrap_content"
+        android:background="@drawable/text_view_border"
         android:layout_marginTop="20dp">
         <TextView
             android:layout_width="80dp"
@@ -47,6 +43,7 @@
     <LinearLayout
         android:layout_width="800px"
         android:layout_height="wrap_content"
+        android:background="@drawable/text_view_border"
         android:layout_marginTop="20dp">
         <TextView
             android:layout_width="80dp"
@@ -62,6 +59,7 @@
     <LinearLayout
         android:layout_width="800px"
         android:layout_height="wrap_content"
+        android:background="@drawable/text_view_border"
         android:layout_marginTop="20dp">
         <TextView
             android:layout_width="80dp"
@@ -76,7 +74,7 @@
 
     <Button
         android:id="@+id/btn_edit_update"
-        android:layout_width="wrap_content"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Update">

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,8 +37,9 @@ import comp5216.sydney.edu.au.firebaseapp.classtype.User;
 import comp5216.sydney.edu.au.firebaseapp.util.ACache;
 
 public class RegisterActivity_2 extends AppCompatActivity {
-    private EditText etUsername,etEmail,etPassword;
+    private EditText etUsername,etEmail,etPassword,etConfirm;
     private ImageView ivProfile;
+    private TextView tv;
     private Button btRegister;
 
     //Firebase
@@ -63,8 +65,10 @@ public class RegisterActivity_2 extends AppCompatActivity {
         etUsername = findViewById(R.id.et_username);
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_reg_password);
+        etConfirm = findViewById(R.id.et_reg_password_confirm);
         ivProfile = findViewById(R.id.iv_profile);
         btRegister = findViewById(R.id.bt_reg_register);
+        tv = findViewById(R.id.tv_register_signin);
         mCache = ACache.get(this);
 
         //connect with Firebase
@@ -78,23 +82,34 @@ public class RegisterActivity_2 extends AppCompatActivity {
             }
         });
 
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity_2.this,LoginActivity_1.class);
+                startActivity(intent);
+            }
+        });
+
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = etUsername.getText().toString();
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
+                String confirmPassword = etConfirm.getText().toString();
 
                 if (username.length() < 1){
                     etUsername.setError("Please input username!");
                 }else if (email.length() < 10){
-                    etEmail.setError("邮箱格式错误");
+                    etEmail.setError("Email format error!");
                 }else if (password.length() < 6){
-                    etPassword.setError("密码长度大于6");
+                    etPassword.setError("Please set a password longer than 6 digits!");
+                }else if (!confirmPassword.equals(password)){
+                    etConfirm.setError("Those passwords don’t match. Try again.");
                 }
                 else {
                     if (profileUri == null){
-                        Toast.makeText(RegisterActivity_2.this, "Please upload a photo", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity_2.this, "Please upload a avatar!", Toast.LENGTH_SHORT).show();
                     }else {
                         register(username,email,password);
                     }

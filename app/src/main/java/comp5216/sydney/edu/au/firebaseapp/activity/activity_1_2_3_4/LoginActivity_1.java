@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import comp5216.sydney.edu.au.firebaseapp.util.ACache;
 public class LoginActivity_1 extends AppCompatActivity {
 
     private EditText etUsername,etPass;
+    private TextView tv;
     private Button login,register;
 
     //Firebase
@@ -49,6 +51,7 @@ public class LoginActivity_1 extends AppCompatActivity {
         etPass = findViewById(R.id.et_log_password);
         register = findViewById(R.id.btn_login_register);
         login = findViewById(R.id.btn_login_login);
+        tv = findViewById(R.id.tv_login_findpwd);
         mCache = ACache.get(this);
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +59,13 @@ public class LoginActivity_1 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity_1.this, RegisterActivity_2.class);
                 startActivity(intent);
+            }
+        });
+
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changePwd();
             }
         });
 
@@ -118,6 +128,10 @@ public class LoginActivity_1 extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void changePwd(){
 
     }
 }

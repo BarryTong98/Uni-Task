@@ -1,7 +1,7 @@
 <resources>
 
-<!--    activity_1_2_3_4-->
-    <string name="app_name">FirebaseApp</string>
+    <!--    activity_1_2_3_4-->
+    <string name="app_name">Uni-Task</string>
     <string name="title_activity_login">LoginActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -12,7 +12,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-<!--activity_10_11-->
+    <!--activity_10_11-->
     <string name="discussion_list">Discussion List</string>
     <string name="dialog_delete_title">Warning!!!</string>
     <string name="dialog_delete_msg">Do you want to delete this Assignment?</string>
@@ -31,10 +31,10 @@
     <string name="history">history</string>
     <string name="clear_history">clear history</string>
     <string name="adddata">Add Data</string>
-<!--    <string name="dialog_delete_title">Delete an item</string>-->
-<!--    <string name="dialog_delete_msg">Do you want to delete this item?</string>-->
-<!--    <string name="delete">Delete</string>-->
-<!--    <string name="cancel">Cancel</string>-->
+    <!--    <string name="dialog_delete_title">Delete an item</string>-->
+    <!--    <string name="dialog_delete_msg">Do you want to delete this item?</string>-->
+    <!--    <string name="delete">Delete</string>-->
+    <!--    <string name="cancel">Cancel</string>-->
     <string name="edit">Edit</string>
     <string name="goup_list">Goup list</string>
     <string name="submit">submit</string>
@@ -49,4 +49,7 @@
     <string name="todo">TODO</string>
     <string name="group_member_list">Group Member List</string>
     <string name="next_step">Next Step</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_hint_text">email</string>
 </resources>
