@@ -102,6 +102,7 @@ public class ProfileActivity_4 extends AppCompatActivity {
                 mCache.clear();
                 Intent intent = new Intent(ProfileActivity_4.this,LoginActivity_1.class);
                 startActivity(intent);
+                finish();
             }
         });
 
