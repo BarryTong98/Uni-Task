@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_10_mem_item.xml" value="0.625" />
-        <entry key="app/src/main/res/layout/activity_15_discussion.xml" value="0.18489583333333334" />
-        <entry key="app/src/main/res/layout/member_search.xml" value="0.18489583333333334" />
+        <entry key="..\:/program/andriod/Uni-Task-UIComplete/app/src/main/res/layout/activity_10_mem_item.xml" value="0.12552083333333333" />
+        <entry key="..\:/program/andriod/Uni-Task-UIComplete/app/src/main/res/layout/activity_10_member_profile.xml" value="0.1" />
+        <entry key="..\:/program/andriod/Uni-Task-UIComplete/app/src/main/res/layout/activity_11.xml" value="0.12552083333333333" />
+        <entry key="..\:/program/andriod/Uni-Task-UIComplete/app/src/main/res/layout/activity_14_create_discussion.xml" value="0.12552083333333333" />
+        <entry key="..\:/program/andriod/Uni-Task-UIComplete/app/src/main/res/layout/activity_16.xml" value="0.10280797101449275" />
+        <entry key="..\:/program/andriod/Uni-Task-UIComplete/app/src/main/res/layout/activity_7_member_search.xml" value="0.12552083333333333" />
+        <entry key="..\:/program/andriod/Uni-Task-UIComplete/app/src/main/res/layout/activity_8_create_assignment.xml" value="0.12552083333333333" />
+        <entry key="..\:/program/andriod/Uni-Task-UIComplete/app/src/main/res/layout/item_asignment_list.xml" value="0.12552083333333333" />
+        <entry key="..\:/program/andriod/Uni-Task-UIComplete/app/src/main/res/layout/item_assignment.xml" value="0.12552083333333333" />
       </map>
     </option>
   </component>

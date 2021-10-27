@@ -66,6 +66,12 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
 
 
     @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+
+    @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.activity_3_10_11_item, parent, false);

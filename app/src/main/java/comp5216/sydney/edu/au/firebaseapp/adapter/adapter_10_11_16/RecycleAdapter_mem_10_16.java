@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import comp5216.sydney.edu.au.firebaseapp.R;
 import comp5216.sydney.edu.au.firebaseapp.activity.activity_10_11_16.Activity_10_memberProfile;
@@ -54,7 +55,7 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<User> list= queryDocumentSnapshots.toObjects(User.class);
-                Map<String,User>map=new HashMap<>();
+                Map<String,User>map=new TreeMap<>();
                 for(User j:userList){
                     map.put(j.getUserId(),j);
                 }
@@ -120,7 +121,7 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
 
 
         holder.name.setText(firebaseUserList.get(location).getUserName());
-
+System.out.println(firebaseUserList.get(location).getUserName());
         holder.act_10_mem_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,6 +159,12 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
                 }
             });
         }
+    }
+
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override

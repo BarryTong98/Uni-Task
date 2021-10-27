@@ -62,6 +62,11 @@ public class RecycleAdapter_task_11 extends RecyclerView.Adapter<RecycleAdapter_
         return tasksList.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, assign, taskItem;
         ImageView iv;

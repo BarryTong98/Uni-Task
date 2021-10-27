@@ -151,6 +151,7 @@ public class Activity_16 extends AppCompatActivity {
         if (userList != null) {
             recycleAdapter_mem_16 = new RecycleAdapter_mem_10_16(this, userList, "activity16");
             memberRecyclerView.setHasFixedSize(true);
+
             memberRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             memberRecyclerView.setAdapter(recycleAdapter_mem_16);
             memberRecyclerView.setLayoutManager(new LinearLayoutManager(this));
