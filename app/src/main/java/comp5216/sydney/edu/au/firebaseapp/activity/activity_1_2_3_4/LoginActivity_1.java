@@ -1,5 +1,6 @@
 package comp5216.sydney.edu.au.firebaseapp.activity.activity_1_2_3_4;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,9 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,9 +33,9 @@ import comp5216.sydney.edu.au.firebaseapp.util.ACache;
 
 public class LoginActivity_1 extends AppCompatActivity {
 
-    private EditText etUsername,etPass;
+    private EditText etUsername, etPass;
     private TextView tv;
-    private Button login,register;
+    private Button login, register;
 
     //Firebase
     FirebaseAuth mAuth;
@@ -39,7 +43,6 @@ public class LoginActivity_1 extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     User currentUser;
-    //缓存
     ACache mCache;
 
     @Override
@@ -53,6 +56,9 @@ public class LoginActivity_1 extends AppCompatActivity {
         login = findViewById(R.id.btn_login_login);
         tv = findViewById(R.id.tv_login_findpwd);
         mCache = ACache.get(this);
+        //firebase auth
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,20 +71,42 @@ public class LoginActivity_1 extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changePwd();
+                final EditText resetMail = new EditText(v.getContext());
+                final AlertDialog.Builder pwdResetDialog = new AlertDialog.Builder(v.getContext());
+                pwdResetDialog.setTitle("Reset Password ?")
+                        .setMessage("Enter Your Email To Received Rest Link.")
+                        .setView(resetMail)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String mail = resetMail.getText().toString();
+                                mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(LoginActivity_1.this, "Reset Link Sent To Your Email.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(LoginActivity_1.this, "Error! Reset Link Not Sent." + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).create().show();
             }
         });
 
-        //firebase auth
-        mAuth = FirebaseAuth.getInstance();
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         //check for user exsit, user needn't login every time: save current user
-        if (firebaseUser != null){
+        if (firebaseUser != null) {
             Intent intent = new Intent(LoginActivity_1.this, HomeActivity_3.class);
             startActivity(intent);
 
-            //从firebase cloud database拿数据下来
             DocumentReference docRef = db.collection("Users").document(firebaseUser.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -87,15 +115,14 @@ public class LoginActivity_1 extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             currentUser = document.toObject(User.class);
-                            //把登录的用户信息放在缓存中
                             mCache.put(firebaseUser.getUid(), currentUser);
 
-                            Log.d("拿数据测试", "DocumentSnapshot data: " + currentUser.getUserName());
+                            Log.d("Login Page", "DocumentSnapshot data: " + currentUser.getUserName());
                         } else {
-                            Log.d("拿数据测试", "No such document");
+                            Log.d("Login Page", "No such document");
                         }
                     } else {
-                        Log.d("拿数据测试", "get failed with ", task.getException());
+                        Log.d("Login Page", "get failed with ", task.getException());
                     }
                 }
             });
@@ -104,22 +131,21 @@ public class LoginActivity_1 extends AppCompatActivity {
         }
 
 
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = etUsername.getText().toString();
                 String pass = etPass.getText().toString();
-                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)){
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
                     Toast.makeText(LoginActivity_1.this, "Please input email and pass", Toast.LENGTH_SHORT).show();
-                }else {
-                    mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                } else {
+                    mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Intent intent = new Intent(LoginActivity_1.this, HomeActivity_3.class);
                                 startActivity(intent);
-                            }else {
+                            } else {
                                 Toast.makeText(LoginActivity_1.this, "login failed", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -128,10 +154,6 @@ public class LoginActivity_1 extends AppCompatActivity {
             }
         });
 
-
-    }
-
-    private void changePwd(){
 
     }
 }

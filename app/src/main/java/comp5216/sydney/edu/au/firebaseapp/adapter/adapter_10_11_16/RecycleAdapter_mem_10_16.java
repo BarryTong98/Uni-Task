@@ -121,7 +121,7 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
 
 
         holder.name.setText(firebaseUserList.get(location).getUserName());
-System.out.println(firebaseUserList.get(location).getUserName());
+
         holder.act_10_mem_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

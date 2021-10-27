@@ -14,6 +14,10 @@ import android.provider.MediaStore;
  * update at 2018.08.10
  */
 public class Compressor {
+
+
+
+
     public static String getRealFilePath(Activity activity, final Uri uri) {
         if (uri == null) {
             return null;
@@ -45,16 +49,16 @@ public class Compressor {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(filePath, options);
-        options.inSampleSize =calculateInSampleSiz(options,500,500);
-        options.inJustDecodeBounds=false;
-        return BitmapFactory.decodeFile(filePath,options);
+        options.inSampleSize = calculateInSampleSiz(options, 500, 500);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(filePath, options);
     }
 
     public static int calculateInSampleSiz(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        final int height=options.outHeight;
-        final int width=options.outWidth;
-        int inSampleSize=1;
-        if(height>reqHeight||width>reqWidth){
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+        if (height > reqHeight || width > reqWidth) {
             final int heightRatio = Math.round((float) height / (float) reqHeight);
             final int widthRatio = Math.round((float) width / (float) reqWidth);
             inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
