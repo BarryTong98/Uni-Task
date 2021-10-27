@@ -112,6 +112,9 @@ public class RegisterActivity_2 extends AppCompatActivity {
                         Toast.makeText(RegisterActivity_2.this, "Please upload a avatar!", Toast.LENGTH_SHORT).show();
                     }else {
                         register(username,email,password);
+                        Toast.makeText(RegisterActivity_2.this, "Register successfully!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(RegisterActivity_2.this, HomeActivity_3.class);
+                        startActivity(intent);
                     }
                 }
 
@@ -183,8 +186,7 @@ public class RegisterActivity_2 extends AppCompatActivity {
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-                                                            Intent intent = new Intent(RegisterActivity_2.this, HomeActivity_3.class);
-                                                            startActivity(intent);
+
                                                         }
                                                     })
                                                     .addOnFailureListener(new OnFailureListener() {
