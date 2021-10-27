@@ -92,7 +92,6 @@ public class Activity_16 extends AppCompatActivity {
             display();
         } else {
             display();
-//            group=new Group(IdUtil.getUUID("F"));
         }
 
     }

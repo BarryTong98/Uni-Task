@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -35,6 +36,8 @@ import java.io.File;
 import comp5216.sydney.edu.au.firebaseapp.R;
 import comp5216.sydney.edu.au.firebaseapp.classtype.User;
 import comp5216.sydney.edu.au.firebaseapp.util.ACache;
+import comp5216.sydney.edu.au.firebaseapp.util.Compressor;
+import comp5216.sydney.edu.au.firebaseapp.util.GetPermission;
 
 public class RegisterActivity_2 extends AppCompatActivity {
     private EditText etUsername,etEmail,etPassword,etConfirm;
@@ -55,6 +58,8 @@ public class RegisterActivity_2 extends AppCompatActivity {
 
     //缓存
     ACache mCache;
+
+    GetPermission getPermission=new GetPermission(this);
 
 
     @Override
@@ -127,10 +132,12 @@ public class RegisterActivity_2 extends AppCompatActivity {
 
     //上传头像到firebase storage
     private void changeProfile() {
+        if(!getPermission.checkPermissionForExternalStorage()){
+            getPermission.requestPermissionForExternalStorage();
+        }
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
         startActivityForResult(intent,MY_PERMISSIONS_REQUEST_PICK_PHOTO);
-
     }
 
     //注册方法
@@ -161,8 +168,10 @@ public class RegisterActivity_2 extends AppCompatActivity {
 
                             //把头像上传到storage
                             StorageReference ref = storageReference.child("profile/" + firebaseUser.getEmail());
-
-                            ref.putFile(profileUri)
+                            String path=Compressor.getRealFilePath(RegisterActivity_2.this,profileUri);
+                            Bitmap bitmap=Compressor.getSmallBitmap(path);
+                            Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null,null));
+                            ref.putFile(uri)
                                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

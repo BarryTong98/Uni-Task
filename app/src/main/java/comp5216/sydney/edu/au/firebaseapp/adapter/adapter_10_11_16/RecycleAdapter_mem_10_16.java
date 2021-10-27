@@ -75,9 +75,9 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.activity_10_mem_item, parent, false);
-
         return new ViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -92,35 +92,10 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
                     .into(holder.image);
         } else {
-            //之后改成userEmail
             holder.image.setImageResource(R.drawable.image);
-            //
         }
 
-//        if (firebaseUserList.get(location).getImageURL()!=null&&firebaseUserList.get(location).getEmail()!=null) {
-//            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + firebaseUserList.get(location).getEmail());
-//            if (storageReference!=null) {
-//                final long ONE_MEGABYTE = 1024 * 1024;
-//                storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//                    @Override
-//                    public void onSuccess(byte[] bytes) {
-//                        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                        holder.image.setImageBitmap(bmp);
-//
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception exception) {
-//                        Toast.makeText(context, "No Such file or Path found!!", Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//            }
-//        }
-
-
-
         holder.name.setText(firebaseUserList.get(location).getUserName());
-
         holder.act_10_mem_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,9 +135,15 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
         }
     }
 
+
     @Override
     public int getItemCount() {
         return firebaseUserList.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
