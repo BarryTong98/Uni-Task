@@ -37,6 +37,7 @@ import comp5216.sydney.edu.au.firebaseapp.R;
 import comp5216.sydney.edu.au.firebaseapp.classtype.User;
 import comp5216.sydney.edu.au.firebaseapp.util.ACache;
 import comp5216.sydney.edu.au.firebaseapp.util.Compressor;
+import comp5216.sydney.edu.au.firebaseapp.util.GetPermission;
 
 public class RegisterActivity_2 extends AppCompatActivity {
     private EditText etUsername,etEmail,etPassword,etConfirm;
@@ -48,7 +49,7 @@ public class RegisterActivity_2 extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseStorage storage;
     StorageReference storageReference;
-
+    GetPermission getPermission=new GetPermission(RegisterActivity_2.this);
     //profile uri
     Uri profileUri;
 
@@ -80,6 +81,9 @@ public class RegisterActivity_2 extends AppCompatActivity {
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!getPermission.checkPermissionForExternalStorage()){
+                    getPermission.requestPermissionForExternalStorage();
+                }
                 changeProfile();
             }
         });

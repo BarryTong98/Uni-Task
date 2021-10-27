@@ -1,7 +1,10 @@
 package comp5216.sydney.edu.au.firebaseapp.activity.activity_5_8_9;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,7 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import comp5216.sydney.edu.au.firebaseapp.R;
 import comp5216.sydney.edu.au.firebaseapp.activity.activity_10_11_16.Activity_16;
@@ -29,14 +34,12 @@ import comp5216.sydney.edu.au.firebaseapp.classtype.Tasks;
 import comp5216.sydney.edu.au.firebaseapp.classtype.User;
 import comp5216.sydney.edu.au.firebaseapp.util.IdUtil;
 
-public class CreateAssignmentActivity_8 extends AppCompatActivity {
-    private TextView assignmentName;
-    private TextView description;
-    private DatePicker datePicker;
-    private TimePicker timePicker;
+public class CreateAssignmentActivity_8 extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    private TextView assignmentName,description,tv_date,tv_time;
     private RecyclerView taskView;
     private Button create_assignment;
     private Button create_task;
+    private Button datePicker,timePicker;
     private FirebaseFirestore firestore;
     private Group group;
     private TaskListAdapter showTaskAdapter;
@@ -49,6 +52,8 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
     private Assignment assignment;
     private int position;
 
+    private int pickedYear = 0 , pickedMonth = 0, pickedDay = 0 , pickedHour =0 , pickedMinute =0 ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +62,6 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
         setContentView(R.layout.activity_8_create_assignment);
         assignmentName = findViewById(R.id.assignmentName);
         description = findViewById(R.id.assignmentDes);
-        datePicker = findViewById(R.id.date);
-        timePicker = findViewById(R.id.time);
-        timePicker.setIs24HourView(true);
         taskView = findViewById(R.id.tasks);
         create_assignment = findViewById(R.id.create_assignment);
         create_task = findViewById(R.id.add_task);
@@ -67,6 +69,38 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
         Intent intent = this.getIntent();
         assignment = (Assignment) intent.getSerializableExtra("assignment");
         position = intent.getIntExtra("position", 0);
+
+        //Add a date dialog on btDate button
+        datePicker = findViewById(R.id.bt_datepicker);
+        tv_date = findViewById(R.id.tv_date_picker);
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                DatePickerDialog dialog = new DatePickerDialog(CreateAssignmentActivity_8.this, CreateAssignmentActivity_8.this,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                //Show this dialog on screen
+                dialog.show();
+            }
+        });
+
+        //Add a time dialog on btTime button
+        timePicker = findViewById(R.id.bt_timepicker);
+        tv_time = findViewById(R.id.tv_time_picker);
+        timePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                TimePickerDialog dialog = new TimePickerDialog(CreateAssignmentActivity_8.this, CreateAssignmentActivity_8.this,
+                        calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE),
+                        true);
+                dialog.show();
+            }
+        });
+
         //If the assignment is not null, the assignment object is sent from AssignmentListAdapter and the assignment object is initialized
         if (assignment != null) {
             groupId = assignment.getGroupId();
@@ -197,12 +231,31 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity {
      * @return
      */
     private String formatDate() {
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth() + 1;
-        int year = datePicker.getYear();
-        int hour = timePicker.getHour();
-        int minute = timePicker.getMinute();
-        String date = String.format("%4d-%2d-%2d %02d:%02d", year, month, day, hour, minute);
+        String date = String.format("%4d-%2d-%2d %02d:%02d", pickedYear, pickedMonth, pickedDay, pickedHour, pickedMinute);
         return date;
     }
+
+    /**
+     * @desc Get year, month, day from the date dialog
+     **/
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        pickedYear = year;
+        pickedMonth = month + 1;
+        pickedDay = day;
+        String desc = String.format("%d-%d-%d", year, month + 1, day);
+        tv_date.setText(desc);
+    }
+
+    /**
+     * @desc Get hours and minutes from the time dialog
+     **/
+    @Override
+    public void onTimeSet(TimePicker timePicker, int HH, int mm) {
+        pickedHour = HH;
+        pickedMinute = mm;
+        String desc = String.format("%d:%d", HH, mm);
+        tv_time.setText(desc);
+    }
+
 }
