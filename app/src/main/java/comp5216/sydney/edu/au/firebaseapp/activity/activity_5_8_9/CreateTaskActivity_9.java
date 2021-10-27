@@ -129,7 +129,7 @@ public class CreateTaskActivity_9 extends AppCompatActivity {
                 });
 
             }
-            //upload the task to fiirebase
+            //upload the task to firebase
             else {
                 Tasks uploadTask = new Tasks(taskId, assignmentId, groupId, task_name, des, dateVal, groupName, userList, selectedUser);
                 firestore.collection("tasks").document(uploadTask.getTaskId()).set(uploadTask);

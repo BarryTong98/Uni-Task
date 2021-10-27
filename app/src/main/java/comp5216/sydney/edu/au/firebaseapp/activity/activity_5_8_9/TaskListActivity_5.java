@@ -116,7 +116,7 @@ public class TaskListActivity_5 extends AppCompatActivity {
                 for (DocumentChange documentChange : value.getDocumentChanges()) {
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         Tasks tasksModel = documentChange.getDocument().toObject(Tasks.class);
-                        List<User> taskUsers = tasksModel.getUserList();
+                        List<User> taskUsers = tasksModel.getSelectedList();
                         //check whether the userid is same as the current user or not
                         for (User i : taskUsers) {
                             if (i.getUserId().equals(firebaseUser.getUid())) {
