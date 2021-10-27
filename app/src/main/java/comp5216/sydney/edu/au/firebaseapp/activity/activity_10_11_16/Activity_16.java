@@ -14,6 +14,7 @@ import comp5216.sydney.edu.au.firebaseapp.util.IdUtil;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -23,11 +24,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -157,10 +160,9 @@ public class Activity_16 extends AppCompatActivity {
 
     public void onCompleteClick(View view) {
         Intent resultIntent = new Intent(this, HomeActivity_3.class);
-        if (group==null){
-            group=new Group(IdUtil.getUUID("F"));
+        if (group == null) {
+            group = new Group(IdUtil.getUUID("F"));
         }
-
         group.setGroupName(groupNameEdit.getText().toString());
         group.setIntroduction(descriptionEdit.getText().toString());
         resultIntent.putExtra("GroupResult", group);
@@ -171,15 +173,45 @@ public class Activity_16 extends AppCompatActivity {
     }
 
     private void saveData() {
+        group.setGroupName(groupNameEdit.getText().toString());
+        group.setIntroduction(descriptionEdit.getText().toString());
+        group.setAssignmentList(assignmentList);
+        group.setUserList(userList);
+        CollectionReference groupItems = db.collection("groups");
+        groupItems.document(group.getGroupId()).set(group);
 
-            group.setGroupName(groupNameEdit.getText().toString());
-            group.setIntroduction(descriptionEdit.getText().toString());
-            group.setAssignmentList(assignmentList);
-            group.setUserList(userList);
-            CollectionReference groupItems = db.collection("groups");
-            groupItems.document(group.getGroupId()).set(group);
+        //把每个member的grouplist加上这个group
+        List<String> updateGroupList;
+        if (userList != null) {
+            for (User member : userList) {
+                System.out.println("members:" + member.toString());
+                DocumentReference updateUser = db.collection("Users").document(member.getUserId());
+                updateGroupList = member.getGroupList();
+                if (updateGroupList != null){
+                    updateGroupList.add(group.getGroupId());
+                }else {
+                    updateGroupList = new ArrayList<>();
+                    updateGroupList.add(group.getGroupId());
+                }
 
-
+                updateUser
+                        .update(
+                                "groupList", updateGroupList
+                        )
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("Add group", "DocumentSnapshot successfully updated!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("Add group", "Error updating document", e);
+                            }
+                        });
+            }
+        }
     }
 
     public void onAddAssignmentClick16(View view) {
@@ -235,7 +267,7 @@ public class Activity_16 extends AppCompatActivity {
                             userList = new ArrayList<>(returnUserList);
                         }
                     }
-                    if (group!=null&&groupId!=null) {
+                    if (group != null && groupId != null) {
                         DocumentReference updateGroup = db.collection("groups").document(groupId);
                         updateGroup.update("userList", userList).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -244,7 +276,7 @@ public class Activity_16 extends AppCompatActivity {
                             }
                         });
 
-                    }else {
+                    } else {
 
                     }
 

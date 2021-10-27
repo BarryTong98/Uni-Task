@@ -73,7 +73,7 @@ public class HomeActivity_3 extends AppCompatActivity {
         setContentView(R.layout.activity_3_main);
 
         mCache = ACache.get(this);
-
+        mCache.clear();
         getData();
 
 
@@ -215,10 +215,8 @@ public class HomeActivity_3 extends AppCompatActivity {
                                             if (task.isSuccessful()) {
                                                 //先清空一下list
                                                 groupItemList.clear();
-
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     GroupBrief groupBrief = document.toObject(GroupBrief.class);
-
                                                     if (currentUser != null && currentUser.getGroupList() != null) {
                                                         for (String id : currentUser.getGroupList()) {
                                                             if (groupBrief.getGroupId().equals(id)) {
@@ -263,6 +261,7 @@ public class HomeActivity_3 extends AppCompatActivity {
     public void profileOnClick(View view) {
         Intent intent = new Intent(HomeActivity_3.this, ProfileActivity_4.class);
         startActivity(intent);
+        finish();
     }
 
     public void taskOnClick(View view) {
