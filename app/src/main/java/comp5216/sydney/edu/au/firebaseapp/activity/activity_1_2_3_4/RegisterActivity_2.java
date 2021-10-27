@@ -56,7 +56,6 @@ public class RegisterActivity_2 extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_PICK_PHOTO = 101;
     final String TAG="REGISTER";
 
-    //缓存
     ACache mCache;
 
 
@@ -215,7 +214,7 @@ public class RegisterActivity_2 extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Register", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity_2.this, "The email address is already in use by another account.",
+                            Toast.makeText(RegisterActivity_2.this, task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
 
