@@ -5,7 +5,7 @@ android {
     compileSdk 30
 
     defaultConfig {
-        applicationId "comp5216.sydney.edu.au.firebaseapp"
+        applicationId "comp5216.sydney.edu.au.finalproject"
         minSdk 24
         targetSdk 24
         versionCode 1

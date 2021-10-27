@@ -30,12 +30,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
@@ -52,6 +55,7 @@ public class Activity_16 extends AppCompatActivity {
     private EditText groupNameEdit;
     private EditText descriptionEdit;
     private ImageView deleteIcon;
+    private User curUser;
 
     private final static int ADDASSIGNMENT = 101;
     private final static int ADDMEMBER = 102;
@@ -62,12 +66,12 @@ public class Activity_16 extends AppCompatActivity {
     private String groupId;
     private String groupName;
     private String description;
-
+    private FirebaseUser firebaseUser;
     RecycleAdapter_ass_10_16 recycleAdapter_ass_16;
     RecycleAdapter_mem_10_16 recycleAdapter_mem_16;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
 
     @Override
@@ -80,6 +84,22 @@ public class Activity_16 extends AppCompatActivity {
         deleteIcon = findViewById(R.id.delete_icon_16);
         groupNameEdit = findViewById(R.id.group_name_edit_16);
         descriptionEdit = findViewById(R.id.group_intro_edit_16);
+        userList = new ArrayList<>();
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference docRef = db.collection("Users").document(firebaseUser.getUid());
+        docRef.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                DocumentSnapshot documentSnapshot = task.getResult();
+                if(documentSnapshot.exists()) {
+                    curUser = documentSnapshot.toObject(User.class);
+                    System.out.println("----------- " + curUser.getUserName());
+                    userList.add(curUser);
+                }
+            } else {
+                Log.d("wrong", "No such document");
+            }
+        });
 
         Intent i = getIntent();
         group = (Group) i.getSerializableExtra("Group");
@@ -106,10 +126,7 @@ public class Activity_16 extends AppCompatActivity {
 
         createAssignmentList(this.assignmentList);
         createUserList(this.userList);
-//
-//        if (group == null) {
-//            deleteIcon.setVisibility(View.INVISIBLE);
-//        }
+
     }
 
     public void deleteOnClick(View view) {
@@ -215,7 +232,8 @@ public class Activity_16 extends AppCompatActivity {
     }
 
     public void onAddAssignmentClick16(View view) {
-        if (userList != null) {
+        if (userList.size() > 1) {
+            System.out.println("----------------- " + userList.size());
             Intent intent = new Intent(this, CreateAssignmentActivity_8.class);
             intent.putExtra("userList", (Serializable) userList);
             intent.putExtra("name", groupNameEdit.getText().toString());
@@ -249,8 +267,6 @@ public class Activity_16 extends AppCompatActivity {
                 } else if (result.getResultCode() == ADDMEMBER) {
                     Intent data = result.getData();
                     ArrayList<User> returnUserList = (ArrayList<User>) data.getSerializableExtra("memberReturn");
-//                    System.out.println(returnUserList.size());
-
                     if (returnUserList != null) {
                         if (userList != null) {
                             Map<String, User> map = new HashMap<>();
@@ -276,10 +292,7 @@ public class Activity_16 extends AppCompatActivity {
                             }
                         });
 
-                    } else {
-
                     }
-
                     createUserList(userList);
                 }
 

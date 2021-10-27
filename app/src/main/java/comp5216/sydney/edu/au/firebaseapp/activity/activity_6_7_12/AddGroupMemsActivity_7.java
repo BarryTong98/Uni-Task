@@ -13,6 +13,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -34,8 +36,8 @@ public class AddGroupMemsActivity_7 extends AppCompatActivity {
     private SelectUserAdapter userAdapter;
     private Button btn;
     private Intent data;
-    FirebaseFirestore db;
-    private SharedPreferences sp;
+    private FirebaseFirestore db;
+    private FirebaseUser firebaseUser;
 
     private final static int ADDMEMBER = 102;
 
@@ -49,11 +51,14 @@ public class AddGroupMemsActivity_7 extends AppCompatActivity {
         btn = findViewById(R.id.submitBtn);
         userArrayList = new ArrayList<>();
         stateMap = new HashMap<>();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
         setSubmitListeners();
         buildRecycleView();
     }
 
     private void buildRecycleView() {
+        String uid = firebaseUser.getUid();
         db = FirebaseFirestore.getInstance();
         //get all the user object from the firebase.
         userAdapter = new SelectUserAdapter(userArrayList, stateMap);
@@ -65,8 +70,10 @@ public class AddGroupMemsActivity_7 extends AppCompatActivity {
                         List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                         for (DocumentSnapshot d : list) {
                             User p = d.toObject(User.class);
-                            userArrayList.add(p);
-                            stateMap.put(p, false);
+                            if(!p.getUserId().equals(uid)) {
+                                userArrayList.add(p);
+                                stateMap.put(p, false);
+                            }
                         }
                         userAdapter.notifyDataSetChanged();
                     } else {
