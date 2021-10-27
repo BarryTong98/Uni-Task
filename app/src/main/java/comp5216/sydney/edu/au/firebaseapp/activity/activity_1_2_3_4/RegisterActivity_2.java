@@ -37,7 +37,6 @@ import comp5216.sydney.edu.au.firebaseapp.R;
 import comp5216.sydney.edu.au.firebaseapp.classtype.User;
 import comp5216.sydney.edu.au.firebaseapp.util.ACache;
 import comp5216.sydney.edu.au.firebaseapp.util.Compressor;
-import comp5216.sydney.edu.au.firebaseapp.util.GetPermission;
 
 public class RegisterActivity_2 extends AppCompatActivity {
     private EditText etUsername,etEmail,etPassword,etConfirm;
@@ -58,8 +57,6 @@ public class RegisterActivity_2 extends AppCompatActivity {
 
     //缓存
     ACache mCache;
-
-    GetPermission getPermission=new GetPermission(this);
 
 
     @Override
@@ -117,9 +114,6 @@ public class RegisterActivity_2 extends AppCompatActivity {
                         Toast.makeText(RegisterActivity_2.this, "Please upload a avatar!", Toast.LENGTH_SHORT).show();
                     }else {
                         register(username,email,password);
-                        Toast.makeText(RegisterActivity_2.this, "Register successfully!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(RegisterActivity_2.this, HomeActivity_3.class);
-                        startActivity(intent);
                     }
                 }
 
@@ -132,12 +126,10 @@ public class RegisterActivity_2 extends AppCompatActivity {
 
     //上传头像到firebase storage
     private void changeProfile() {
-        if(!getPermission.checkPermissionForExternalStorage()){
-            getPermission.requestPermissionForExternalStorage();
-        }
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
         startActivityForResult(intent,MY_PERMISSIONS_REQUEST_PICK_PHOTO);
+
     }
 
     //注册方法
@@ -169,7 +161,7 @@ public class RegisterActivity_2 extends AppCompatActivity {
                             //把头像上传到storage
                             StorageReference ref = storageReference.child("profile/" + firebaseUser.getEmail());
                             String path=Compressor.getRealFilePath(RegisterActivity_2.this,profileUri);
-                            Bitmap bitmap=Compressor.getSmallBitmap(path);
+                            Bitmap bitmap= Compressor.getSmallBitmap(path);
                             Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null,null));
                             ref.putFile(uri)
                                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -195,7 +187,9 @@ public class RegisterActivity_2 extends AppCompatActivity {
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-
+                                                            Toast.makeText(RegisterActivity_2.this, "Register successfully!", Toast.LENGTH_LONG).show();
+                                                            Intent intent = new Intent(RegisterActivity_2.this, HomeActivity_3.class);
+                                                            startActivity(intent);
                                                         }
                                                     })
                                                     .addOnFailureListener(new OnFailureListener() {
@@ -238,15 +232,3 @@ public class RegisterActivity_2 extends AppCompatActivity {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

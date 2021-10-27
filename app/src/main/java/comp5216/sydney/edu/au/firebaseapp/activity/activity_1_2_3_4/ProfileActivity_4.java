@@ -89,8 +89,6 @@ public class ProfileActivity_4 extends AppCompatActivity {
                 tvEmail.setText(cacheUser.getEmail());
                 tvDegree.setText(cacheUser.getDegree());
                 tvDescription.setText(cacheUser.getDescription());
-
-                System.out.println("这个user是在cache中："+cacheUser.getDegree());
             }
         }
 
