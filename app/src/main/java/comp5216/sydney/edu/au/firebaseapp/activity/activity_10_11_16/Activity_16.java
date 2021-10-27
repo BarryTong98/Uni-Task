@@ -87,22 +87,9 @@ public class Activity_16 extends AppCompatActivity {
         descriptionEdit = findViewById(R.id.group_intro_edit_16);
         userList = new ArrayList<>();
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference docRef = db.collection("Users").document(firebaseUser.getUid());
-        docRef.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()) {
-                DocumentSnapshot documentSnapshot = task.getResult();
-                if(documentSnapshot.exists()) {
-                    curUser = documentSnapshot.toObject(User.class);
-                    System.out.println("----------- " + curUser.getUserName());
-                    userList.add(curUser);
-                }
-            } else {
-                Log.d("wrong", "No such document");
-            }
-        });
-
         Intent i = getIntent();
+        curUser = (User)i.getSerializableExtra("curUser");
+        userList.add(curUser);
         group = (Group) i.getSerializableExtra("Group");
         if (group != null) {
             groupId = group.getGroupId();
@@ -300,6 +287,8 @@ public class Activity_16 extends AppCompatActivity {
                                 Toast.makeText(Activity_16.this, "Success", Toast.LENGTH_SHORT).show();
                             }
                         });
+
+                    } else {
 
                     }
                     createUserList(userList);

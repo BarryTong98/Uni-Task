@@ -33,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -56,11 +57,10 @@ public class HomeActivity_3 extends AppCompatActivity {
     private List<GroupBrief> groupItemList = new ArrayList<GroupBrief>();
 
     private Map<String, Group> groupMap = new HashMap<>();
-
-
+    private FirebaseUser firebaseUser;
     RecycleAdapter_group_3 recycleAdapter_group_3;
     //获取数据库的用户
-    User currentUser;
+    private User currentUser;
 
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -273,6 +273,7 @@ public class HomeActivity_3 extends AppCompatActivity {
 
     public void createGroupTestOnClick(View view) {
         Intent intent = new Intent(HomeActivity_3.this, Activity_16.class);
+        intent.putExtra("curUser", (Serializable) currentUser);
         mLauncherEditGroup.launch(intent);
 
     }

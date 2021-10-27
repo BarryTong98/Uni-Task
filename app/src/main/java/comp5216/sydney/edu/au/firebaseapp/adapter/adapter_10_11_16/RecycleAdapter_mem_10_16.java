@@ -51,25 +51,24 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
         this.activity = activity;
         this.firebaseUserList=userList;
 
-        firebaseFirestore.collection("Users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<User> list= queryDocumentSnapshots.toObjects(User.class);
-                Map<String,User>map=new TreeMap<>();
-                for(User j:userList){
-                    map.put(j.getUserId(),j);
-                }
-
-                for (User i:list){
-                    if (map.containsKey(i.getUserId())){
-                        map.put(i.getUserId(),i);
-                    }
-                }
-
-                firebaseUserList=new ArrayList<>(map.values());
-            }
-        });
-
+//        firebaseFirestore.collection("Users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//            @Override
+//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                List<User> list= queryDocumentSnapshots.toObjects(User.class);
+//                Map<String,User>map=new TreeMap<>();
+//                for(User j:userList){
+//                    map.put(j.getUserId(),j);
+//                }
+//
+//                for (User i:list){
+//                    if (map.containsKey(i.getUserId())){
+//                        map.put(i.getUserId(),i);
+//                    }
+//                }
+//
+//                firebaseUserList=new ArrayList<>(map.values());
+//            }
+//        });
     }
 
     @Override
@@ -97,28 +96,6 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
             holder.image.setImageResource(R.drawable.image);
             //
         }
-
-//        if (firebaseUserList.get(location).getImageURL()!=null&&firebaseUserList.get(location).getEmail()!=null) {
-//            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + firebaseUserList.get(location).getEmail());
-//            if (storageReference!=null) {
-//                final long ONE_MEGABYTE = 1024 * 1024;
-//                storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//                    @Override
-//                    public void onSuccess(byte[] bytes) {
-//                        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                        holder.image.setImageBitmap(bmp);
-//
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception exception) {
-//                        Toast.makeText(context, "No Such file or Path found!!", Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//            }
-//        }
-
-
 
         holder.name.setText(firebaseUserList.get(location).getUserName());
 
