@@ -58,16 +58,13 @@ public class Activity_16 extends AppCompatActivity {
     private ImageView deleteIcon;
     private User curUser;
 
-    private final static int ADDASSIGNMENT = 101;
     private final static int ADDMEMBER = 102;
 
     private List<Assignment> assignmentList;
     private List<User> userList;
-    private ArrayList<Discussion> discussionList;
     private String groupId;
     private String groupName;
     private String description;
-    private FirebaseUser firebaseUser;
     RecycleAdapter_ass_10_16 recycleAdapter_ass_16;
     RecycleAdapter_mem_10_16 recycleAdapter_mem_16;
 
@@ -104,7 +101,9 @@ public class Activity_16 extends AppCompatActivity {
 
     }
 
-
+    /**
+     * display group profile
+     */
     private void display() {
 
         if (groupName != null && description != null) {
@@ -117,6 +116,10 @@ public class Activity_16 extends AppCompatActivity {
 
     }
 
+    /**
+     * delete group when click the delete icon
+     * @param view
+     */
     public void deleteOnClick(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.dialog_delete_title)
@@ -141,6 +144,11 @@ public class Activity_16 extends AppCompatActivity {
         builder.create().show();
     }
 
+    /**
+     * set recycler adapter and create assignment recyclerview
+     * @param assignmentList
+     */
+
     public void createAssignmentList(List<Assignment> assignmentList) {
         if (assignmentList != null) {
             recycleAdapter_ass_16 = new RecycleAdapter_ass_10_16(this, assignmentList, "activity16");
@@ -155,6 +163,10 @@ public class Activity_16 extends AppCompatActivity {
         }
     }
 
+    /**
+     * set recycler adapter and create member recyclerview
+     * @param userList
+     */
     public void createUserList(List<User> userList) {
         if (userList != null) {
             recycleAdapter_mem_16 = new RecycleAdapter_mem_10_16(this, userList, "activity16");
@@ -170,7 +182,10 @@ public class Activity_16 extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * if user click complete icon jump to homepage
+     * @param view
+     */
     public void onCompleteClick(View view) {
         Intent resultIntent = new Intent(this, HomeActivity_3.class);
         if (group == null) {
@@ -185,6 +200,7 @@ public class Activity_16 extends AppCompatActivity {
         finish();
     }
 
+
     private void saveData() {
         group.setGroupName(groupNameEdit.getText().toString());
         group.setIntroduction(descriptionEdit.getText().toString());
@@ -193,7 +209,7 @@ public class Activity_16 extends AppCompatActivity {
         CollectionReference groupItems = db.collection("groups");
         groupItems.document(group.getGroupId()).set(group);
 
-        //把每个member的grouplist加上这个group
+    // save dada to group list
         List<String> updateGroupList;
         if (userList != null) {
             for (User member : userList) {
@@ -227,6 +243,10 @@ public class Activity_16 extends AppCompatActivity {
         }
     }
 
+    /**
+     * if user click add assignment icon, jump to create assignment page.
+     * @param view
+     */
     public void onAddAssignmentClick16(View view) {
         if (userList.size() > 1) {
             System.out.println("----------------- " + userList.size());
@@ -236,10 +256,14 @@ public class Activity_16 extends AppCompatActivity {
             intent.putExtra("gpId", groupId);
             mLauncher.launch(intent);
         } else {
-            Toast.makeText(this, "Please add group member first.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please add other group members first.", Toast.LENGTH_SHORT).show();
         }
     }
 
+    /**
+     * if user click add member icon, jump to select member page.
+     * @param view
+     */
     public void onAddMemberClick16(View view) {
         Intent memberIntent = new Intent(this, AddGroupMemsActivity_7.class);
         mLauncher.launch(memberIntent);
@@ -257,7 +281,6 @@ public class Activity_16 extends AppCompatActivity {
                         assignmentList = new ArrayList<>();
                         assignmentList.add(assignment);
                     }
-//                    group.setAssignmentList(assignmentList);
                     createAssignmentList(assignmentList);
 
                 } else if (result.getResultCode() == ADDMEMBER) {

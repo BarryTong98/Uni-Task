@@ -60,7 +60,9 @@ public class Activity_10_memberProfile extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * get data from firebase and show the user profile
+     */
     private void display() {
         firebaseFirestore.collection("Users").document(user.getUserId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -72,27 +74,11 @@ public class Activity_10_memberProfile extends AppCompatActivity {
                         imageView.setVisibility(View.VISIBLE);
                         Glide.with(Activity_10_memberProfile.this /* context */)
                                 .load(storageReference)
-                                .signature(new ObjectKey(firebaseUser.getEmail())) //为了图片更新之后，缓存也更新
-                                .placeholder(R.drawable.image)//图片加载出来前，显示的图片
-                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
+                                .signature(new ObjectKey(firebaseUser.getEmail())) //update cache
+                                .placeholder(R.drawable.image)//show picture before loading
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// transfer picture size
                                 .into(imageView);
-//                        imageView.setImageURI(Uri.parse(firebaseUser.getImageURL()));
-//                        imageView.setVisibility(View.VISIBLE);
 
-//                        final long ONE_MEGABYTE = 1024 * 1024;
-//                        storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//                            @Override
-//                            public void onSuccess(byte[] bytes) {
-//                                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                imageView.setImageBitmap(bmp);
-//
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception exception) {
-//                                Toast.makeText(getApplicationContext(), "No Such file or Path found!!", Toast.LENGTH_LONG).show();
-//                            }
-//                        });
                     }
                 }
 
@@ -100,9 +86,7 @@ public class Activity_10_memberProfile extends AppCompatActivity {
                     userName.setVisibility(View.VISIBLE);
                     userName.setText(firebaseUser.getUserName());
                 }
-//                else {
-//                    userName.setText("Anonymous");
-//                }
+
                 if (user.getDegree()!=null) {
                     userDegree.setVisibility(View.VISIBLE);
                     userDegree.setText(firebaseUser.getDegree());
@@ -115,16 +99,12 @@ public class Activity_10_memberProfile extends AppCompatActivity {
                     userEmail.setVisibility(View.VISIBLE);
                     userEmail.setText(firebaseUser.getEmail());
                 }
-//                else {
-//                    userEmail.setText("Secret");
-//                }
+
                 if (user.getDescription()!=null) {
                     userDescription.setVisibility(View.VISIBLE);
                     userDescription.setText(firebaseUser.getDescription());
                 }
-//                else {
-//                    userDescription.setText(" ");
-//                }
+
             }
         });
 

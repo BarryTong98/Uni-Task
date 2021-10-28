@@ -45,7 +45,12 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
     FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
     Context context;
 
-
+    /**
+     * get data from firebase
+     * @param context
+     * @param userList
+     * @param activity
+     */
     public RecycleAdapter_mem_10_16(Context context, @NonNull List<User> userList, String activity) {
         this.context = context;
         this.activity = activity;
@@ -71,6 +76,12 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
 //        });
     }
 
+    /**
+     * create member item view
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -79,6 +90,11 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
         return new ViewHolder(view);
     }
 
+    /**
+     * update item view
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setIsRecyclable(false);
@@ -98,7 +114,9 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
         }
 
         holder.name.setText(firebaseUserList.get(location).getUserName());
-
+/**
+ * if member item is clicked, jump to member profile page.
+ */
         holder.act_10_mem_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,7 +128,9 @@ public class RecycleAdapter_mem_10_16 extends RecyclerView.Adapter<RecycleAdapte
         });
 
         if (activity.equalsIgnoreCase("activity16")) {
-
+/**
+ * if member item is long clicked, pop up delete item window.
+ */
             holder.act_10_mem_item.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {

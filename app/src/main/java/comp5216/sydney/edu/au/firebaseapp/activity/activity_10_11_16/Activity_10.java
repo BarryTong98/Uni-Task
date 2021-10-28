@@ -31,8 +31,6 @@ public class Activity_10 extends AppCompatActivity {
     private RecyclerView memberRecyclerView;
     private List<Assignment> assignmentList;
     private List<User> userList;
-    private ArrayList<Discussion> discussionList;
-    private FirebaseFirestore firebaseFirestore;
     private String groupID;
 
     @Override
@@ -51,7 +49,9 @@ public class Activity_10 extends AppCompatActivity {
     }
 
 
-
+    /**
+     * display recyclerview
+     */
     private void display() {
         assignmentList = group.getAssignmentList();
         userList = group.getUserList();
@@ -80,6 +80,10 @@ public class Activity_10 extends AppCompatActivity {
 
     }
 
+    /**
+     * click discussion button
+     * @param view
+     */
     public void onDiscussionListClick(View view) {
         Intent intent=new Intent(Activity_10.this, DiscussionListActivity_13.class);
         if (intent != null) {

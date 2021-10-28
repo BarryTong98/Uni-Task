@@ -89,44 +89,38 @@
 
         <LinearLayout
             android:id="@+id/ll_data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_datepick"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical"
-            android:padding="10dp"
-                android:layout_marginBottom="10dp">
-
-            <Button
-                android:id="@+id/bt_datepicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Please Choose Due Date"
-                android:textAllCaps="false"></Button>
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_below="@+id/tv_datepick"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <TextView
-                android:id="@+id/tv_date_picker"
+                android:id="@+id/dateListener"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/background_dark"
-                android:hint="Date"></TextView>
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:hint="Select Date"
+                android:textSize="29sp"
+                android:textStyle="bold"
+                android:onClick="selectDate"/>
 
-            <Button
-                android:id="@+id/bt_timepicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Please Choose Due Time"
-                android:textAllCaps="false"></Button>
             <TextView
-                android:id="@+id/tv_time_picker"
+                android:id="@+id/timeListener"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/background_dark"
-                android:layout_marginLeft="10dp"
-                android:hint="Time"></TextView>
+                android:layout_marginStart="20dp"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:hint="Select Time"
+                android:textSize="29sp"
+                android:textStyle="bold"
+                android:onClick="selectTime"/>
 
-            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_tasks"
@@ -150,9 +144,9 @@
             android:id="@+id/add_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tasks"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/tasks"
             android:drawableRight="@drawable/ic_task_add"
             android:text="Add Task" />
 

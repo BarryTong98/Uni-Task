@@ -34,6 +34,9 @@ public class Activity_11 extends AppCompatActivity {
         }
     }
 
+    /**
+     * display recyclerview and assignment information
+     */
     private void display() {
         assignmentName =findViewById(R.id.assignemntName_11);
         assignmentBrief=findViewById(R.id.assignmentBrief_11);

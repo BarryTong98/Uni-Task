@@ -96,7 +96,7 @@ public class HomeActivity_3 extends AppCompatActivity {
 
                     if (deleteOrNot == 1) {
                         groupMap.put(groupResult.getGroupId(), groupResult);
-                        //先把测试数据放上去
+
                         CollectionReference homeItems = db.collection("groupBriefs");
                         CollectionReference groupItems = db.collection("groups");
                         DocumentReference updateUser = db.collection("Users").document(userId);

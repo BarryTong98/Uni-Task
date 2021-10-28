@@ -40,6 +40,12 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
     private CardView cv;
     FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
 
+    /**
+     * get data from firebase
+     * @param context
+     * @param assignmentList
+     * @param activity
+     */
     public RecycleAdapter_ass_10_16(Context context, @NonNull List<Assignment> assignmentList, String activity) {
         this.context = context;
         this.activity = activity;
@@ -71,7 +77,12 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
         return position;
     }
 
-
+    /**
+     * create item view
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -80,6 +91,11 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
         return new ViewHolder(view);
     }
 
+    /**
+     * update view
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int location=position;
@@ -98,8 +114,9 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
         });
 
 
-//        int location = holder.getAdapterPosition();
-
+/**
+ * if assignment item is clicked, jump to assignment page
+ */
         holder.act10_ass_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,7 +129,9 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
         });
 
         if (activity.equalsIgnoreCase("activity16")) {
-
+/**
+ * if assignment is long clicked, pop up delete window
+ */
             holder.act10_ass_item.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -161,6 +180,11 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
         }
     }
 
+    /**
+     * create percentage
+     * @param assignmentId
+     * @return
+     */
     private String getPercentage(String assignmentId){
         float percentage=0;
         List<Tasks>tempTaskList=new ArrayList<>();

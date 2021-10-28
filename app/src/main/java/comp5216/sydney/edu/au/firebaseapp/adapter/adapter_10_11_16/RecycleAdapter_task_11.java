@@ -40,7 +40,12 @@ public class RecycleAdapter_task_11 extends RecyclerView.Adapter<RecycleAdapter_
         }
     }
 
-
+    /**
+     * create task recyclerview
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -49,6 +54,11 @@ public class RecycleAdapter_task_11 extends RecyclerView.Adapter<RecycleAdapter_
         return new ViewHolder(view);
     }
 
+    /**
+     * update and set task view
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText(taskName[position]);
