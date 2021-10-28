@@ -58,7 +58,7 @@ public class DiscussionAdapter extends BaseAdapter {
         }
         Discussion discussion = discussionList.get(position);
         viewHolder.title.setText(discussion.getTitle());
-        viewHolder.date.setText("Created by" + discussion.getUserID() + " "
+        viewHolder.date.setText("Created by " + discussion.getUserID() + " "
                 + DateUtil.dateToString(discussion.getTimestamp(), true));
         return convertView;
     }
