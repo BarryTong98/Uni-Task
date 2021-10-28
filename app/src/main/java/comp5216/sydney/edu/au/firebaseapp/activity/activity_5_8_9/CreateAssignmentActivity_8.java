@@ -243,7 +243,7 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
         pickedYear = year;
         pickedMonth = month + 1;
         pickedDay = day;
-        String desc = String.format("%d-%d-%d", year, month + 1, day);
+        String desc = String.format("%4d-%2d-%2d", year, month + 1, day);
         tv_date.setText(desc);
     }
 
@@ -254,7 +254,7 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
     public void onTimeSet(TimePicker timePicker, int HH, int mm) {
         pickedHour = HH;
         pickedMinute = mm;
-        String desc = String.format("%d:%d", HH, mm);
+        String desc = String.format("%02d:%02d", HH, mm);
         tv_time.setText(desc);
     }
 

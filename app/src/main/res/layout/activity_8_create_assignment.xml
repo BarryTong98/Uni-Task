@@ -96,53 +96,65 @@
             android:layout_marginBottom="10dp"
             android:orientation="vertical"
             android:padding="10dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="5dp">
+
+                <Button
+                    android:id="@+id/bt_datepicker"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+
+                    android:text="Select Date"
+                    android:textAllCaps="false" />
+
                 <TextView
                     android:id="@+id/tv_date_picker"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start"
                     android:hint="Date"
+                    android:textColor="@color/background_dark"
                     android:textSize="25dp"
-                    android:textColor="@color/background_dark"/>
-                <TextView
-                    android:id="@+id/tv_time_picker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
-                    android:hint="Time"
-                    android:textSize="25dp"
-                    android:textColor="@color/background_dark"/>
+                    android:textStyle="bold" />
+
+
+
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
-                <Button
-                    android:id="@+id/bt_datepicker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Select Date"
-                    android:textAllCaps="false"/>
-
-
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="5dp">
 
                 <Button
-                    android:layout_marginStart="50dp"
                     android:id="@+id/bt_timepicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Select Time"
-                    android:textAllCaps="false"/>
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:id="@+id/tv_time_picker"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:hint="Time"
+                    android:gravity="start"
+                    android:textColor="@color/background_dark"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+
             </LinearLayout>
-
-
-
-
 
 
         </LinearLayout>
@@ -169,9 +181,9 @@
             android:id="@+id/add_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tasks"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/tasks"
             android:drawableRight="@drawable/ic_task_add"
             android:text="Add Task" />
 
