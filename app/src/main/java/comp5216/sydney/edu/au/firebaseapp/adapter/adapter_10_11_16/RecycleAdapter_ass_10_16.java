@@ -51,7 +51,8 @@ public class RecycleAdapter_ass_10_16 extends RecyclerView.Adapter<RecycleAdapte
         this.activity = activity;
         this.firebaseAssignmentList = assignmentList;
 
-        firebaseFirestore.collection("assignments").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        firebaseFirestore.collection("assignments").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<Assignment> list= queryDocumentSnapshots.toObjects(Assignment.class);

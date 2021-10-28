@@ -89,7 +89,8 @@ public class RegisterActivity_2 extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity_2.this, LoginActivity_1.class);
+                Intent intent = new Intent(RegisterActivity_2.this
+                        , LoginActivity_1.class);
                 startActivity(intent);
             }
         });
@@ -112,7 +113,8 @@ public class RegisterActivity_2 extends AppCompatActivity {
                     etConfirm.setError("Those passwords don’t match. Try again.");
                 } else {
                     if (profileUri == null) {
-                        Toast.makeText(RegisterActivity_2.this, "Please upload a avatar!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity_2.this
+                                , "Please upload a avatar!", Toast.LENGTH_SHORT).show();
                     } else {
                         register(username, email, password);
                     }
@@ -163,9 +165,11 @@ public class RegisterActivity_2 extends AppCompatActivity {
                                     });
 
                             StorageReference ref = storageReference.child("profile/" + firebaseUser.getEmail());
-                            String path = Compressor.getRealFilePath(RegisterActivity_2.this, profileUri);
+                            String path = Compressor.getRealFilePath(RegisterActivity_2.this
+                                    , profileUri);
                             Bitmap bitmap = Compressor.getSmallBitmap(path);
-                            Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null));
+                            Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver()
+                                    , bitmap, null, null));
                             ref.putFile(uri)
                                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
@@ -182,13 +186,18 @@ public class RegisterActivity_2 extends AppCompatActivity {
 
                                             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                                            db.collection("Users").document(firebaseUser.getUid())
+                                            db.collection("Users").document(firebaseUser
+                                                    .getUid())
                                                     .set(user)
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-                                                            Toast.makeText(RegisterActivity_2.this, "Register successfully!", Toast.LENGTH_LONG).show();
-                                                            Intent intent = new Intent(RegisterActivity_2.this, HomeActivity_3.class);
+                                                            Toast.makeText(RegisterActivity_2.this
+                                                                    , "Register successfully!"
+                                                                    , Toast.LENGTH_LONG).show();
+                                                            Intent intent =
+                                                                    new Intent(RegisterActivity_2.this
+                                                                            , HomeActivity_3.class);
                                                             startActivity(intent);
                                                         }
                                                     })
@@ -204,7 +213,8 @@ public class RegisterActivity_2 extends AppCompatActivity {
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(RegisterActivity_2.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(RegisterActivity_2.this
+                                                    , "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
 

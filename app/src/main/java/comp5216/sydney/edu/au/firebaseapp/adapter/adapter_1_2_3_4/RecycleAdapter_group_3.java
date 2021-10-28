@@ -52,8 +52,10 @@ public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_
     private CardView cv;
 
 
-    public RecycleAdapter_group_3(Context context, List<GroupBrief> groupBriefList, Map<String, Group> groupMap,
-                                  FirebaseFirestore db, String userId, ACache mCache,ActivityResultLauncher<Intent> mLauncher) {
+    public RecycleAdapter_group_3(Context context
+            , List<GroupBrief> groupBriefList, Map<String, Group> groupMap,
+                                  FirebaseFirestore db
+            , String userId, ACache mCache,ActivityResultLauncher<Intent> mLauncher) {
         this.context = context;
         this.groupBriefList = groupBriefList;
         this.groupMap = groupMap;
@@ -143,32 +145,22 @@ public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_
     private void getGroup(String groupId,String clicktime) {
         int size = groupMap.size();
             if (!groupMap.containsKey(groupId)) {
-                //从firebase cloud 的Groups中拿数据下来
                 db.collection("groups")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         Group group = document.toObject(Group.class);
-
                                         if (group.getGroupId().equals(groupId)) {
                                             String tempId = group.getGroupId();
-                                            System.out.println("检查有没有这个item:" + tempId);
-
-                                            groupMap.put(tempId, group);
-//
-//                                        //放在缓存中
-//                                        mCache.put(tempId, group);
-//                                        Log.d("group item test:", document.getId() + " => " + document.getData());
-
                                         }
 
                                     }
                                 } else {
-                                    Log.d("home item test:", "Error getting documents: ", task.getException());
+                                    Log.d("home item test:", "Error getting documents: "
+                                            , task.getException());
                                 }
                             }
                         }).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {

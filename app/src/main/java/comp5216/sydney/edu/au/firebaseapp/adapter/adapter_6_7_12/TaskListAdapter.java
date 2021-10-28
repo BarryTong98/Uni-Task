@@ -29,7 +29,8 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.MyView
     private Context context;
     private ItemListener itemListener;
 
-    public TaskListAdapter(Context context, List<Tasks> taskList, CreateAssignmentActivity_8 createAssignmentActivity8) {
+    public TaskListAdapter(Context context, List<Tasks> taskList
+            , CreateAssignmentActivity_8 createAssignmentActivity8) {
         this.context = context;
         this.taskList = taskList;
         this.createAssignmentActivity8 = createAssignmentActivity8;
@@ -49,7 +50,8 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.MyView
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(createAssignmentActivity8).inflate(R.layout.item_taskview, parent, false);
+        View view = LayoutInflater.from(createAssignmentActivity8).inflate(R.layout.item_taskview
+                , parent, false);
         return new MyViewHolder(view);
     }
 
@@ -79,18 +81,16 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.MyView
                     .setMessage("Do You Want To Delete This Task?")
                     .setPositiveButton("Delete", (dialogInterface, i) -> {
                         int location= holder.getLayoutPosition();
-                        System.out.println("TASKLIST**************LOCATION:   "+location+"***********************");
-                        System.out.println("********location: "+location);
-                        System.out.println("********i: "+i);
-                        System.out.println(taskList.get(location).getTaskName());
-                        firestore.collection("tasks").document(taskList.get(location).getTaskId())
+                        firestore.collection("tasks").document(taskList
+                                .get(location).getTaskId())
                                 .delete()
                                 .addOnSuccessListener(aVoid -> {
                                     taskList.remove(location);
                                     notifyItemRemoved(location);
                                     Log.d("Remove", "DocumentSnapshot successfully deleted!");
                                 })
-                                .addOnFailureListener(e -> Log.w("Remove", "Error deleting document", e));
+                                .addOnFailureListener(e -> Log.w("Remove"
+                                        , "Error deleting document", e));
                         // Remove item from the ArrayList
                     })
                     .setNegativeButton("Cancel", (dialogInterface, i) -> {

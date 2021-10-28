@@ -40,7 +40,8 @@ public class SelectUserAdapter extends RecyclerView.Adapter<SelectUserAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_add_user, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_add_user
+                , parent, false);
         return new ViewHolder(v);
     }
 

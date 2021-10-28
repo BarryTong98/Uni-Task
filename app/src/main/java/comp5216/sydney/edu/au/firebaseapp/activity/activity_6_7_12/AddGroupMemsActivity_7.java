@@ -77,9 +77,11 @@ public class AddGroupMemsActivity_7 extends AppCompatActivity {
                         }
                         userAdapter.notifyDataSetChanged();
                     } else {
-                        Toast.makeText(AddGroupMemsActivity_7.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddGroupMemsActivity_7.this
+                                , "No data found in Database", Toast.LENGTH_SHORT).show();
                     }
-                }).addOnFailureListener(e -> Toast.makeText(AddGroupMemsActivity_7.this, "Fail to get the data.", Toast.LENGTH_SHORT).show());
+                }).addOnFailureListener(e -> Toast.makeText(AddGroupMemsActivity_7.this
+                , "Fail to get the data.", Toast.LENGTH_SHORT).show());
 
         userRV.setAdapter(userAdapter);
     }

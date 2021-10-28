@@ -19,16 +19,16 @@ import android.widget.ImageView;
 import androidx.appcompat.widget.AppCompatImageView;
 
 /**
- * 圆形的ImageView
+ * Constructor for the TaskListAdapter
+ * The code for this section comes from the open source community
  */
-
 public class OvalImageView extends AppCompatImageView {
-    private Paint mPaintBitmap = new Paint(Paint.ANTI_ALIAS_FLAG);//抗锯齿
+    private Paint mPaintBitmap = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Bitmap mRawBitmap;
     private BitmapShader mShader;
     private Matrix mMatrix = new Matrix();
-    private int strokeColor = 0xFFFFFFFF;//默认边框是白色
-    private float strokeWidth = 0;//单位是像素的边框宽度
+    private int strokeColor = 0xFFFFFFFF;// white
+    private float strokeWidth = 0;//The unit is the border width of the pixel
 
     public OvalImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -36,10 +36,11 @@ public class OvalImageView extends AppCompatImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-//        获取资源图片并转为Bitmap
+        // Get a image and convert it to a Bitmap
         Bitmap rawBitmap = getBitmap(getDrawable());
         if (rawBitmap != null) {
-//            取较短的那一个作为圆的半径，保证整张图能填满整个圆
+            // Take the shorter one as the radius of the circle
+            // and make sure the whole picture fills the circle
             int viewWidth = getWidth();
             int viewHeight = getHeight();
             int viewMinSize = Math.min(viewWidth, viewHeight);
@@ -50,22 +51,21 @@ public class OvalImageView extends AppCompatImageView {
                 mShader = new BitmapShader(mRawBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
             }
             if (mShader != null) {
-                mMatrix.setScale(dstWidth / rawBitmap.getWidth(), dstHeight / rawBitmap.getHeight());
+                mMatrix.setScale(dstWidth / rawBitmap.getWidth()
+                        , dstHeight / rawBitmap.getHeight());
                 mShader.setLocalMatrix(mMatrix);
             }
             mPaintBitmap.setShader(mShader);
             float radius = viewMinSize / 2.0f;
 
-            // 如果边框宽度不为0,则画出边框
+            // If the border width is not 0, draw the border
             if(strokeWidth != 0){
                 Paint whitePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
                 whitePaint.setColor(strokeColor);
-                // 首先画一个圆，填充的是边框的颜色,大小就是此控件设置的大小
+                // drawing a circle filled with the color of the border and the size set by the control
                 canvas.drawCircle(radius, radius, radius, whitePaint);
-                // 在边框的圆的基础上再画一个圆，画的是图片，半径 = 此控件设置的大小 - 边框宽度，就露出了边框
                 canvas.drawCircle(radius, radius, radius - strokeWidth, mPaintBitmap);
             }else {
-                // 如果边框为0，直接画一个圆形图片即可
                 canvas.drawCircle(radius, radius, radius, mPaintBitmap);
             }
         } else {
@@ -91,14 +91,15 @@ public class OvalImageView extends AppCompatImageView {
     }
 
     /**
-     * @param strokeWidth 要设置的边框宽度，单位是px
+     * @param strokeWidth Border width, in px
      */
     public void setStrokeWidth(int strokeWidth) {
         this.strokeWidth = strokeWidth;
     }
 
     /**
-     * @param strokeColor 要设置的边框颜色，必须是带透明度的16进制，例如：0xFF0000FF
+     * @param strokeColor The border color to set must be hexadecimal with transparency
+     *                    for example: 0xFF0000FF
      */
     public void setStrokeColot(int strokeColor) {
         this.strokeColor = strokeColor;

@@ -56,14 +56,16 @@ public class ProfileActivity_4 extends AppCompatActivity {
         btnTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity_4.this, TaskListActivity_5.class);
+                Intent intent = new Intent(ProfileActivity_4.this
+                        , TaskListActivity_5.class);
                 startActivity(intent);
             }
         });
 
         if (user != null) {
             // Reference to an image file in Cloud Storage
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + user.getEmail());
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference()
+                    .child("profile/" + user.getEmail());
 
             // Download directly from StorageReference using Glide
             // (See MyAppGlideModule for Loader registration)
@@ -98,7 +100,8 @@ public class ProfileActivity_4 extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 mCache.clear();
-                Intent intent = new Intent(ProfileActivity_4.this,LoginActivity_1.class);
+                Intent intent = new Intent(ProfileActivity_4.this
+                        ,LoginActivity_1.class);
                 startActivity(intent);
                 finish();
             }
@@ -108,7 +111,8 @@ public class ProfileActivity_4 extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity_4.this, EditInfoActivity_4.class);
+                Intent intent = new Intent(ProfileActivity_4.this
+                        , EditInfoActivity_4.class);
                 startActivity(intent);
             }
         });

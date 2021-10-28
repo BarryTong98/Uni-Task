@@ -8,17 +8,19 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+/**
+ * User to get permission
+ */
 public class GetPermission {
     public static final int EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 2;
-
-    Activity activity;
-
+    private Activity activity;
     public GetPermission(Activity activity){
         this.activity=activity;
     }
 
     public boolean checkPermissionForExternalStorage(){
-        int result = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int result = ContextCompat.checkSelfPermission(activity
+                , Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (result == PackageManager.PERMISSION_GRANTED){
             return true;
         } else {
@@ -27,10 +29,15 @@ public class GetPermission {
     }
 
     public void requestPermissionForExternalStorage(){
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-            Toast.makeText(activity, "External Storage permission needed. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+        if (ActivityCompat.shouldShowRequestPermissionRationale(activity
+                , Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+            Toast.makeText(activity, "External Storage permission needed." +
+                            " Please allow in App Settings for additional functionality."
+                    , Toast.LENGTH_LONG).show();
         } else {
-            ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(activity,new String[]{
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE}
+                    ,EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
             System.out.print("get storage permission");
         }
     }

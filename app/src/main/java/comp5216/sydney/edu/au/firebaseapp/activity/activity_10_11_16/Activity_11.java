@@ -48,13 +48,16 @@ public class Activity_11 extends AppCompatActivity {
 
 
         taskRecyclerView = findViewById(R.id.taskRecyclerView);
-        RecycleAdapter_task_11 recycleAdapter_task_11 = new RecycleAdapter_task_11(this, assignment);
+        RecycleAdapter_task_11 recycleAdapter_task_11 =
+                new RecycleAdapter_task_11(this, assignment);
         taskRecyclerView.setHasFixedSize(true);
-        taskRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        taskRecyclerView.addItemDecoration(new DividerItemDecoration(this
+                , DividerItemDecoration.VERTICAL));
         taskRecyclerView.setAdapter(recycleAdapter_task_11);
         taskRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        DividerItemDecoration divider = new DividerItemDecoration(this
+                , DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
         taskRecyclerView.addItemDecoration(divider);
     }

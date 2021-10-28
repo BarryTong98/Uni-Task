@@ -10,14 +10,13 @@ import android.provider.MediaStore;
 
 
 /**
+ * Use to compress image
+ * The code for this section comes from the open source community
+ *
  * @author futhureWithYou（https://ublog.csdn.net/furtureWithYou/article/details/81565595）
  * update at 2018.08.10
  */
 public class Compressor {
-
-
-
-
     public static String getRealFilePath(Activity activity, final Uri uri) {
         if (uri == null) {
             return null;
@@ -30,7 +29,8 @@ public class Compressor {
             realPath = uri.getPath();
         } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
             Cursor cursor = activity.getContentResolver()
-                    .query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+                    .query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}
+                            , null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);

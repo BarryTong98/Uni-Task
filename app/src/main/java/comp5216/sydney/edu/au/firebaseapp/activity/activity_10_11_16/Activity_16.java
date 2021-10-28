@@ -126,7 +126,8 @@ public class Activity_16 extends AppCompatActivity {
                 .setMessage(R.string.dialog_delete_group)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent resultIntent = new Intent(Activity_16.this, HomeActivity_3.class);
+                        Intent resultIntent = new Intent(Activity_16.this
+                                , HomeActivity_3.class);
                         resultIntent.putExtra("GroupResult", group);
                         resultIntent.putExtra("deleteOrNot", -1);
                         setResult(RESULT_OK, resultIntent);
@@ -151,13 +152,16 @@ public class Activity_16 extends AppCompatActivity {
 
     public void createAssignmentList(List<Assignment> assignmentList) {
         if (assignmentList != null) {
-            recycleAdapter_ass_16 = new RecycleAdapter_ass_10_16(this, assignmentList, "activity16");
+            recycleAdapter_ass_16 = new RecycleAdapter_ass_10_16(this, assignmentList
+                    , "activity16");
             assignmentRecyclerView.setHasFixedSize(true);
-            assignmentRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+            assignmentRecyclerView.addItemDecoration(new DividerItemDecoration(this
+                    , DividerItemDecoration.VERTICAL));
             assignmentRecyclerView.setAdapter(recycleAdapter_ass_16);
             assignmentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-            DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+            DividerItemDecoration divider = new DividerItemDecoration(this
+                    , DividerItemDecoration.VERTICAL);
             divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
             assignmentRecyclerView.addItemDecoration(divider);
         }
@@ -169,14 +173,17 @@ public class Activity_16 extends AppCompatActivity {
      */
     public void createUserList(List<User> userList) {
         if (userList != null) {
-            recycleAdapter_mem_16 = new RecycleAdapter_mem_10_16(this, userList, "activity16");
+            recycleAdapter_mem_16 = new RecycleAdapter_mem_10_16(this, userList
+                    , "activity16");
             memberRecyclerView.setHasFixedSize(true);
 
-            memberRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+            memberRecyclerView.addItemDecoration(new DividerItemDecoration(this
+                    , DividerItemDecoration.VERTICAL));
             memberRecyclerView.setAdapter(recycleAdapter_mem_16);
             memberRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-            DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+            DividerItemDecoration divider = new DividerItemDecoration(this
+                    , DividerItemDecoration.VERTICAL);
             divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
             memberRecyclerView.addItemDecoration(divider);
         }
@@ -214,7 +221,8 @@ public class Activity_16 extends AppCompatActivity {
         if (userList != null) {
             for (User member : userList) {
                 System.out.println("members:" + member.toString());
-                DocumentReference updateUser = db.collection("Users").document(member.getUserId());
+                DocumentReference updateUser = db.collection("Users")
+                        .document(member.getUserId());
                 updateGroupList = member.getGroupList();
                 if (updateGroupList != null){
                     updateGroupList.add(group.getGroupId());
@@ -256,7 +264,8 @@ public class Activity_16 extends AppCompatActivity {
             intent.putExtra("gpId", groupId);
             mLauncher.launch(intent);
         } else {
-            Toast.makeText(this, "Please add other group members first.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please add other group members first."
+                    , Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -274,7 +283,8 @@ public class Activity_16 extends AppCompatActivity {
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
                     Intent data = result.getData();
-                    Assignment assignment = (Assignment) data.getSerializableExtra("assignment");
+                    Assignment assignment = (Assignment) data
+                            .getSerializableExtra("assignment");
                     if (assignmentList != null) {
                         assignmentList.add(assignment);
                     } else {
@@ -285,7 +295,8 @@ public class Activity_16 extends AppCompatActivity {
 
                 } else if (result.getResultCode() == ADDMEMBER) {
                     Intent data = result.getData();
-                    ArrayList<User> returnUserList = (ArrayList<User>) data.getSerializableExtra("memberReturn");
+                    ArrayList<User> returnUserList = (ArrayList<User>) data
+                            .getSerializableExtra("memberReturn");
                     if (returnUserList != null) {
                         if (userList != null) {
                             Map<String, User> map = new HashMap<>();
@@ -303,8 +314,10 @@ public class Activity_16 extends AppCompatActivity {
                         }
                     }
                     if (group != null && groupId != null) {
-                        DocumentReference updateGroup = db.collection("groups").document(groupId);
-                        updateGroup.update("userList", userList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        DocumentReference updateGroup = db.collection("groups")
+                                .document(groupId);
+                        updateGroup.update("userList", userList)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(Activity_16.this, "Success", Toast.LENGTH_SHORT).show();

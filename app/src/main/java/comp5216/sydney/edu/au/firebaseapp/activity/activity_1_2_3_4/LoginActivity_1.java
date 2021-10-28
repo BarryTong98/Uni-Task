@@ -61,7 +61,8 @@ public class LoginActivity_1 extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity_1.this, RegisterActivity_2.class);
+                Intent intent = new Intent(LoginActivity_1.this
+                        , RegisterActivity_2.class);
                 startActivity(intent);
             }
         });
@@ -82,12 +83,16 @@ public class LoginActivity_1 extends AppCompatActivity {
                                 mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(LoginActivity_1.this, "Reset Link Sent To Your Email.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity_1.this
+                                                , "Reset Link Sent To Your Email."
+                                                , Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(LoginActivity_1.this, "Error! Reset Link Not Sent." + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity_1.this
+                                                , "Error! Reset Link Not Sent." + e.getMessage()
+                                                , Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -106,7 +111,8 @@ public class LoginActivity_1 extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity_1.this, HomeActivity_3.class);
             startActivity(intent);
 
-            DocumentReference docRef = db.collection("Users").document(firebaseUser.getUid());
+            DocumentReference docRef = db.collection("Users")
+                    .document(firebaseUser.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -116,7 +122,8 @@ public class LoginActivity_1 extends AppCompatActivity {
                             currentUser = document.toObject(User.class);
                             mCache.put(firebaseUser.getUid(), currentUser);
 
-                            Log.d("Login Page", "DocumentSnapshot data: " + currentUser.getUserName());
+                            Log.d("Login Page", "DocumentSnapshot data: " + currentUser
+                                    .getUserName());
                         } else {
                             Log.d("Login Page", "No such document");
                         }
@@ -135,16 +142,19 @@ public class LoginActivity_1 extends AppCompatActivity {
                 String email = etUsername.getText().toString();
                 String pass = etPass.getText().toString();
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
-                    Toast.makeText(LoginActivity_1.this, "Please input email and pass", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity_1.this
+                            , "Please input email and pass", Toast.LENGTH_SHORT).show();
                 } else {
                     mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Intent intent = new Intent(LoginActivity_1.this, HomeActivity_3.class);
+                                Intent intent = new Intent(LoginActivity_1.this
+                                        , HomeActivity_3.class);
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(LoginActivity_1.this, "login failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity_1.this, "login failed"
+                                        , Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

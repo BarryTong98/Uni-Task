@@ -74,7 +74,8 @@ public class TaskListActivity_5 extends AppCompatActivity {
         showData();
         adapter = new TaskListAdapter(tasksFromFireBase, TaskListActivity_5.this);
         recyclerView.setAdapter(adapter);
-        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        DividerItemDecoration divider = new DividerItemDecoration(this
+                , DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
         recyclerView.addItemDecoration(divider);
     }
@@ -129,7 +130,8 @@ public class TaskListActivity_5 extends AppCompatActivity {
                         Collections.sort(tasksFromFireBase, new Comparator<Tasks>() {
                             @Override
                             public int compare(Tasks o1, Tasks o2) {
-                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                SimpleDateFormat simpleDateFormat =
+                                        new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                 String due1 = o1.getDueDate();
                                 String due2 = o2.getDueDate();
                                 Date date1 = new Date(), date2 = new Date();

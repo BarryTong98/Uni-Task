@@ -4,6 +4,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * User to generate date in string type
+ */
 public class DateUtil {
     public static String dateToString(Date date, Boolean flag) {
         DateFormat dateFormat;
