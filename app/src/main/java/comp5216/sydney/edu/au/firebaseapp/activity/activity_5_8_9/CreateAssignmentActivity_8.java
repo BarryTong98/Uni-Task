@@ -3,10 +3,7 @@ package comp5216.sydney.edu.au.firebaseapp.activity.activity_5_8_9;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -38,18 +35,13 @@ import comp5216.sydney.edu.au.firebaseapp.classtype.User;
 import comp5216.sydney.edu.au.firebaseapp.util.IdUtil;
 
 public class CreateAssignmentActivity_8 extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    private TextView assignmentName, description;
+    private TextView assignmentName,description,tv_date,tv_time;
     private RecyclerView taskView;
     private Button create_assignment;
     private Button create_task;
-    protected Calendar recordCalendar;
-    protected DatePickerDialog.OnDateSetListener dateSetListener;
-    protected TimePickerDialog.OnTimeSetListener timeSetListener;
-    protected TextView selectedDate; // Date
-    protected TextView selectedTime; // Time
-    protected String dateResult;
-    protected String timeResult;
+    private Button datePicker,timePicker;
     private FirebaseFirestore firestore;
+    private Group group;
     private TaskListAdapter showTaskAdapter;
     private ArrayList<Tasks> taskList;
     private ArrayList<User> userList;
@@ -60,7 +52,7 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
     private Assignment assignment;
     private int position;
 
-    private int pickedYear = 0, pickedMonth = 0, pickedDay = 0, pickedHour = 0, pickedMinute = 0;
+    private int pickedYear = 0 , pickedMonth = 0, pickedDay = 0 , pickedHour =0 , pickedMinute =0 ;
 
 
     @Override
@@ -73,80 +65,41 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
         taskView = findViewById(R.id.tasks);
         create_assignment = findViewById(R.id.create_assignment);
         create_task = findViewById(R.id.add_task);
-        selectedDate = findViewById(R.id.dateListener);
-        selectedTime = findViewById(R.id.timeListener);
-        recordCalendar=Calendar.getInstance();
-
         firestore = FirebaseFirestore.getInstance();
         Intent intent = this.getIntent();
         assignment = (Assignment) intent.getSerializableExtra("assignment");
         position = intent.getIntExtra("position", 0);
 
         //Add a date dialog on btDate button
-
-        selectedDate.setOnClickListener(new View.OnClickListener() {
+        datePicker = findViewById(R.id.bt_datepicker);
+        tv_date = findViewById(R.id.tv_date_picker);
+        datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                int year, month, day;
-
-                year = recordCalendar.get(Calendar.YEAR);
-                month = recordCalendar.get(Calendar.MONTH);
-                day = recordCalendar.get(Calendar.DAY_OF_MONTH);
-
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        CreateAssignmentActivity_8.this,
-                        android.R.style.Theme_Holo_Dialog_MinWidth,
-                        dateSetListener,
-                        year, month, day
-                );
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                DatePickerDialog dialog = new DatePickerDialog(CreateAssignmentActivity_8.this, CreateAssignmentActivity_8.this,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                //Show this dialog on screen
                 dialog.show();
             }
         });
-
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                Log.d("EditToDoItemActivity", "DateSet: " + month + "/" + day + "/" + year);
-                pickedYear = year;
-                pickedMonth = month;
-                pickedDay = day;
-
-                dateResult = String.format("%02d", month + 1) + "/" + String.format("%02d", day) + "/" + String.format("%04d", year);
-                selectedDate.setText(dateResult);
-            }
-        };
 
         //Add a time dialog on btTime button
-
-        selectedTime.setOnClickListener(new View.OnClickListener() {
+        timePicker = findViewById(R.id.bt_timepicker);
+        tv_time = findViewById(R.id.tv_time_picker);
+        timePicker.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                int hour = recordCalendar.get(Calendar.HOUR_OF_DAY);
-                int minute = recordCalendar.get(Calendar.MINUTE);
-                TimePickerDialog dialog = new TimePickerDialog(
-                        CreateAssignmentActivity_8.this,
-                        android.R.style.Theme_Holo_Dialog_MinWidth,
-                        timeSetListener,
-                        hour, minute, true
-                );
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                TimePickerDialog dialog = new TimePickerDialog(CreateAssignmentActivity_8.this, CreateAssignmentActivity_8.this,
+                        calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE),
+                        true);
                 dialog.show();
             }
         });
-        timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                Log.d("EditToDoItemActivity", "TimeSet: " + hour + " : " + minute);
-                pickedHour = hour;
-                pickedMinute = minute;
-                timeResult = String.format("%02d", hour) + ":" + String.format("%02d", minute);
-                selectedTime.setText(timeResult);
-            }
-        };
-
 
         //If the assignment is not null, the assignment object is sent from AssignmentListAdapter and the assignment object is initialized
         if (assignment != null) {
@@ -176,7 +129,6 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
         setListListener();
         setButtonListeners();
     }
-
 
     /**
      * receive the task object when the new task is created or updated
@@ -276,7 +228,6 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
 
     /**
      * format the data value
-     *
      * @return
      */
     private String formatDate() {
@@ -292,8 +243,8 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
         pickedYear = year;
         pickedMonth = month + 1;
         pickedDay = day;
-        String desc = String.format("%04d-%02d-%02d", year, month + 1, day);
-
+        String desc = String.format("%d-%d-%d", year, month + 1, day);
+        tv_date.setText(desc);
     }
 
     /**
@@ -303,8 +254,8 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
     public void onTimeSet(TimePicker timePicker, int HH, int mm) {
         pickedHour = HH;
         pickedMinute = mm;
-        String desc = String.format("%02d:%02d", HH, mm);
-
+        String desc = String.format("%d:%d", HH, mm);
+        tv_time.setText(desc);
     }
 
 }
