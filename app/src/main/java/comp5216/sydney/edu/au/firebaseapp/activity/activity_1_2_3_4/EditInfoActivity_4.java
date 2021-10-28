@@ -42,14 +42,11 @@ public class EditInfoActivity_4 extends AppCompatActivity {
     EditText name, description, degree;
     Button update;
     ImageView photo;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     final String TAG = "Edit info";
     ACache mCache;
-
-    //profile uri
     Uri profileUri;
     private static final int MY_PERMISSIONS_REQUEST_PICK_PHOTO = 101;
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     StorageReference storageReference;
 
     @Override
@@ -64,8 +61,6 @@ public class EditInfoActivity_4 extends AppCompatActivity {
 
         mCache = ACache.get(this);
 
-        //获取缓存中的用户数据
-        //访问用户信息
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // Reference to an image file in Cloud Storage
@@ -74,9 +69,9 @@ public class EditInfoActivity_4 extends AppCompatActivity {
             // (See MyAppGlideModule for Loader registration)
             Glide.with(this /* context */)
                     .load(storageReference)
-                    .signature(new ObjectKey(user.getEmail())) //为了图片更新之后，缓存也更新
-                    .placeholder(R.drawable.image)//图片加载出来前，显示的图片
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
+                    .signature(new ObjectKey(user.getEmail()))
+                    .placeholder(R.drawable.image)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .into(photo);
 
             User cacheUser = (User) mCache.getAsObject(user.getUid());
@@ -92,15 +87,13 @@ public class EditInfoActivity_4 extends AppCompatActivity {
             }
         }
 
+        //update user information and save into firebase database
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //获取输入的信息
                 String updateName = name.getText().toString();
                 String updateDegree = degree.getText().toString();
                 String updateDes = description.getText().toString();
-
-                //更新
                 DocumentReference updateUser = db.collection("Users").document(user.getUid());
                 updateUser
                         .update(
@@ -111,7 +104,6 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                //用户信息
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                         .setDisplayName(updateName)
                                         .build();
@@ -128,7 +120,6 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                                             }
                                         });
 
-                                //把登录的用户信息放在缓存中
                                 User upUser = (User) mCache.getAsObject(user.getUid());
                                 upUser.setUserName(updateName);
                                 upUser.setDegree(updateDegree);

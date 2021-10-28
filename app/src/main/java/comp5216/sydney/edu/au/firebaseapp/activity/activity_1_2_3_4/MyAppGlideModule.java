@@ -12,8 +12,8 @@ import com.google.firebase.storage.StorageReference;
 import java.io.InputStream;
 
 /*
-* 这个类是为了加载从firebase storage中的图片
-**/
+* This class extend the AppGlideModule, it is a tool to cache the image.
+ **/
 
 @GlideModule
 public class MyAppGlideModule extends AppGlideModule {

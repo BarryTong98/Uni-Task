@@ -37,11 +37,9 @@ public class LoginActivity_1 extends AppCompatActivity {
     private TextView tv;
     private Button login, register;
 
-    //Firebase
     FirebaseAuth mAuth;
     FirebaseUser firebaseUser;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     User currentUser;
     ACache mCache;
 
@@ -68,6 +66,7 @@ public class LoginActivity_1 extends AppCompatActivity {
             }
         });
 
+        //reset the password
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +128,6 @@ public class LoginActivity_1 extends AppCompatActivity {
 
             finish();
         }
-
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

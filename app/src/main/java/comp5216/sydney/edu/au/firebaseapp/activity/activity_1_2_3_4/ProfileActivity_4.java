@@ -43,6 +43,7 @@ public class ProfileActivity_4 extends AppCompatActivity {
         btnHome = findViewById(R.id.btn_profile_home);
         btnTask = findViewById(R.id.btn_profile_task);
         mCache = ACache.get(this);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,8 +60,7 @@ public class ProfileActivity_4 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //访问用户信息
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         if (user != null) {
             // Reference to an image file in Cloud Storage
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + user.getEmail());
@@ -69,9 +69,9 @@ public class ProfileActivity_4 extends AppCompatActivity {
             // (See MyAppGlideModule for Loader registration)
             Glide.with(this /* context */)
                     .load(storageReference)
-                    .signature(new ObjectKey(user.getEmail())) //为了图片更新之后，缓存也更新
-                    .placeholder(R.drawable.image)//图片加载出来前，显示的图片
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)// 在资源解码后将数据写入磁盘缓存，即经过缩放等转换后的图片资源。
+                    .signature(new ObjectKey(user.getEmail()))
+                    .placeholder(R.drawable.image)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .into(imageView);
 
 
@@ -92,11 +92,11 @@ public class ProfileActivity_4 extends AppCompatActivity {
             }
         }
 
+        //sign out
         btnSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                //把缓存清除
                 mCache.clear();
                 Intent intent = new Intent(ProfileActivity_4.this,LoginActivity_1.class);
                 startActivity(intent);
@@ -104,6 +104,7 @@ public class ProfileActivity_4 extends AppCompatActivity {
             }
         });
 
+        //click this button, jump to the EditInfoActivity
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

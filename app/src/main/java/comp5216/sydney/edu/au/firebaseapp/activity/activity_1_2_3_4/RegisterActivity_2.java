@@ -40,7 +40,7 @@ import comp5216.sydney.edu.au.firebaseapp.util.Compressor;
 import comp5216.sydney.edu.au.firebaseapp.util.GetPermission;
 
 public class RegisterActivity_2 extends AppCompatActivity {
-    private EditText etUsername,etEmail,etPassword,etConfirm;
+    private EditText etUsername, etEmail, etPassword, etConfirm;
     private ImageView ivProfile;
     private TextView tv;
     private Button btRegister;
@@ -49,13 +49,12 @@ public class RegisterActivity_2 extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseStorage storage;
     StorageReference storageReference;
-    GetPermission getPermission=new GetPermission(RegisterActivity_2.this);
+    GetPermission getPermission = new GetPermission(RegisterActivity_2.this);
     //profile uri
     Uri profileUri;
 
     private static final int MY_PERMISSIONS_REQUEST_PICK_PHOTO = 101;
-    final String TAG="REGISTER";
-
+    final String TAG = "REGISTER";
     ACache mCache;
 
 
@@ -80,7 +79,7 @@ public class RegisterActivity_2 extends AppCompatActivity {
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!getPermission.checkPermissionForExternalStorage()){
+                if (!getPermission.checkPermissionForExternalStorage()) {
                     getPermission.requestPermissionForExternalStorage();
                 }
                 changeProfile();
@@ -90,7 +89,7 @@ public class RegisterActivity_2 extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity_2.this,LoginActivity_1.class);
+                Intent intent = new Intent(RegisterActivity_2.this, LoginActivity_1.class);
                 startActivity(intent);
             }
         });
@@ -103,20 +102,19 @@ public class RegisterActivity_2 extends AppCompatActivity {
                 String password = etPassword.getText().toString();
                 String confirmPassword = etConfirm.getText().toString();
 
-                if (username.length() < 1){
+                if (username.length() < 1) {
                     etUsername.setError("Please input username!");
-                }else if (email.length() < 10){
+                } else if (email.length() < 10) {
                     etEmail.setError("Email format error!");
-                }else if (password.length() < 6){
+                } else if (password.length() < 6) {
                     etPassword.setError("Please set a password longer than 6 digits!");
-                }else if (!confirmPassword.equals(password)){
+                } else if (!confirmPassword.equals(password)) {
                     etConfirm.setError("Those passwords don’t match. Try again.");
-                }
-                else {
-                    if (profileUri == null){
+                } else {
+                    if (profileUri == null) {
                         Toast.makeText(RegisterActivity_2.this, "Please upload a avatar!", Toast.LENGTH_SHORT).show();
-                    }else {
-                        register(username,email,password);
+                    } else {
+                        register(username, email, password);
                     }
                 }
 
@@ -127,17 +125,21 @@ public class RegisterActivity_2 extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    //上传头像到firebase storage
+    /**
+     * upload the user photo to the firebase storage
+     */
     private void changeProfile() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent,MY_PERMISSIONS_REQUEST_PICK_PHOTO);
+        startActivityForResult(intent, MY_PERMISSIONS_REQUEST_PICK_PHOTO);
 
     }
 
-    //注册方法
-    private void register(final String username, String email, String password){
-        mAuth.createUserWithEmailAndPassword(email,password)
+    /**
+     * Register with username, email and password
+     */
+    private void register(final String username, String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -160,12 +162,10 @@ public class RegisterActivity_2 extends AppCompatActivity {
                                         }
                                     });
 
-
-                            //把头像上传到storage
                             StorageReference ref = storageReference.child("profile/" + firebaseUser.getEmail());
-                            String path=Compressor.getRealFilePath(RegisterActivity_2.this,profileUri);
-                            Bitmap bitmap= Compressor.getSmallBitmap(path);
-                            Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null,null));
+                            String path = Compressor.getRealFilePath(RegisterActivity_2.this, profileUri);
+                            Bitmap bitmap = Compressor.getSmallBitmap(path);
+                            Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null));
                             ref.putFile(uri)
                                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
@@ -178,13 +178,10 @@ public class RegisterActivity_2 extends AppCompatActivity {
                                             user.setImageURL(imgUrl);
                                             user.setEmail(email);
                                             user.setUserName(username);
-
-                                            //放在缓存中
                                             mCache.put(uid, user);
 
                                             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                                            //上传用户信息
                                             db.collection("Users").document(firebaseUser.getUid())
                                                     .set(user)
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -222,16 +219,18 @@ public class RegisterActivity_2 extends AppCompatActivity {
                 });
     }
 
+    /**
+     * get the result of photo selection
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MY_PERMISSIONS_REQUEST_PICK_PHOTO){
-            if (resultCode == RESULT_OK){
+        if (requestCode == MY_PERMISSIONS_REQUEST_PICK_PHOTO) {
+            if (resultCode == RESULT_OK) {
                 ivProfile.setImageURI(data.getData());
                 profileUri = data.getData();
             }
         }
     }
-
 
 }
