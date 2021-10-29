@@ -143,7 +143,6 @@ public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_
     private void getGroup(String groupId,String clicktime) {
         int size = groupMap.size();
             if (!groupMap.containsKey(groupId)) {
-                //从firebase cloud 的Groups中拿数据下来
                 db.collection("groups")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -156,14 +155,7 @@ public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_
 
                                         if (group.getGroupId().equals(groupId)) {
                                             String tempId = group.getGroupId();
-                                            System.out.println("检查有没有这个item:" + tempId);
-
                                             groupMap.put(tempId, group);
-//
-//                                        //放在缓存中
-//                                        mCache.put(tempId, group);
-//                                        Log.d("group item test:", document.getId() + " => " + document.getData());
-
                                         }
 
                                     }
@@ -184,7 +176,6 @@ public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_
 //                            Intent intent = new Intent(context, Activity_16.class);
 //                            intent.putExtra("Group", groupIntent);
 //                            context.startActivity(intent);
-
                             launchActivity16(groupId);
                         }
                     }
@@ -200,7 +191,6 @@ public class RecycleAdapter_group_3 extends RecyclerView.Adapter<RecycleAdapter_
 //                    Intent intent = new Intent(context, Activity_16.class);
 //                    intent.putExtra("Group", groupIntent);
 //                    context.startActivity(intent);
-
                     launchActivity16(groupId);
                 }
             }

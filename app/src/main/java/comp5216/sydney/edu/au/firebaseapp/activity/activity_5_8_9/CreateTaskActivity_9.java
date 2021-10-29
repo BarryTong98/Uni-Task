@@ -104,17 +104,21 @@ public class CreateTaskActivity_9 extends AppCompatActivity {
 
             String task_name = taskName.getText().toString();
             String des = description.getText().toString();
-            Intent intent = new Intent(CreateTaskActivity_9.this, CreateAssignmentActivity_8.class);
+            Intent intent = new Intent(CreateTaskActivity_9.this
+                    , CreateAssignmentActivity_8.class);
 
             //if the task name or description is empty, we are not allow this operation
             if (task_name.isEmpty() || des.isEmpty()) {
-                Toast.makeText(CreateTaskActivity_9.this, "Empty task or Empty description are not Allowed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateTaskActivity_9.this
+                        , "Empty task or Empty description are not Allowed"
+                        , Toast.LENGTH_SHORT).show();
             }
 
             //if we click the assignment from list and transfer to this activity
             //we will set some default value according to the previous assignment object
             if (taskFromAssignment != null) {
-                DocumentReference dr = firestore.collection("tasks").document(taskFromAssignment.getTaskId());
+                DocumentReference dr = firestore.collection("tasks")
+                        .document(taskFromAssignment.getTaskId());
                 dr.update("taskName", task_name);
                 dr.update("description", des);
                 dr.update("selectedList", selectedUser);
@@ -123,7 +127,8 @@ public class CreateTaskActivity_9 extends AppCompatActivity {
                     taskFromAssignment = t;
                     intent.putExtra("task", taskFromAssignment);
                     intent.putExtra("position", 0);
-                    Toast.makeText(CreateTaskActivity_9.this, "Task Updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateTaskActivity_9.this, "Task Updated"
+                            , Toast.LENGTH_SHORT).show();
                     setResult(RESULT_OK, intent);
                     finish();
                 });
@@ -131,7 +136,8 @@ public class CreateTaskActivity_9 extends AppCompatActivity {
             }
             //upload the task to firebase
             else {
-                Tasks uploadTask = new Tasks(taskId, assignmentId, groupId, task_name, des, dateVal, groupName, userList, selectedUser);
+                Tasks uploadTask = new Tasks(taskId, assignmentId, groupId, task_name, des
+                        , dateVal, groupName, userList, selectedUser);
                 firestore.collection("tasks").document(uploadTask.getTaskId()).set(uploadTask);
                 Toast.makeText(CreateTaskActivity_9.this, "Task Saved", Toast.LENGTH_SHORT).show();
                 intent.putExtra("task", uploadTask);

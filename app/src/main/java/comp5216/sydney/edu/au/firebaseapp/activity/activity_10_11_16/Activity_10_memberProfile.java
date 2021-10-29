@@ -64,12 +64,14 @@ public class Activity_10_memberProfile extends AppCompatActivity {
      * get data from firebase and show the user profile
      */
     private void display() {
-        firebaseFirestore.collection("Users").document(user.getUserId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        firebaseFirestore.collection("Users").document(user.getUserId())
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 firebaseUser=documentSnapshot.toObject(User.class);
                 if (firebaseUser.getImageURL()!=null&&firebaseUser.getEmail()!=null) {
-                    StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + firebaseUser.getEmail());
+                    StorageReference storageReference = FirebaseStorage.getInstance()
+                            .getReference().child("profile/" + firebaseUser.getEmail());
                     if (storageReference!=null) {
                         imageView.setVisibility(View.VISIBLE);
                         Glide.with(Activity_10_memberProfile.this /* context */)

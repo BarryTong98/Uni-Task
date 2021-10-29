@@ -61,7 +61,8 @@ public class LoginActivity_1 extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity_1.this, RegisterActivity_2.class);
+                Intent intent = new Intent(LoginActivity_1.this
+                        , RegisterActivity_2.class);
                 startActivity(intent);
             }
         });
@@ -71,7 +72,8 @@ public class LoginActivity_1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final EditText resetMail = new EditText(v.getContext());
-                final AlertDialog.Builder pwdResetDialog = new AlertDialog.Builder(v.getContext());
+                final AlertDialog.Builder pwdResetDialog = new AlertDialog
+                        .Builder(v.getContext());
                 pwdResetDialog.setTitle("Reset Password ?")
                         .setMessage("Enter Your Email To Received Rest Link.")
                         .setView(resetMail)
@@ -79,15 +81,20 @@ public class LoginActivity_1 extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String mail = resetMail.getText().toString();
-                                mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                mAuth.sendPasswordResetEmail(mail)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(LoginActivity_1.this, "Reset Link Sent To Your Email.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity_1.this
+                                                , "Reset Link Sent To Your Email."
+                                                , Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(LoginActivity_1.this, "Error! Reset Link Not Sent." + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity_1.this
+                                                , "Error! Reset Link Not Sent." + e.getMessage()
+                                                , Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }

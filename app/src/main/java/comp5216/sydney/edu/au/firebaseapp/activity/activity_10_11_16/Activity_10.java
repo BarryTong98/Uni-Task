@@ -56,22 +56,27 @@ public class Activity_10 extends AppCompatActivity {
         assignmentList = group.getAssignmentList();
         userList = group.getUserList();
         assignmentRecyclerView = findViewById(R.id.assignmentView);
-        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        DividerItemDecoration divider = new DividerItemDecoration(this
+                , DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
 
         if (assignmentList!=null) {
-            RecycleAdapter_ass_10_16 recycleAdapter_ass_10 = new RecycleAdapter_ass_10_16(this, assignmentList, "activity10");
+            RecycleAdapter_ass_10_16 recycleAdapter_ass_10 = new RecycleAdapter_ass_10_16(this
+                    , assignmentList, "activity10");
             assignmentRecyclerView.setHasFixedSize(true);
-            assignmentRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+            assignmentRecyclerView.addItemDecoration(new DividerItemDecoration(this
+                    , DividerItemDecoration.VERTICAL));
             assignmentRecyclerView.setAdapter(recycleAdapter_ass_10);
             assignmentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             assignmentRecyclerView.addItemDecoration(divider);
         }
         memberRecyclerView = findViewById(R.id.groupMemberView);
         if (userList!=null) {
-            RecycleAdapter_mem_10_16 recycleAdapter_mem_10 = new RecycleAdapter_mem_10_16(this, userList, "activity10");
+            RecycleAdapter_mem_10_16 recycleAdapter_mem_10 = new RecycleAdapter_mem_10_16(this
+                    , userList, "activity10");
             memberRecyclerView.setHasFixedSize(true);
-            memberRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+            memberRecyclerView.addItemDecoration(new DividerItemDecoration(this
+                    , DividerItemDecoration.VERTICAL));
             memberRecyclerView.setAdapter(recycleAdapter_mem_10);
             memberRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             memberRecyclerView.addItemDecoration(divider);

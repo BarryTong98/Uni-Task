@@ -64,7 +64,8 @@ public class EditInfoActivity_4 extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // Reference to an image file in Cloud Storage
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profile/" + user.getEmail());
+            StorageReference storageReference = FirebaseStorage.getInstance()
+                    .getReference().child("profile/" + user.getEmail());
             // Download directly from StorageReference using Glide
             // (See MyAppGlideModule for Loader registration)
             Glide.with(this /* context */)
@@ -94,7 +95,8 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                 String updateName = name.getText().toString();
                 String updateDegree = degree.getText().toString();
                 String updateDes = description.getText().toString();
-                DocumentReference updateUser = db.collection("Users").document(user.getUid());
+                DocumentReference updateUser = db
+                        .collection("Users").document(user.getUid());
                 updateUser
                         .update(
                                 "name", updateName,
@@ -104,7 +106,8 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                UserProfileChangeRequest profileUpdates = new
+                                        UserProfileChangeRequest.Builder()
                                         .setDisplayName(updateName)
                                         .build();
 
@@ -113,7 +116,9 @@ public class EditInfoActivity_4 extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    Intent intent = new Intent(EditInfoActivity_4.this, ProfileActivity_4.class);
+                                                    Intent intent = new Intent(
+                                                            EditInfoActivity_4.this
+                                                            , ProfileActivity_4.class);
                                                     startActivity(intent);
                                                     Log.d(TAG, "User profile updated.");
                                                 }

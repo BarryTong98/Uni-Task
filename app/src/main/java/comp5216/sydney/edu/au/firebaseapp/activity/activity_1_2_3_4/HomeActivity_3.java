@@ -75,13 +75,16 @@ public class HomeActivity_3 extends AppCompatActivity {
 
     private void display() {
         recyclerView = findViewById(R.id.recycle_home);
-        recycleAdapter_group_3 = new RecycleAdapter_group_3(this, groupItemList, groupMap, db, userId, mCache, mLauncherEditGroup);
+        recycleAdapter_group_3 = new RecycleAdapter_group_3(this
+                , groupItemList, groupMap, db, userId, mCache, mLauncherEditGroup);
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this
+                , DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(recycleAdapter_group_3);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        DividerItemDecoration divider = new DividerItemDecoration(this
+                , DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider));
         recyclerView.addItemDecoration(divider);
     }
@@ -100,7 +103,8 @@ public class HomeActivity_3 extends AppCompatActivity {
                         CollectionReference homeItems = db.collection("groupBriefs");
                         CollectionReference groupItems = db.collection("groups");
                         DocumentReference updateUser = db.collection("Users").document(userId);
-                        groupItems.document(groupResult.getGroupId()).set(groupResult).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        groupItems.document(groupResult.getGroupId()).set(groupResult)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 Map<String, Object> data1 = new HashMap<>();
@@ -117,17 +121,21 @@ public class HomeActivity_3 extends AppCompatActivity {
                                     tempList.add(groupResult.getGroupId());
                                 }
 
-                                updateUser.update("groupList", tempList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                updateUser.update("groupList", tempList)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(HomeActivity_3.this, "Success", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(HomeActivity_3.this
+                                                , "Success", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
-                                homeItems.document(groupResult.getGroupId()).set(data1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                homeItems.document(groupResult.getGroupId()).set(data1)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(HomeActivity_3.this, "Success", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(HomeActivity_3.this
+                                                , "Success", Toast.LENGTH_SHORT).show();
                                         getData();
                                         recycleAdapter_group_3.change(groupItemList);
                                     }

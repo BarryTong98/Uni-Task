@@ -77,7 +77,8 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
             @Override
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
-                DatePickerDialog dialog = new DatePickerDialog(CreateAssignmentActivity_8.this, CreateAssignmentActivity_8.this,
+                DatePickerDialog dialog = new DatePickerDialog(CreateAssignmentActivity_8.this
+                        , CreateAssignmentActivity_8.this,
                         calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH));
@@ -93,7 +94,8 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
             @Override
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
-                TimePickerDialog dialog = new TimePickerDialog(CreateAssignmentActivity_8.this, CreateAssignmentActivity_8.this,
+                TimePickerDialog dialog = new TimePickerDialog(CreateAssignmentActivity_8.this
+                        , CreateAssignmentActivity_8.this,
                         calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE),
                         true);
@@ -101,7 +103,8 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
             }
         });
 
-        //If the assignment is not null, the assignment object is sent from AssignmentListAdapter and the assignment object is initialized
+        // If the assignment is not null, the assignment object is sent from AssignmentListAdapter
+        // and the assignment object is initialized
         if (assignment != null) {
             groupId = assignment.getGroupId();
             groupName = assignment.getGroupName();
@@ -111,7 +114,8 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
             assignmentName.setText(assignment.getAssignmentName());
             description.setText(assignment.getDescription());
         }
-        //If empty, the plus sign was clicked on AssignmentListActivity, and the data needs to be retrieved from the Intent
+        // If empty, the plus sign was clicked on AssignmentListActivity
+        // and the data needs to be retrieved from the Intent
         else {
             taskList = new ArrayList<>();
             groupName = intent.getStringExtra("name");
@@ -123,7 +127,8 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
         //create the adapter
         taskView.setHasFixedSize(true);
         taskView.setLayoutManager(new LinearLayoutManager(CreateAssignmentActivity_8.this));
-        showTaskAdapter = new TaskListAdapter(this, taskList, CreateAssignmentActivity_8.this);
+        showTaskAdapter = new TaskListAdapter(this, taskList
+                , CreateAssignmentActivity_8.this);
         taskView.setAdapter(showTaskAdapter);
 
         setListListener();
@@ -147,7 +152,8 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
                 }
         );
         showTaskAdapter.setOnItemClickListener(position1 -> {
-            Intent intent = new Intent(CreateAssignmentActivity_8.this, CreateTaskActivity_9.class);
+            Intent intent = new Intent(CreateAssignmentActivity_8.this
+                    , CreateTaskActivity_9.class);
             intent.putExtra("task", taskList.get(position1));
             intent.putExtra("position", position1);
             xLauncher.launch(intent);
@@ -168,11 +174,14 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
             String aName = assignmentName.getText().toString();
             String aDes = description.getText().toString();
             if (aName.isEmpty() || aDes.isEmpty()) {
-                Toast.makeText(CreateAssignmentActivity_8.this, "Empty task or Empty description are not Allowed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAssignmentActivity_8.this
+                        , "Empty task or Empty description are not Allowed"
+                        , Toast.LENGTH_SHORT).show();
             }
             //if the assignment is not null ,create the default value for each component
             if (assignment != null) {
-                DocumentReference dr = firestore.collection("assignments").document(assignment.getAssignmentId());
+                DocumentReference dr = firestore.collection("assignments")
+                        .document(assignment.getAssignmentId());
                 dr.update("assignmentName", aName);
                 dr.update("description", aDes);
                 dr.update("taskList", taskList);
@@ -180,15 +189,19 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
                     Assignment a = documentSnapshot.toObject(Assignment.class);
                     intent_1.putExtra("assignment", a);
                     intent_1.putExtra("position", 0);
-                    Toast.makeText(CreateAssignmentActivity_8.this, "Assignment Updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAssignmentActivity_8.this
+                            , "Assignment Updated", Toast.LENGTH_SHORT).show();
                     setResult(RESULT_OK, intent_1);
                     finish();
                 });
             } else {
                 //Create assignment object and add it to Firebase
-                Assignment single = new Assignment(assignmentId, aName, aDes, dateVal, groupName, groupId, 0, taskList, userList);
-                firestore.collection("assignments").document(single.getAssignmentId()).set(single);
-                Toast.makeText(CreateAssignmentActivity_8.this, "Assignment Saved", Toast.LENGTH_SHORT).show();
+                Assignment single = new Assignment(assignmentId, aName, aDes, dateVal, groupName
+                        , groupId, 0, taskList, userList);
+                firestore.collection("assignments").document(single.getAssignmentId())
+                        .set(single);
+                Toast.makeText(CreateAssignmentActivity_8.this, "Assignment Saved"
+                        , Toast.LENGTH_SHORT).show();
                 intent_1.putExtra("assignment", single);
                 setResult(RESULT_OK, intent_1);
                 finish();
@@ -216,7 +229,8 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
          */
         create_task.setOnClickListener(view -> {
             dateVal = formatDate();
-            Intent intent_2 = new Intent(CreateAssignmentActivity_8.this, CreateTaskActivity_9.class);
+            Intent intent_2 = new Intent(CreateAssignmentActivity_8.this
+                    , CreateTaskActivity_9.class);
             intent_2.putExtra("groupName", groupName);
             intent_2.putExtra("userList", userList);
             intent_2.putExtra("dateVal", dateVal);
@@ -231,7 +245,8 @@ public class CreateAssignmentActivity_8 extends AppCompatActivity implements Dat
      * @return
      */
     private String formatDate() {
-        String date = String.format("%4d-%2d-%2d %02d:%02d", pickedYear, pickedMonth, pickedDay, pickedHour, pickedMinute);
+        String date = String.format("%4d-%2d-%2d %02d:%02d", pickedYear, pickedMonth
+                , pickedDay, pickedHour, pickedMinute);
         return date;
     }
 
