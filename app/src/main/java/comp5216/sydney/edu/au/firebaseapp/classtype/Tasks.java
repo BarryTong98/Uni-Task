@@ -18,7 +18,9 @@ public class Tasks implements Serializable {
     private int complete;
     private ArrayList<User> selectedList;
 
-    public Tasks(String taskId, String assignmentId, String groupId, String taskName, String description, String dueDate, String groupName, ArrayList<User> userList, ArrayList<User> selectedList) {
+    public Tasks(String taskId, String assignmentId, String groupId, String taskName
+            , String description, String dueDate, String groupName
+            , ArrayList<User> userList, ArrayList<User> selectedList) {
         this.taskId = taskId;
         this.assignmentId = assignmentId;
         this.groupId = groupId;
@@ -32,7 +34,8 @@ public class Tasks implements Serializable {
         this.complete =0;
     }
 
-    public Tasks(String taskId, String assignmentId, String groupId, String taskName, String description, String dueDate, String groupName, ArrayList<User> userList) {
+    public Tasks(String taskId, String assignmentId, String groupId, String taskName
+            , String description, String dueDate, String groupName, ArrayList<User> userList) {
         this.taskId = taskId;
         this.assignmentId = assignmentId;
         this.groupId = groupId;

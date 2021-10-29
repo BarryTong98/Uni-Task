@@ -15,8 +15,8 @@ public class User implements Serializable {
     private String imageURL;
 
     //List
-    private List<String> taskList; //放的是task id
-    private List<String> groupList; //放的是group id
+    private List<String> taskList;
+    private List<String> groupList;
 
     private int status;
 

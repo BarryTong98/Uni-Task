@@ -20,7 +20,8 @@ public class Discussion implements Serializable {
     public Discussion() {
     }
 
-    public Discussion(String discussionID, String groupID, String userID, int assignmentID, String title, String description, Date timestamp, List<Comment> comments) {
+    public Discussion(String discussionID, String groupID, String userID
+            , int assignmentID, String title, String description, Date timestamp, List<Comment> comments) {
         this.discussionID = discussionID;
         this.groupID = groupID;
         this.userID = userID;
@@ -31,7 +32,8 @@ public class Discussion implements Serializable {
         this.comments = comments;
     }
 
-    public Discussion(String discussionID, String groupID, String userID, int assignmentID, String title, String description, List<Comment> comments) {
+    public Discussion(String discussionID, String groupID, String userID, int assignmentID
+            , String title, String description, List<Comment> comments) {
         this.discussionID = discussionID;
         this.groupID = groupID;
         this.userID = userID;

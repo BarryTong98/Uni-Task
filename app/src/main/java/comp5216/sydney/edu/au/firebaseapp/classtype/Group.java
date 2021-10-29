@@ -17,7 +17,8 @@ public class Group implements Serializable {
     private List<Discussion> discussionList;
 
 
-    public Group(String groupId, String groupName, String introduction, List<Assignment> assignmentList, List<User> userList) {
+    public Group(String groupId, String groupName, String introduction
+            , List<Assignment> assignmentList, List<User> userList) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.introduction = introduction;

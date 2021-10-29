@@ -20,7 +20,9 @@ public class Assignment implements Serializable {
     private ArrayList<Tasks> taskList;
     private ArrayList<User> userList;
 
-    public Assignment(String assignmentId, String assignmentName, String description, String dueDate, String groupName, String groupId, int status, ArrayList<Tasks> taskList, ArrayList<User> userList) {
+    public Assignment(String assignmentId, String assignmentName, String description
+            , String dueDate, String groupName, String groupId, int status, ArrayList<Tasks> taskList
+            , ArrayList<User> userList) {
         this.assignmentId = assignmentId;
         this.assignmentName = assignmentName;
         this.description = description;
@@ -32,7 +34,8 @@ public class Assignment implements Serializable {
         this.userList = userList;
     }
 
-    public Assignment(String assignmentId, String assignmentName, String description, String dueDate, String groupId, ArrayList<Tasks> taskList) {
+    public Assignment(String assignmentId, String assignmentName, String description, String dueDate
+            , String groupId, ArrayList<Tasks> taskList) {
         this.assignmentId = assignmentId;
         this.assignmentName = assignmentName;
         this.description = description;
