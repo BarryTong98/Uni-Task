@@ -114,6 +114,7 @@ public class ProfileActivity_4 extends AppCompatActivity {
                 Intent intent = new Intent(ProfileActivity_4.this
                         , EditInfoActivity_4.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
